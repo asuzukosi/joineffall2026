@@ -1,0 +1,21 @@
+app = "joineffall2026"
+primary_region = "lhr"
+
+[build]
+
+[env]
+  PORT = "3000"
+  DB_PATH = "/data/app.db"
+  ROSTER_PATH = "/data/roster.csv"
+  PHOTO_DIR = "/data/photos"
+
+[[mounts]]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "off"
+  min_machines_running = 1

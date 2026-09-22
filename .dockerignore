@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.worktrees
+data
+roster.csv
+photos
+.env*
+.issue-notes.md
