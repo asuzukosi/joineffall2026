@@ -1274,7 +1274,7 @@ export async function GET(
   }
   const bytes = await readFile(join(process.env.PHOTO_DIR ?? "./photos", file));
   return new Response(new Uint8Array(bytes), {
-    headers: { "content-type": "image/jpeg", "cache-control": "private, max-age=3600" },
+    headers: { "content-type": "image/webp", "cache-control": "private, max-age=3600" },
   });
 }
 ```
