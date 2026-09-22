@@ -1380,21 +1380,88 @@ Composed from `card`, `avatar`, `badge`, `button` and `tooltip`. The stacked
 circles are the cohort members who know this person, each a member photo with
 their name on hover; the link opens the LinkedIn profile.
 
-`components/person-card.tsx` holds it, and `components/heat.ts` holds the one
-rule the badge reads:
+`components/person-card.tsx` holds it.
 
-```ts
-export function heat(paths: number) {
-  if (paths >= 4) return { label: "Hot", variant: "destructive" as const };
-  if (paths >= 2) return { label: "Warm", variant: "warning" as const };
-  return { label: "One way in", variant: "secondary" as const };
+#### The heat ring
+
+A ring that fills and reddens with the number of cohort members who know the
+person. Five is full and pure red, with a fire emoji beside it.
+
+ReUI's free `progress` is a linear bar — there is no radial component in the
+registry, so this is the one place we draw our own. It is two SVG circles and a
+`stroke-dasharray`; a component library is not needed for that.
+
+`components/heat-ring.tsx`:
+
+```tsx
+export function HeatRing({ paths }: { paths: number }) {
+  const level = Math.min(paths, 5);
+  const radius = 14;
+  const circumference = 2 * Math.PI * radius;
+
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <span className="relative inline-flex size-9 items-center justify-center">
+        <svg viewBox="0 0 36 36" className="absolute size-9 -rotate-90" aria-hidden>
+          <circle cx="18" cy="18" r={radius} fill="none" strokeWidth="3"
+                  stroke="var(--heat-track)" />
+          <circle cx="18" cy="18" r={radius} fill="none" strokeWidth="3"
+                  stroke={`var(--heat-${level})`} strokeLinecap="round"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={circumference * (1 - level / 5)} />
+        </svg>
+        <span className="text-xs font-medium tabular-nums">{paths}</span>
+      </span>
+      {level >= 5 && <span aria-hidden>🔥</span>}
+      <span className="sr-only">
+        {paths === 1 ? "1 cohort member knows them" : `${paths} cohort members know them`}
+      </span>
+    </span>
+  );
 }
 ```
 
-The count comes from `via.length`, which is the same number the SQL already
-sorts on — heat and result order can never disagree because they read one value.
-A person who is themselves in the cohort shows a "In your cohort" badge and no
-introduction path.
+The count sits inside the ring, so the reading never depends on colour — arc
+length, the number and the emoji all carry it. `paths` comes from `via.length`,
+the same value the SQL sorts on, so the ring and the result order cannot
+disagree.
+
+#### The ramp
+
+Generated in OKLCH at the hue of the status red and validated with the dataviz
+palette checker, `--ordinal`, against both surfaces. Dark is its own set of
+steps, not a flip of the light one:
+
+```css
+:root {
+  --heat-track: #ececea;
+  --heat-1: #bbb2b1;  --heat-2: #bf928d;  --heat-3: #bd6c65;
+  --heat-4: #b8403d;  --heat-5: #a70118;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --heat-track: #2e2e2c;
+    --heat-1: #706665;  --heat-2: #99726e;  --heat-3: #c37c76;
+    --heat-4: #ee857d;  --heat-5: #fda19a;
+  }
+}
+```
+
+Both sets pass all four ordinal checks — single hue (1° spread), monotone
+lightness, every adjacent gap ≥ 0.06, and the palest step clear of its surface
+(2.02:1 light, 3.13:1 dark). A neutral grey at the low end **fails** the
+single-hue check, because grey has no stable hue; the first step is a
+near-colourless red instead, which reads as grey and keeps the ramp one hue.
+
+Re-run the checker if any step changes:
+
+```bash
+node scripts/validate_palette.js "#bbb2b1,#bf928d,#bd6c65,#b8403d,#a70118" --mode light --ordinal
+```
+
+A person who is themselves in the cohort shows an "In your cohort" badge and no
+ring — you do not need an introduction to someone in the room.
 
 **Confirm every prop against `get_component` before writing it.** ReUI is
 shadcn-compatible but its `variant`, `size` and `radius` values are its own —
