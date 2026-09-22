@@ -333,6 +333,16 @@ describe("normaliseLinkedIn", () => {
     expect(normaliseLinkedIn("")).toBe("");
     expect(normaliseLinkedIn("https://example.com/ade")).toBe("");
   });
+
+  it("lands an escaped accent and a literal one on the same key", () => {
+    expect(normaliseLinkedIn("https://linkedin.com/in/bodinestubb%c3%a9"))
+      .toBe(normaliseLinkedIn("https://www.linkedin.com/in/bodinestubbé/"));
+  });
+
+  it("survives a stray percent sign", () => {
+    expect(normaliseLinkedIn("https://linkedin.com/in/ade-100%"))
+      .toBe("linkedin.com/in/ade-100%");
+  });
 });
 
 describe("parseRoster", () => {
@@ -370,7 +380,15 @@ export type Member = {
 };
 
 export function normaliseLinkedIn(url: string): string {
-  const cleaned = url.trim().toLowerCase().split("?")[0].replace(/\/+$/, "");
+  let text = url.trim();
+  // Three cohort profiles carry accents as %c3%a9 etc. An export may spell the
+  // same profile either way, so both forms have to land on one key.
+  try {
+    text = decodeURIComponent(text);
+  } catch {
+    // a stray % is not an escape; compare what we were given
+  }
+  const cleaned = text.toLowerCase().split("?")[0].replace(/\/+$/, "");
   return cleaned.match(/linkedin\.com\/in\/[^/]+/)?.[0] ?? "";
 }
 
