@@ -4,9 +4,9 @@
 
 **Goal:** A private site where members of one cohort upload their LinkedIn connections export, and any member can search the combined result in plain English and see who can make the introduction.
 
-**Architecture:** One Next.js app on one Fly machine. SQLite on a Fly volume holds two tables — `people` (deduped by LinkedIn profile URL) and `knows` (which member knows which person). The cohort roster is a CSV on the same volume, never in the repo. Search retrieves candidates from SQLite FTS5, counts introduction paths in SQL, and hands the shortlist to an OpenAI model to rank.
+**Architecture:** One Next.js app on one Fly machine, answering on two hostnames. `joineffall2026.com` is a public landing page; `connections.joineffall2026.com` is the signed-in app, and middleware routes on the `Host` header. SQLite on a Fly volume holds two tables — `people` (deduped by LinkedIn profile URL) and `knows` (which member knows which person). The cohort roster is a CSV on the same volume, never in the repo. Search retrieves candidates from SQLite FTS5, counts introduction paths in SQL, and hands the shortlist to an OpenAI model to rank.
 
-**Tech Stack:** Next.js (App Router) · TypeScript · Tailwind · better-sqlite3 · Better Auth (magic link) · Resend · OpenAI · Fly.io · Cloudflare DNS · Vitest
+**Tech Stack:** Next.js (App Router) · TypeScript · Tailwind · ReUI on the shadcn CLI · better-sqlite3 · Better Auth (magic link) · Resend · OpenAI · Fly.io · Cloudflare DNS · Vitest
 
 **Spec:** This document, § Spec.
 
@@ -31,6 +31,9 @@
 ## Global Constraints
 
 - Node 22. Next.js App Router. TypeScript `strict`. Tailwind.
+- **Two hostnames, one app.** `joineffall2026.com` serves only the landing page. `connections.joineffall2026.com` serves everything else, and `BETTER_AUTH_URL` points at it. Middleware routes on the `Host` header; one Fly app holds both certificates.
+- **ReUI is the UI.** Installed through the shadcn CLI against the `@reui` registry, configured the way seams does it: `new-york` style, `neutral` base colour, `lucide` icons, CSS variables on. Every surface — nav, cards, inputs, buttons, avatars, badges, tooltips, empty states — is composed from ReUI primitives. Do not hand-roll an element that the registry already has, and do not restyle one with ad-hoc classes where a variant exists. Read a component's real API with `get_component` before writing props; never guess them.
+- Free-plan ReUI covers the primitives. Premium blocks are not licensed, so screens are composed from components rather than dropped in whole — which is what "minimal and clean" wants anyway.
 - Exactly one Fly machine: `min_machines_running = 1`, `auto_stop_machines = "off"`. Task 8 puts a vector index in process memory; a second machine would serve a stale copy.
 - SQLite via `better-sqlite3` at `/data/app.db`. Roster at `/data/roster.csv`. Photos at `/data/photos/`.
 - `roster.csv`, `photos/`, `data/`, `.env*` are gitignored from the first commit. The repo is public from the first push, so a personal detail committed once is committed forever.
@@ -266,17 +269,24 @@ If absent: `flarectl zone create --zone joineffall2026.com`.
 
 ```bash
 fly ips list          # note the v4 (shared is fine) and v6 addresses
-flarectl dns create --zone joineffall2026.com --name @ --type A    --content <V4>
-flarectl dns create --zone joineffall2026.com --name @ --type AAAA --content <V6>
+for name in @ connections; do
+  flarectl dns create --zone joineffall2026.com --name "$name" --type A    --content <V4>
+  flarectl dns create --zone joineffall2026.com --name "$name" --type AAAA --content <V6>
+done
 ```
 
-Leave both records **DNS-only** (unproxied). Fly issues its own certificate, and proxying before the certificate exists makes the challenge fail.
+Both hostnames point at the same Fly app — the landing page and the app are one
+deploy, split by `Host` in middleware.
 
-- [ ] **Step 5: Issue the certificate**
+Leave every record **DNS-only** (unproxied). Fly issues its own certificate, and
+proxying before the certificate exists makes the challenge fail.
+
+- [ ] **Step 5: Issue both certificates**
 
 ```bash
 fly certs add joineffall2026.com
-fly certs show joineffall2026.com
+fly certs add connections.joineffall2026.com
+fly certs show connections.joineffall2026.com
 ```
 
 If it asks for an `_acme-challenge` CNAME, add it with `flarectl dns create` and re-run `fly certs show` until it reports issued.
@@ -284,10 +294,12 @@ If it asks for an `_acme-challenge` CNAME, add it with `flarectl dns create` and
 - [ ] **Step 6: Verify**
 
 ```bash
-curl -sS -o /dev/null -w "%{http_code}\n" https://joineffall2026.com/
+for h in joineffall2026.com connections.joineffall2026.com; do
+  printf "%-34s %s\n" "$h" "$(curl -sS -o /dev/null -w "%{http_code}" "https://$h/")"
+done
 ```
 
-Expected: `200`.
+Expected: `200` from both.
 
 - [ ] **Step 7: Commit**
 
@@ -1346,71 +1358,60 @@ export async function search(
 }
 ```
 
-- [ ] **Step 9: Build the search page**
+- [ ] **Step 9: Build the result card**
 
-`app/page.tsx`:
+Every result is a ReUI `Card`. LinkedIn publishes no embeddable profile card, so
+this is ours, linking out to theirs:
 
-```tsx
-"use client";
+```
+┌────────────────────────────────────────────────────────┐
+│  Neha Mittal                              🔥 Hot · 4   │
+│  CEO and Co-founder at JustAI                          │
+│                                                         │
+│  Ex-Twitter growth lead, now building AI marketing      │
+│  infrastructure — closest match to "growth at an AI     │
+│  company" in the bank.                                  │
+│                                                         │
+│  ( A )( P )( T )( +1 )   can introduce you    [ View ↗ ]│
+└────────────────────────────────────────────────────────┘
+```
 
-import { useActionState } from "react";
-import { search, type SearchState } from "./search/actions";
+Composed from `card`, `avatar`, `badge`, `button` and `tooltip`. The stacked
+circles are the cohort members who know this person, each a member photo with
+their name on hover; the link opens the LinkedIn profile.
 
-export default function Search() {
-  const [state, action, pending] = useActionState<SearchState, FormData>(
-    search,
-    {},
-  );
+`components/person-card.tsx` holds it, and `components/heat.ts` holds the one
+rule the badge reads:
 
-  return (
-    <main className="mx-auto flex min-h-dvh max-w-2xl flex-col gap-6 px-4 py-12">
-      <h1 className="text-2xl font-semibold">Search the cohort&rsquo;s network</h1>
-      <form action={action} className="flex gap-2">
-        <input
-          name="q"
-          placeholder="founders working on developer tools"
-          className="flex-1 rounded border px-3 py-2"
-        />
-        <button disabled={pending} className="rounded bg-black px-4 py-2 text-white">
-          {pending ? "Searching…" : "Search"}
-        </button>
-      </form>
-
-      {state.results?.length === 0 && state.query && (
-        <p className="text-neutral-600">Nothing in the bank fits that yet.</p>
-      )}
-
-      <ul className="flex flex-col gap-5">
-        {state.results?.map((p) => (
-          <li key={p.url} className="flex flex-col gap-1">
-            <a href={`https://${p.url}`} className="font-medium underline">
-              {p.name}
-            </a>
-            <span className="text-neutral-600">{p.title} at {p.company}</span>
-            <span className="text-sm">{p.reason}</span>
-            <span className="flex items-center gap-2 text-sm text-neutral-500">
-              {p.inCohort ? "In your cohort" : "via"}
-              {!p.inCohort && p.via.map((m) => (
-                <img
-                  key={m.email}
-                  src={`/photos/${m.photo}`}
-                  alt={m.name}
-                  title={m.name}
-                  className="size-6 rounded-full object-cover"
-                />
-              ))}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </main>
-  );
+```ts
+export function heat(paths: number) {
+  if (paths >= 4) return { label: "Hot", variant: "destructive" as const };
+  if (paths >= 2) return { label: "Warm", variant: "warning" as const };
+  return { label: "One way in", variant: "secondary" as const };
 }
 ```
 
-Move the old landing copy into `app/login/page.tsx`; `/` is now signed-in only and `requireSession` sends signed-out visitors to `/login`.
+The count comes from `via.length`, which is the same number the SQL already
+sorts on — heat and result order can never disagree because they read one value.
+A person who is themselves in the cohort shows a "In your cohort" badge and no
+introduction path.
 
-- [ ] **Step 10: Deploy and search for real**
+**Confirm every prop against `get_component` before writing it.** ReUI is
+shadcn-compatible but its `variant`, `size` and `radius` values are its own —
+the badge takes solid, `-outline` and `-light` variants per colour. Guessing
+them produces markup that renders unstyled.
+
+- [ ] **Step 10: Build the page around it**
+
+`app/page.tsx` is the signed-in search surface: the app nav, a ReUI `Input` and
+`Button` in the search form, a list of `PersonCard`s, and a ReUI empty state
+when a query returns nothing. `requireSession` sends signed-out visitors to
+`/login`, which is itself built from ReUI `Card`, `Input` and `Button`.
+
+No hand-rolled element where the registry has one, and no ad-hoc classes where
+a variant exists.
+
+- [ ] **Step 11: Deploy and search for real**
 
 ```bash
 fly deploy
@@ -1418,7 +1419,7 @@ fly deploy
 
 With at least two exports uploaded, run three queries you know the answer to and check the via-line names the right member.
 
-- [ ] **Step 11: Commit**
+- [ ] **Step 12: Commit**
 
 ```bash
 git add lib/retrieve.ts lib/rank.ts app/search app/photos app/page.tsx tests/retrieve.test.ts
@@ -1687,3 +1688,198 @@ git push
 - Removing yourself deletes your `knows` rows and any orphaned `people` — one route, add it when someone asks.
 - A second machine. The vector index lives in process memory; scaling out needs a shared store first.
 - Anything beyond the cohort's own uploads: no second-degree crawl, no enrichment, no LinkedIn OAuth.
+
+---
+
+### Task 10: The UI foundation
+
+Deliverable: every surface built so far is composed from ReUI, and the nav is one component.
+
+Do this **before** the search UI — it is the vocabulary everything else is
+written in, and retrofitting it costs more than starting in it.
+
+**Files:**
+- Create: `components.json`, `components/ui/*` (installed), `components/app-nav.tsx`, `lib/utils.ts`
+- Modify: `app/layout.tsx`, `app/login/page.tsx`, `app/upload/page.tsx`
+
+- [ ] **Step 1: Point the shadcn CLI at the ReUI registry**
+
+The same configuration seams uses:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": { "config": "", "css": "app/globals.css", "baseColor": "neutral", "cssVariables": true, "prefix": "" },
+  "iconLibrary": "lucide",
+  "aliases": { "components": "@/components", "ui": "@/components/ui", "utils": "@/lib/utils", "lib": "@/lib", "hooks": "@/hooks" },
+  "registries": { "@reui": "https://reui.io/r/{style}/{name}.json" }
+}
+```
+
+- [ ] **Step 2: Install the primitives**
+
+```bash
+npx shadcn@latest add @reui/button @reui/input @reui/card @reui/avatar \
+  @reui/badge @reui/tooltip @reui/skeleton @reui/alert @reui/separator
+```
+
+Read each one's real API with `get_component` before using it. ReUI is
+shadcn-compatible but its variants are its own, and guessed props render
+unstyled.
+
+- [ ] **Step 3: Build the nav**
+
+`components/app-nav.tsx` — the signed-in header: the cohort name, links to
+Search and Add connections, and the signed-in member's avatar with a sign-out
+item. One component, used by every app page through `app/layout.tsx`.
+
+- [ ] **Step 4: Rebuild login and upload on it**
+
+Replace the raw `<input>`, `<button>` and `<form>` markup in `app/login/page.tsx`
+and `app/upload/page.tsx` with ReUI `Card`, `Input`, `Button` and `Alert`. The
+upload result and its error become an `Alert`; the pending state uses the
+button's own loading affordance rather than swapped text.
+
+- [ ] **Step 5: Verify and commit**
+
+Sign in and upload again — same behaviour, ReUI throughout. Then:
+
+```bash
+git add components.json components lib/utils.ts app
+git commit -m "Build every surface on ReUI"
+```
+
+---
+
+### Task 11: The landing page
+
+Deliverable: `https://joineffall2026.com` says **Go get that money!** in New
+Rocker, with the video playing underneath it.
+
+**Files:**
+- Create: `middleware.ts`, `app/landing/page.tsx`, `components/hero-video.tsx`, `public/go-get-that-money.mp4`
+- Modify: `app/layout.tsx` (font), `fly.toml` (`APP_HOST`)
+
+- [ ] **Step 1: Split the hostnames**
+
+`middleware.ts`:
+
+```ts
+import { NextResponse, type NextRequest } from "next/server";
+
+export function middleware(req: NextRequest) {
+  const host = (req.headers.get("host") ?? "").split(":")[0];
+  if (host === (process.env.APP_HOST ?? "localhost")) return NextResponse.next();
+  return NextResponse.rewrite(new URL("/landing", req.url));
+}
+
+export const config = {
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|go-get-that-money.mp4).*)"],
+};
+```
+
+Add `APP_HOST = "connections.joineffall2026.com"` to `[env]` in `fly.toml`. The
+default keeps `localhost` on the app in development, where `/landing` is reached
+directly.
+
+- [ ] **Step 2: Load the font**
+
+`next/font/google` self-hosts it, so no `<link>` to Google and no render-blocking
+request:
+
+```ts
+import { New_Rocker } from "next/font/google";
+
+const newRocker = New_Rocker({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-new-rocker",
+});
+```
+
+Put `newRocker.variable` on `<html>` in `app/layout.tsx`, and bind
+`--font-new-rocker` in `globals.css` so the landing page reaches it as a
+Tailwind family. New Rocker is display-only — it is used on this page and
+nowhere else.
+
+- [ ] **Step 3: Add the video**
+
+Copy `~/Downloads/f3125a48cd9581c456450d01fd9c57c22c8d3eca.MP4` to
+`public/go-get-that-money.mp4`. It is 2.7 MB, 29 seconds, 960×720, H.264 with
+AAC audio, and it is committed — the page shows it to the public anyway, so the
+repository adds no exposure.
+
+- [ ] **Step 4: Build the hero**
+
+```tsx
+"use client";
+
+import { useRef, useState } from "react";
+import { Volume2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export function HeroVideo() {
+  const video = useRef<HTMLVideoElement>(null);
+  const [silent, setSilent] = useState(true);
+
+  // Every browser blocks autoplay with sound. It starts muted and the first
+  // gesture turns it on.
+  function unmute() {
+    const el = video.current;
+    if (!el) return;
+    el.muted = false;
+    void el.play();
+    setSilent(false);
+  }
+
+  return (
+    <div className="relative w-full max-w-3xl" onClick={unmute}>
+      <video
+        ref={video}
+        src="/go-get-that-money.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="w-full rounded-xl"
+      />
+      {silent && (
+        <Button
+          onClick={unmute}
+          className="absolute bottom-4 left-1/2 -translate-x-1/2"
+        >
+          <Volume2 /> Tap for sound
+        </Button>
+      )}
+    </div>
+  );
+}
+```
+
+- [ ] **Step 5: Build the page**
+
+`app/landing/page.tsx` — the headline at the largest size that still fits a
+phone without wrapping mid-word, in New Rocker, with `HeroVideo` beneath it.
+Nothing else on the page: no nav, no link to the app, no explanation.
+
+- [ ] **Step 6: Verify on both hostnames**
+
+```bash
+fly deploy
+curl -sS https://joineffall2026.com/ | grep -o "Go get that money!"
+curl -sS -o /dev/null -w "%{http_code}\n" https://connections.joineffall2026.com/login
+```
+
+Expected: the headline from the root, `200` from the app host. Then open the
+root in a browser and confirm the video plays and the sound turns on with one
+tap.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add middleware.ts app components public/go-get-that-money.mp4 fly.toml
+git commit -m "Landing page on the root domain"
+```
