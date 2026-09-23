@@ -1,16 +1,25 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import Database from "better-sqlite3";
-import { beforeEach, describe, expect, it } from "vitest";
-import { ingest } from "@/lib/bank";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Connection } from "@/lib/linkedin";
+
+
+vi.mock("@/lib/embed", () => ({
+  EMBED_BATCH: 256,
+  embed: async (texts: string[]) => texts.map(() => Float32Array.from([1, 0, 0])),
+}));
+
+const { ingest } = await import("@/lib/bank");
 
 const DIR = join(process.cwd(), "lib/migrations");
 
 function freshBank() {
   const db = new Database(":memory:");
   for (const file of readdirSync(DIR).sort()) {
-    if (file.includes("bank")) db.exec(readFileSync(join(DIR, file), "utf8"));
+    if (file.includes("bank") || file.includes("vectors")) {
+      db.exec(readFileSync(join(DIR, file), "utf8"));
+    }
   }
   return db;
 }
@@ -29,44 +38,41 @@ beforeEach(() => {
 });
 
 describe("ingest", () => {
-  it("counts a first upload as all new", () => {
-    expect(ingest(db, "ade@example.com", [neha]))
+  it("counts a first upload as all new", async () => {
+    expect(await ingest(db, "ade@example.com", [neha]))
       .toEqual({ rows: 1, added: 1, shared: 0 });
   });
 
-  it("counts someone another member already knows as shared", () => {
-    ingest(db, "ade@example.com", [neha]);
-    expect(ingest(db, "tomi@example.com", [neha]))
+  it("counts someone another member already knows as shared", async () => {
+    await ingest(db, "ade@example.com", [neha]);
+    expect(await ingest(db, "tomi@example.com", [neha]))
       .toEqual({ rows: 1, added: 0, shared: 1 });
   });
 
-  it("is idempotent, so re-uploading the same file adds nobody", () => {
-    ingest(db, "ade@example.com", [neha]);
-    expect(ingest(db, "ade@example.com", [neha]))
+  it("is idempotent, so re-uploading the same file adds nobody", async () => {
+    await ingest(db, "ade@example.com", [neha]);
+    expect(await ingest(db, "ade@example.com", [neha]))
       .toEqual({ rows: 1, added: 0, shared: 1 });
     expect(db.prepare("select count(*) as n from knows").get()).toEqual({ n: 1 });
   });
 
-  it("keeps one person and one edge per member who knows them", () => {
-    ingest(db, "ade@example.com", [neha]);
-    ingest(db, "tomi@example.com", [neha]);
+  it("keeps one person and one edge per member who knows them", async () => {
+    await ingest(db, "ade@example.com", [neha]);
+    await ingest(db, "tomi@example.com", [neha]);
     expect(db.prepare("select count(*) as n from people").get()).toEqual({ n: 1 });
     expect(db.prepare("select count(*) as n from knows").get()).toEqual({ n: 2 });
   });
 
-  it("lets a fresher export correct a stale title", () => {
-    ingest(db, "ade@example.com", [{ ...neha, title: "Engineer" }]);
-    ingest(db, "tomi@example.com", [neha]);
+  it("lets a fresher export correct a stale title", async () => {
+    await ingest(db, "ade@example.com", [{ ...neha, title: "Engineer" }]);
+    await ingest(db, "tomi@example.com", [neha]);
     expect(db.prepare("select title from people where url = ?").get(neha.url))
       .toEqual({ title: "CEO" });
   });
 
-  it("indexes each person once for search, however many members know them", () => {
-    ingest(db, "ade@example.com", [neha]);
-    ingest(db, "tomi@example.com", [neha]);
-    const hits = db
-      .prepare("select count(*) as n from people_fts where people_fts match ?")
-      .get('"justai"');
-    expect(hits).toEqual({ n: 1 });
+  it("stores one vector per person, however many members know them", async () => {
+    await ingest(db, "ade@example.com", [neha]);
+    await ingest(db, "tomi@example.com", [neha]);
+    expect(db.prepare("select count(*) as n from vectors").get()).toEqual({ n: 1 });
   });
 });
