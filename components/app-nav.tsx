@@ -36,6 +36,9 @@ export async function AppNav() {
         </a>
 
         <div className="ml-auto flex items-center gap-4">
+          <a href="/idea" className="text-sm text-muted-foreground hover:text-foreground">
+            Who to talk to
+          </a>
           <Button asChild size="sm" className="bg-white text-neutral-900 hover:bg-neutral-200">
             <a href="/upload">Add your connections</a>
           </Button>
