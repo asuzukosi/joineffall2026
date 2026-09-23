@@ -48,14 +48,14 @@ describe("the migrations", () => {
     expect(db.prepare("select count(*) as n from knows").get()).toEqual({ n: 2 });
   });
 
-  it("search the full-text table", () => {
+  it("leave no keyword index behind, and a vectors table in its place", () => {
     const db = new Database(":memory:");
     applyAll(db);
-    db.prepare("insert into people_fts (url, text) values (?, ?)")
-      .run("linkedin.com/in/neha", "Neha Mittal CEO JustAI");
-    const hit = db
-      .prepare("select url from people_fts where people_fts match ?")
-      .get('"justai"');
-    expect(hit).toEqual({ url: "linkedin.com/in/neha" });
+    const tables = db
+      .prepare("select name from sqlite_master where type in ('table','view')")
+      .all()
+      .map((row) => (row as { name: string }).name);
+    expect(tables).toContain("vectors");
+    expect(tables).not.toContain("people_fts");
   });
 });

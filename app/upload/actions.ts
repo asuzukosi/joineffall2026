@@ -37,5 +37,5 @@ export async function upload(
     return { error: "That export has no connections with a profile link in it." };
   }
 
-  return { result: ingest(getDb(), email, rows) };
+  return { result: await ingest(getDb(), email, rows) };
 }

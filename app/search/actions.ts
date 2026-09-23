@@ -24,7 +24,7 @@ export async function search(
   const query = String(formData.get("q") ?? "").trim();
   if (!query) return {};
 
-  const candidates = retrieve(getDb(), query, SHORTLIST);
+  const candidates = await retrieve(getDb(), query, SHORTLIST);
   if (candidates.length === 0) return { query, results: [] };
 
   let ranked;
