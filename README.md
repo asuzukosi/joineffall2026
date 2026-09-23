@@ -1,3 +1,5 @@
+<img src="public/ef.png" alt="Entrepreneur First" width="72" />
+
 # joineffall2026
 
 Private network search for one EF cohort. Members upload their LinkedIn

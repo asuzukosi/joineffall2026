@@ -46,3 +46,4 @@ roster.csv
 photos/
 .issue-notes.md
 !.env.example
+.gstack/

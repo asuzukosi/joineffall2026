@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EfMark } from "@/components/ef-mark";
 import { memberByEmail } from "@/lib/roster";
 import { currentEmail } from "@/lib/session";
+import { signOut } from "@/app/session/actions";
 
 function initials(name: string) {
   return name
@@ -43,6 +44,15 @@ export async function AppNav() {
               {initials(member?.name ?? email)}
             </AvatarFallback>
           </Avatar>
+
+          <form action={signOut}>
+            <button
+              type="submit"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              Sign out
+            </button>
+          </form>
         </div>
       </div>
     </nav>

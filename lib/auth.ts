@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { magicLink } from "better-auth/plugins";
+import { nextCookies } from "better-auth/next-js";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { getDb } from "./db";
 import { isMember } from "./roster";
@@ -19,6 +20,9 @@ export const auth = betterAuth({
       expiresIn: 900,
       sendMagicLink: async ({ email, url }) => sendLoginEmail(email, url),
     }),
+    // Must stay last: it forwards Set-Cookie out of server actions, which is
+    // how signing out actually clears the session rather than only appearing to.
+    nextCookies(),
   ],
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
