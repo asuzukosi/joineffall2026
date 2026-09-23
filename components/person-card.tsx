@@ -47,7 +47,7 @@ export function PersonCard({ person }: { person: Person }) {
           {!person.inCohort && <HeatRing paths={person.via.length} />}
         </div>
 
-        <p className="text-sm">{person.reason}</p>
+        {person.reason && <p className="text-sm">{person.reason}</p>}
 
         {person.inCohort ? (
           <Badge variant="secondary" className="w-fit">
