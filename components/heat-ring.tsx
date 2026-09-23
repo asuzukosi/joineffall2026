@@ -19,7 +19,9 @@ export function HeatRing({ paths }: { paths: number }) {
             strokeDashoffset={circumference * (1 - level / 5)}
           />
         </svg>
-        <span className="text-xs font-medium tabular-nums">{paths}</span>
+        <span className="text-xs font-medium tabular-nums" aria-hidden>
+          {paths}
+        </span>
       </span>
       {level >= 5 && <span aria-hidden>🔥</span>}
       <span className="sr-only">
