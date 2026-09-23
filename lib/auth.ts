@@ -3,20 +3,7 @@ import { magicLink } from "better-auth/plugins";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { getDb } from "./db";
 import { isMember } from "./roster";
-
-// The link is never emailed. It is generated, handed straight back to the
-// browser that asked for it, and consumed on the next request. That makes
-// sign-in "type a roster address and you are in" — a real gate, because the
-// roster is private, but not proof that the address belongs to whoever typed
-// it. Sending this link by email is the only change needed to make it one.
-const issued = new Map<string, string>();
-
-export function takeSignInLink(email: string): string | undefined {
-  const key = email.trim().toLowerCase();
-  const url = issued.get(key);
-  issued.delete(key);
-  return url;
-}
+import { sendLoginEmail } from "./email";
 
 export const auth = betterAuth({
   appName: "EF Fall 2026",
@@ -29,10 +16,8 @@ export const auth = betterAuth({
   },
   plugins: [
     magicLink({
-      expiresIn: 300,
-      sendMagicLink: async ({ email, url }) => {
-        issued.set(email.trim().toLowerCase(), url);
-      },
+      expiresIn: 900,
+      sendMagicLink: async ({ email, url }) => sendLoginEmail(email, url),
     }),
   ],
   hooks: {
