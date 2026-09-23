@@ -46,7 +46,7 @@ export async function rank(
     .join("\n");
 
   const completion = await new OpenAI({ apiKey: key }).chat.completions.create({
-    model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+    model: process.env.OPENAI_MODEL ?? "gpt-5.5",
     messages: [
       { role: "system", content: SYSTEM },
       { role: "user", content: `${query}\n\n${list}` },
