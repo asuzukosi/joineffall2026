@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { ExternalLink } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,9 +20,18 @@ export function UploadForm() {
         <CardHeader>
           <CardTitle>Add your connections</CardTitle>
           <CardDescription>
-            LinkedIn &rarr; Settings &rarr; Data privacy &rarr; Get a copy of
-            your data &rarr; Connections. The file arrives by email in a few
-            minutes.
+            <a
+              href="https://www.linkedin.com/mypreferences/d/download-my-data"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-4"
+            >
+              Request your data from LinkedIn
+              <ExternalLink className="size-3.5 opacity-60" aria-hidden />
+            </a>{" "}
+            &mdash; tick <strong>Connections</strong>, and the file arrives by
+            email in a few minutes. If you would rather click through yourself:
+            Settings &rarr; Data privacy &rarr; Get a copy of your data.
           </CardDescription>
         </CardHeader>
 
