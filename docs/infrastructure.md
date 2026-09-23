@@ -70,3 +70,60 @@ Registered through the Cloudflare Registrar API at cost.
 deliberately: the cohort runs to December 2026, so nothing here should quietly
 bill a second year. The flip side is that the domain lapses in September 2027
 unless someone renews it. Turn it on if the site outlives the cohort.
+
+## Photos
+
+Member avatars are objects in the R2 bucket `joineffall2026-photos`, served
+publicly from `cdn.joineffall2026.com` — an R2 custom domain on the same zone,
+so no delegation and no nameserver changes.
+
+```text
+  roster.csv  photo column
+       │  https://cdn.joineffall2026.com/<sha256[0:20]>.webp?v=1
+       ▼
+  cdn.joineffall2026.com  ── R2 custom domain, min TLS 1.2
+       │
+       ▼
+  bucket joineffall2026-photos      61 objects, 1.2 MB
+```
+
+Object keys are the **first 20 hex of the file's SHA-256**, not the member's
+name. The bucket is public, so a name-based key would publish a
+name-to-face mapping to anyone who can guess a slug. The roster — which is a
+secret — holds the mapping.
+
+The `?v=1` suffix is a cache key, not something R2 reads. Cloudflare caches
+negative responses, so a photo requested before it was uploaded stays 404 at the
+edge; bumping the version is the way to break that without a cache-purge
+credential.
+
+```bash
+export CLOUDFLARE_API_TOKEN="$(cat ~/.config/cloudflare/api_token)"
+export CLOUDFLARE_ACCOUNT_ID=7de601c9208fe1ccd74bdfa1b58cb47c
+
+wrangler r2 object put joineffall2026-photos/<key>.webp \
+  --file photos/<name>.webp --content-type image/webp --remote
+```
+
+After any photo change, re-verify every URL rather than trusting the upload
+output — an upload that reports "complete" can still be missing at the edge:
+
+```bash
+tail -n +2 roster.csv | cut -d, -f4 | while read -r url; do
+  printf '%s %s\n' "$(curl -sS -o /dev/null --max-time 15 -w '%{http_code}' "$url")" "$url"
+done | grep -v '^200' || echo "all serving"
+```
+
+## What does not work for moving files
+
+Measured on this app, so nobody repeats it:
+
+| Attempt | Result |
+|---|---|
+| `tar czf - … \| fly ssh console -C 'tar xzf -'` | Hangs forever — `-C` does not forward stdin |
+| `fly ssh sftp put bundle.tar.gz /data/…` | Creates the file, then stalls at **0 bytes** |
+| base64 inside the `-C` argument | 1 KB argument: 1 s. 8 KB argument: times out at 75 s |
+
+A bare `fly ssh console -C "echo alive"` round-trips in 1.6 s, so this is not the
+network. Anything that needs to reach the app goes in a secret, in R2, or
+through the app's own HTTPS surface.
