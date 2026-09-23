@@ -9,6 +9,9 @@ export default async function Home() {
       <p className="text-neutral-600 dark:text-neutral-400">
         Signed in as {email}.
       </p>
+      <a className="underline underline-offset-4" href="/upload">
+        Add your connections
+      </a>
     </main>
   );
 }
