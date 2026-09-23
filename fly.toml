@@ -6,8 +6,6 @@ primary_region = "lhr"
 [env]
   PORT = "3000"
   DB_PATH = "/data/app.db"
-  ROSTER_PATH = "/data/roster.csv"
-  PHOTO_DIR = "/data/photos"
 
 [[mounts]]
   source = "data"

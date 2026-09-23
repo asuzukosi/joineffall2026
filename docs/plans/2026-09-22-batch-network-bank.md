@@ -35,7 +35,7 @@
 - **ReUI is the UI.** Installed through the shadcn CLI against the `@reui` registry, configured the way seams does it: `new-york` style, `neutral` base colour, `lucide` icons, CSS variables on. Every surface — nav, cards, inputs, buttons, avatars, badges, tooltips, empty states — is composed from ReUI primitives. Do not hand-roll an element that the registry already has, and do not restyle one with ad-hoc classes where a variant exists. Read a component's real API with `get_component` before writing props; never guess them.
 - Free-plan ReUI covers the primitives. Premium blocks are not licensed, so screens are composed from components rather than dropped in whole — which is what "minimal and clean" wants anyway.
 - Exactly one Fly machine: `min_machines_running = 1`, `auto_stop_machines = "off"`. Task 8 puts a vector index in process memory; a second machine would serve a stale copy.
-- SQLite via `better-sqlite3` at `/data/app.db`. Roster at `/data/roster.csv`. Photos at `/data/photos/`.
+- SQLite via `better-sqlite3` at `/data/app.db`. The cohort roster is the `ROSTER_CSV` Fly secret, not a file — `fly ssh console`, `fly ssh sftp put` and stdin piping all fail to move a file of any size onto the volume, so nothing is seeded there. Member photos are deferred to their own issue.
 - `roster.csv`, `photos/`, `data/`, `.env*` are gitignored from the first commit. The repo is public from the first push, so a personal detail committed once is committed forever.
 - One model provider: OpenAI. One key, `OPENAI_API_KEY`, for both ranking and (in Task 8) embeddings.
 - Region `lhr`.
@@ -177,8 +177,6 @@ primary_region = "lhr"
 [env]
   PORT = "3000"
   DB_PATH = "/data/app.db"
-  ROSTER_PATH = "/data/roster.csv"
-  PHOTO_DIR = "/data/photos"
 
 [[mounts]]
   source = "data"
@@ -314,11 +312,11 @@ git commit --allow-empty -m "Attach joineffall2026.com to the Fly app" && git pu
 Deliverable: the running app can read the cohort roster from the volume; `roster.csv` and photos never touch git.
 
 **Files:**
-- Create: `lib/roster.ts`, `scripts/seed-roster.sh`, `roster.example.csv`
+- Create: `lib/roster.ts`, `scripts/set-roster.sh`, `roster.example.csv`
 - Test: `tests/roster.test.ts`
 
 **Interfaces:**
-- Consumes: `ROSTER_PATH`, `PHOTO_DIR` from `fly.toml`
+- Consumes: the `ROSTER_CSV` secret
 - Produces:
   - `type Member = { name: string; email: string; linkedin: string; photo: string }`
   - `normaliseLinkedIn(url: string): string`
@@ -424,7 +422,7 @@ let cached: Member[] | undefined;
 
 export function loadRoster(): Member[] {
   cached ??= parseRoster(
-    readFileSync(process.env.ROSTER_PATH ?? "./roster.csv", "utf8"),
+    process.env.ROSTER_CSV ?? raise("ROSTER_CSV is not set"),
   );
   return cached;
 }
@@ -1719,7 +1717,7 @@ Then `fly secrets set RESEND_FROM="hello@joineffall2026.com"` and request a fres
 BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=http://localhost:3000
 DB_PATH=./data/app.db
-ROSTER_PATH=./roster.csv
+ROSTER_CSV=
 PHOTO_DIR=./photos
 RESEND_API_KEY=
 RESEND_FROM=
