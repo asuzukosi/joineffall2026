@@ -6,6 +6,7 @@ primary_region = "lhr"
 [env]
   PORT = "3000"
   DB_PATH = "/data/app.db"
+  APP_HOST = "connections.joineffall2026.com"
 
 [[mounts]]
   source = "data"
