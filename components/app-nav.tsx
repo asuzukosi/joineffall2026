@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EfMark } from "@/components/ef-mark";
 import { memberByEmail } from "@/lib/roster";
@@ -13,6 +14,12 @@ function initials(name: string) {
 }
 
 export async function AppNav() {
+  // The root domain is the landing page: no nav, no mark, nothing but the
+  // headline and the video. The session cookie is scoped to the app host too,
+  // but this says it rather than relying on that.
+  const host = (await headers()).get("host")?.split(":")[0];
+  if (host !== (process.env.APP_HOST ?? "localhost")) return null;
+
   const email = await currentEmail();
   if (!email) return null;
 
