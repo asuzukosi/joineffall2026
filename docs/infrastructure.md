@@ -155,3 +155,32 @@ record look truncated. Read the record back through the API before believing it:
 curl -sS "https://api.cloudflare.com/client/v4/zones/<zone>/dns_records?type=TXT" \
   -H "Authorization: Bearer $CF_API_TOKEN" | jq -r '.result[] | "\(.name) => \(.content)"'
 ```
+
+## Memory, and the cliff ahead
+
+The machine runs at **1 GB**, declared in `fly.toml`. It started on the 256 MB
+default and the kernel killed it:
+
+```
+Out of memory: Killed process 644 (next-server (v) total-vm:11896960kB, anon-rss:151600kB
+INFO Process appears to have been OOM killed!
+```
+
+That presents as a page that hangs rather than a crash, because the request dies
+with the process and the machine reboots underneath it. **If this app ever
+"hangs" again, grep `fly logs` for `OOM killed` before looking at anything
+else.**
+
+`retrieve` holds two copies of the vectors while it builds its index — the
+`Buffer` rows SQLite returns, and the `Float32Array` it copies them into:
+
+| Members uploaded | People | Matrix | Peak while loading |
+|---|---|---|---|
+| 1 | ~2,000 | 12 MB | ~24 MB |
+| 10 | ~18,000 | 110 MB | ~220 MB |
+| 61 | ~120,000 | 740 MB | ~1.5 GB |
+
+The last row does not fit in this machine, and what triggers it is the product
+working as intended. When the cohort actually uploads, the fix is to stream rows
+into a pre-allocated matrix rather than materialising both, and to raise memory
+again. Neither is worth doing while one member has uploaded.
