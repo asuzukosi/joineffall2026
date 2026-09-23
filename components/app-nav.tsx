@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { EfMark } from "@/components/ef-mark";
 import { memberByEmail } from "@/lib/roster";
 import { currentEmail } from "@/lib/session";
@@ -35,9 +36,9 @@ export async function AppNav() {
         </a>
 
         <div className="ml-auto flex items-center gap-4">
-          <a href="/upload" className="text-sm text-muted-foreground hover:text-foreground">
-            Add your connections
-          </a>
+          <Button asChild size="sm" className="bg-white text-neutral-900 hover:bg-neutral-200">
+            <a href="/upload">Add your connections</a>
+          </Button>
           <Avatar className="size-8">
             <AvatarImage src={member?.photo} alt={member?.name ?? email} />
             <AvatarFallback className="text-xs">
