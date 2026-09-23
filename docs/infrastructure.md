@@ -127,3 +127,31 @@ Measured on this app, so nobody repeats it:
 A bare `fly ssh console -C "echo alive"` round-trips in 1.6 s, so this is not the
 network. Anything that needs to reach the app goes in a secret, in R2, or
 through the app's own HTTPS surface.
+
+## Sending email
+
+`joineffall2026.com` is a verified sending domain in Resend, added through their
+API rather than the dashboard, with the records created in Cloudflare:
+
+| Name | Type | Purpose |
+|---|---|---|
+| `resend._domainkey` | TXT | DKIM signing key |
+| `send` | TXT | SPF — `v=spf1 include:amazonses.com ~all` |
+| `send` | MX | Bounce and complaint feedback |
+| `rsend` | CNAME | Resend's sending host |
+
+Until the domain verified, mail left as `onboarding@resend.dev`, which Resend
+delivers **only to the Resend account owner's own address** — fine for testing,
+useless for a cohort. `RESEND_FROM` is what switches it over.
+
+```bash
+fly secrets set RESEND_FROM="hello@joineffall2026.com" -a joineffall2026
+```
+
+The `flarectl` table wraps long TXT values across lines, which makes an SPF
+record look truncated. Read the record back through the API before believing it:
+
+```bash
+curl -sS "https://api.cloudflare.com/client/v4/zones/<zone>/dns_records?type=TXT" \
+  -H "Authorization: Bearer $CF_API_TOKEN" | jq -r '.result[] | "\(.name) => \(.content)"'
+```
