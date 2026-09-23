@@ -14,14 +14,7 @@ export default function Search() {
   );
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-2xl flex-col gap-6 px-4 py-12">
-      <header className="flex items-baseline justify-between gap-4">
-        <h1 className="text-xl font-semibold">EF Fall 2026</h1>
-        <a href="/upload" className="text-sm underline underline-offset-4">
-          Add your connections
-        </a>
-      </header>
-
+    <main className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-10">
       <form action={action} className="flex gap-2">
         <Input
           name="q"

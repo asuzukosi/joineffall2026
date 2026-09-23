@@ -1,6 +1,10 @@
 "use client";
 
 import { useActionState } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { upload, type UploadState } from "./actions";
 
 export default function Upload() {
@@ -10,45 +14,53 @@ export default function Upload() {
   );
 
   return (
-    <main className="mx-auto flex min-h-dvh max-w-xl flex-col justify-center gap-6 px-4">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Add your connections</h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          LinkedIn &rarr; Settings &rarr; Data privacy &rarr; Get a copy of your
-          data &rarr; Connections. The file arrives by email in a few minutes.
-        </p>
-      </div>
+    <main className="mx-auto flex max-w-2xl flex-col gap-4 px-4 py-10">
+      <Card>
+        <CardHeader>
+          <CardTitle>Add your connections</CardTitle>
+          <CardDescription>
+            LinkedIn &rarr; Settings &rarr; Data privacy &rarr; Get a copy of
+            your data &rarr; Connections. The file arrives by email in a few
+            minutes.
+          </CardDescription>
+        </CardHeader>
 
-      <form action={action} className="flex flex-col gap-3">
-        <input
-          name="file"
-          type="file"
-          accept=".csv,text/csv"
-          required
-          className="rounded-md border border-neutral-300 px-3 py-2 dark:border-neutral-700"
-        />
-        <button
-          disabled={pending}
-          className="rounded-md bg-neutral-900 px-3 py-2 text-white disabled:opacity-60 dark:bg-white dark:text-neutral-900"
-        >
-          {pending ? "Adding…" : "Add to the bank"}
-        </button>
-      </form>
+        <CardContent className="flex flex-col gap-4">
+          <form action={action} className="flex flex-col gap-3">
+            <Input
+              name="file"
+              type="file"
+              accept=".csv,text/csv"
+              required
+              aria-label="Your Connections.csv"
+            />
+            <Button disabled={pending}>
+              {pending ? "Adding…" : "Add to the bank"}
+            </Button>
+          </form>
 
-      {state.error && <p className="text-red-600">{state.error}</p>}
+          {state.error && (
+            <Alert variant="destructive">
+              <AlertDescription>{state.error}</AlertDescription>
+            </Alert>
+          )}
 
-      {state.result && (
-        <p>
-          Added {state.result.added.toLocaleString()}{" "}
-          {state.result.added === 1 ? "person" : "people"},{" "}
-          {state.result.shared.toLocaleString()} already here.
-        </p>
-      )}
+          {state.result && (
+            <Alert>
+              <AlertDescription>
+                Added {state.result.added.toLocaleString()}{" "}
+                {state.result.added === 1 ? "person" : "people"},{" "}
+                {state.result.shared.toLocaleString()} already here.
+              </AlertDescription>
+            </Alert>
+          )}
 
-      <p className="text-sm text-neutral-500">
-        Only who you are connected to is read — names, titles and companies. No
-        messages, and nothing about who you talk to.
-      </p>
+          <p className="text-sm text-muted-foreground">
+            Only who you are connected to is read &mdash; names, titles and
+            companies. No messages, and nothing about who you talk to.
+          </p>
+        </CardContent>
+      </Card>
     </main>
   );
 }
