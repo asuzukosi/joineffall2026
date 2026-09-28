@@ -47,3 +47,6 @@ photos/
 .issue-notes.md
 !.env.example
 .gstack/
+
+# idea mazes hold unreleased business ideas; the repo is public
+/mazes/
