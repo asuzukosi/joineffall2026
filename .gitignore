@@ -48,5 +48,11 @@ photos/
 !.env.example
 .gstack/
 
+# outbound batches hold prospect data
+/outbound/
+
+# pamphlets hold customer research and generated media
+/pamphlets/
+
 # idea mazes hold unreleased business ideas; the repo is public
 /mazes/

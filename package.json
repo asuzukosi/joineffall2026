@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run --passWithNoTests",
+    "discover": "node --env-file-if-exists=.env.local scripts/discover/cli.ts",
     "maze": "node scripts/maze/cli.ts"
   },
   "dependencies": {
