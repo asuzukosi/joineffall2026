@@ -26,9 +26,9 @@ Value-first:
 | Part | Rule |
 |---|---|
 | `seen` | Their likely problem now. A question unless the signal states it outright. Cite signal ids in `evidence`. |
-| `gift` | What they get today and why it helps. No ask here. |
+| `gift` | The value itself, handed over in the email: `finding` — what they are missing, stated plainly, useful even if they never click — and `means` — what it means for them and what the link gives them, spoken to them (you / your). No ask here. |
 | `why_me` | One line of credibility, after the gift. |
-| `ask` | Last. 20 minutes, naming what you will cover. Easy to say no to. |
+| `ask` | Last. 20 minutes, naming what you will cover — about them, not one slice of their business ("how it applies to you", not "to your sites"). Easy to say no to. `draft` puts the booking link on the line after it — do not paste it yourself. |
 
 `seen` and `gift` can swap: lead with the gift when it stands on its own.
 
@@ -61,9 +61,47 @@ Value-first:
    | Dashboard or public page | The question is ongoing, or a page already answers it | an existing page | `"link": "https://…"` |
 
    Files go in `out/<id>/`. Pamphlets are the usual choice; use another type when it removes their to-do faster. Mice and rabbits with the same to-do can share one gift.
-4. The gift text says what is inside and where to look first.
+4. **Every gift reaches them as a Google Drive link, never an attachment.** Upload the file to the sender's Drive, share it as "anyone with the link can view", and put the link in `gift.link` (keep `pamphlet` or `file` too, so we know what was shared). A link opens in the browser with nothing to download, which feels safer than a file from a stranger and lands in the inbox more often. If you cannot upload as the sender, list the files for the human and leave `link` empty — `draft` refuses the note until it is filled.
+5. The gift states the finding and what it means for them, so the email is useful before they click and they know exactly what the link holds. `draft` puts the link on the line after it, and the LinkedIn note must include it too.
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
+
+## Every message is worth their time
+
+The first email is not the only one that gives. Every follow-up and LinkedIn message brings something new with its own link — the next finding, the page to read first, a peer example, one chart — so each one is worth opening on its own. Never "bumping this", "following up", "circling back", "checking in", "any thoughts". Plan the follow-ups when you make the gift: a pamphlet has several findings, and each follow-up hands over the next one.
+
+A pointer is not value. The email says the thing itself; the link is where they go deeper.
+
+| Pointer (refused) | Value (what to write) |
+|---|---|
+| "page 4 has the three warning signs your peers caught too late." | "teams that stalled all hit the same wall: the pilot had no owner once the vendor left site. page 4 shows you the handover your peers now write into the contract." |
+| "take a look at the attached guide." | "most co-founder splits start months earlier, as a silent gap in how much risk each founder can carry. the guide gives you five questions that surface it while it is still an easy talk." |
+
+```json
+"follow_ups": [
+  {"finding": "founders who split had usually stopped sharing their personal runway numbers a quarter before.",
+   "means": "the one-page check shows you how to raise it without it feeling like an accusation.",
+   "link": "https://drive.google.com/…"}
+]
+```
+
+`draft` writes each as `follow-up-1.md`, `follow-up-2.md` in the same thread voice, and refuses one with no new link, the first gift's link again, over 60 words, bump wording, a pointer instead of the finding, a finding under 10 words, or a `means` that does not speak to them.
+
+## The subject line
+
+The subject earns the open. It names the **impact** on them, the **outcome** at stake, and pulls them into the email — never a greeting, a status update or our name.
+
+Shape: *[report name]* + *what is about to happen to them* + *why they should open now*. The bracket tag names the gift as a publication made for their world. Subjects use proper casing; only the body is lowercase.
+
+- "[Global CIO report] Your AI accountability is about to outpace your capacity, here's what happens next"
+- "[Utility inspection brief] Your first quarter at Beta is when the backlog decides your year, here's how peers got ahead"
+- "[<Sector> readiness report] The <deadline> lands in 6 weeks, here's what the teams who are ready did"
+
+Build it from the same signal as `seen`, so the subject and the first line tell one story. Front-load the stake: phones show about the first 40 characters. `draft` rejects a subject without the `[tag]`, and empty subjects ("quick question", "following up", "checking in", "intro…", "hi…").
+
+## Lowercase
+
+`draft` writes the body, sign-off and LinkedIn note in lowercase (the subject and the person's name keep proper casing), even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you. It also adds the opt-out line under the sign-off: `not relevant? that's fine! send a "no" and i won't follow up`. Anyone who replies "no" is never contacted again.
 
 ## Never open with
 
@@ -71,7 +109,7 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 ## Length
 
-Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn note: 300 characters, the seen question and the gift only.
+Every email, every tier: at most 90 words and 3 short paragraphs. `draft` lays them out as (1) seen, (2) the gift and its link, (3) why me and the ask together, with the booking link — or gift first when you lead with it. LinkedIn connect note: 200 characters (LinkedIn's limit on free accounts), the seen question and the gift link — value first, always.
 
 ## Note format
 
@@ -80,10 +118,12 @@ Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale:
   "todo_guess": "…",
   "subject": "Names the gift, not us",
   "seen":   {"text": "…", "evidence": ["<signal id>"]},
-  "gift":   {"text": "…", "pamphlet": "<pamphlets/ folder name>"},
+  "gift":   {"finding": "what they are missing, plainly", "means": "what it means for you, and what the link gives you",
+             "pamphlet": "<pamphlets/ folder name>", "link": "https://drive.google.com/…"},
   "why_me": "…",
   "ask":    "…",
   "order":  ["seen", "gift", "why_me", "ask"],
-  "linkedin": "…"
+  "linkedin": "…",
+  "follow_ups": [{"finding": "…", "means": "…you…", "link": "https://drive.google.com/…"}]
 }
 ```

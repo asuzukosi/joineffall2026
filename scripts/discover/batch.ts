@@ -13,7 +13,7 @@ const EMPTY: Omit<Person, "id"> = {
 
 const NEW_BRIEF: Brief = {
   industry: "", offer: "",
-  sender: { name: "", company: "", why_me: "" },
+  sender: { name: "", company: "", why_me: "", booking_link: "" },
   roles: [], strategic_companies: [],
 };
 

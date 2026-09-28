@@ -1,13 +1,14 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadPeople, readJson, signalsFor } from "./batch.ts";
-import { checkNote, partText } from "./checks.ts";
-import type { Brief, Company, Note, Person } from "./types.ts";
+import { checkNote, partText, valueText } from "./checks.ts";
+import type { Brief, Company, FollowUp, Note, Person } from "./types.ts";
 
 export const PAMPHLETS = join(import.meta.dirname, "../../pamphlets");
 
 export function draftAll(dir: string, pamphlets = PAMPHLETS) {
   const brief = readJson<Brief>(join(dir, "brief.json"));
+  if (!brief.sender?.booking_link?.startsWith("https://")) throw new Error("brief.json needs sender.booking_link, the 20-minute booking page");
   const companies = readJson<Record<string, Company>>(join(dir, "companies.json"));
   const people = new Map(loadPeople(dir).map((p) => [p.id, p]));
   const failures: Record<string, string[]> = {};
@@ -28,8 +29,10 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
     const problems = checkNote(note, person, signalsFor(companies, person), { pamphlets, out });
     if (problems.length) return problems;
     mkdirSync(out, { recursive: true });
-    writeFileSync(join(out, "email.md"), composeEmail(note, person, brief, pamphlets));
-    writeFileSync(join(out, "linkedin.md"), note.linkedin.trim() + "\n");
+    writeFileSync(join(out, "email.md"), composeEmail(note, person, brief));
+    (note.follow_ups ?? []).forEach((followUp, i) =>
+      writeFileSync(join(out, `follow-up-${i + 1}.md`), composeFollowUp(followUp, person, brief)));
+    writeFileSync(join(out, "linkedin.md"), lower(note.linkedin.trim(), [...person.name.split(" "), person.company]) + "\n");
   } catch (error) {
     const reason = error instanceof SyntaxError ? "is not valid JSON" : "has the wrong shape";
     return [`notes/${id}.json ${reason}: ${(error as Error).message}`];
@@ -37,10 +40,28 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
   return [];
 }
 
-export function composeEmail(note: Note, person: Person, brief: Brief, pamphlets: string) {
+const OPT_OUT = `not relevant? that's fine! send a "no" and i won't follow up`;
+
+function lower(text: string, names: string[] = []) {
+  const keep = (piece: string) => names.filter(Boolean).reduce((out, name) =>
+    out.replace(new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "gi"), name), piece.toLowerCase());
+  return text.split(/(https?:\/\/\S+)/).map((piece, i) => (i % 2 ? piece : keep(piece))).join("");
+}
+
+function signOff(text: string, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
-  const attach = note.gift.pamphlet ? `Attach: ${join(pamphlets, note.gift.pamphlet, "pamphlet.pdf")}\n`
-    : note.gift.file ? `Attach: ${note.gift.file}\n` : "";
-  const body = note.order.map((part) => partText(note, part)).join("\n\n");
-  return `Subject: ${note.subject}\n${attach}\nHi ${first},\n\n${body}\n\n${brief.sender.name}\n`;
+  const keep = [...person.name.split(" "), person.company];
+  return `${lower(`hi ${first},\n\n${text}\n\n${brief.sender.name}\n\n${OPT_OUT}`, keep)}\n`;
+}
+
+export function composeFollowUp(followUp: FollowUp, person: Person, brief: Brief) {
+  return signOff(`${valueText(followUp)}\n${followUp.link}`, person, brief);
+}
+
+export function composeEmail(note: Note, person: Person, brief: Brief) {
+  const paragraphs = note.order.filter((part) => part !== "why_me").map((part) =>
+    part === "gift" ? `${valueText(note.gift)}\n${note.gift.link}`
+      : part === "ask" ? `${note.why_me} ${note.ask}\n${brief.sender.booking_link}`
+      : partText(note, part));
+  return `Subject: ${note.subject.trim()}\n\n${signOff(paragraphs.join("\n\n"), person, brief)}`;
 }

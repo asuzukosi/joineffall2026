@@ -10,7 +10,9 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 
 ## Order
 
-1. `new <slug> --industry "…" --offer "…"`, then fill `brief.json`: `sender` (name, company, one-line why_me),
+Any industry, any offer — both are inputs. What never changes: every message leads with value from that industry, never with us, and every message — first email, each follow-up, each LinkedIn note — carries something worth their time on its own.
+
+1. `new <slug> --industry "…" --offer "…"`, then research the industry before anyone is contacted: what is changing, who is winning and losing, what it costs them. That research becomes the gifts. Then fill `brief.json`: `sender` (name, company, one-line why_me, `booking_link` — the 20-minute booking page),
    `roles` (each with 2–3 `todo_guesses` for this quarter), `strategic_companies` (whales).
 2. Find people. Look past the obvious — use at least two:
    - `find <batch> --source exa --query "<role> at <kind of company> <context>"` — vary the context: a recent move, a tool they use, a region.
@@ -42,7 +44,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 | elephant | 501–5,000 | their own pamphlet, plus a film | draft | rewrite each |
 | whale | 5,000+ or strategic | their own pamphlet and film, reviewed page by page | draft only | writes and sends it, ideally through a warm intro |
 
-The gift can be any type in the **outreach-writing** gift menu — pamphlet, film, deck, spreadsheet, checklist, brief or link — whichever takes their to-do off the list fastest. `draft` refuses a note whose pamphlet is not built or whose file is missing.
+The gift can be any type in the **outreach-writing** gift menu — pamphlet, film, deck, spreadsheet, checklist, brief or link — whichever takes their to-do off the list fastest. Every gift goes out as a Google Drive link, never an attachment. `draft` refuses a note with no `https://` gift link, or whose pamphlet or file is missing.
 
 Start every new industry with mice. Carry the opening lines and gifts that earned replies up the tiers; a whale only gets a message shape that already worked lower down.
 
@@ -50,9 +52,12 @@ Start every new industry with mice. Carry the opening lines and gifts that earne
 
 Prefer people who will move fast: just joined or promoted, recently funded, hiring for the problem, facing a deadline, founder-led. A slow whale can wait a quarter.
 
+## LinkedIn
+
+The agent sends the connect notes itself, in the browser with `gstack-browse` and the user's LinkedIn cookies, following the LinkedIn steps in the `customer-discovery` skill's `references/outbound.md`. There is no daily cap of our own — LinkedIn's limits are the limit. The moment LinkedIn shows a captcha, an identity check, an "unusual activity" warning or a limit notice, stop every LinkedIn step for the day and tell the user; never retry past it.
+
 ## Never
 
 - Send anything. Nothing leaves without `approved: true` set by a human, and whales are never sent by a tool.
-- Read or message LinkedIn automatically. LinkedIn notes are drafts a human pastes.
 - Invent evidence. Record a signal with its real URL before citing it.
 - Commit anything under `outbound/` or `pamphlets/`.
