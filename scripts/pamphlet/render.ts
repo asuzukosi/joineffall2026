@@ -5,6 +5,7 @@ import puppeteer, { type Page } from "puppeteer-core";
 import { checkWriting, proseOf } from "./writing.ts";
 
 const A4 = { width: 794, height: 1123 };
+const MAX_EMPTY = 110; // px, about 29mm: a quarter of the usable page reads as unfinished
 const CHROME = process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 type Source = { file: string; home: string };
@@ -62,7 +63,12 @@ function joinPages(dir: string, sources: Source[], title: string) {
   const bodies = sources.map(({ file, home }) => {
     const id = basename(file, ".html");
     const body = part(readFileSync(file, "utf8"), "body").replace(/<main\b/i, `<main id="${id}"`);
-    return home === dir ? body : body.replaceAll("../images/", `file://${join(home, "images")}/`);
+    // recipient pages use their own image if present, else the topic's, so clean never breaks a rebuild
+    return body.replace(/\.\.\/images\/([^"')]+)/g, (_, name: string) => {
+      const own = join(home, "images", name);
+      const shared = sources.find((s) => s.home !== home && existsSync(join(s.home, "images", name)));
+      return `file://${existsSync(own) || !shared ? own : join(shared.home, "images", name)}`;
+    });
   });
   return `<!doctype html><html lang="en"><head>${head}<title>${title}</title></head><body>${bodies.join("\n")}</body></html>`;
 }
@@ -79,7 +85,15 @@ async function prepare(page: Page, file: string) {
       const slot = a.querySelector("i");
       if (slot && at >= 0) slot.textContent = number(at);
     });
-    return pages.map((main) => ({ id: main.id, spill: main.scrollHeight - main.clientHeight }));
+    // empty space left under the last block, ignoring the footer; full-bleed and cover pages are exempt
+    const unused = (main: HTMLElement) => {
+      if (main.matches(".dark, .flush, .cover")) return 0;
+      const blocks = [...main.children].filter((el) => !el.matches(".folio, .home, .runhead"));
+      const last = Math.max(...blocks.map((el) => el.getBoundingClientRect().bottom));
+      const floor = main.getBoundingClientRect().bottom - parseFloat(getComputedStyle(main).paddingBottom);
+      return Math.round(floor - last);
+    };
+    return pages.map((main) => ({ id: main.id, spill: main.scrollHeight - main.clientHeight, empty: unused(main) }));
   });
 }
 
@@ -111,7 +125,10 @@ export async function build(dir: string, topics: string, title: string) {
     const out = join(dir, "pamphlet.pdf");
     const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true, outline: true, tagged: true });
     writeFileSync(out, await stamp(pdf, dir, title));
-    const problems = pages.filter((p) => p.spill > 1).map((p) => `${p.id}: content overflows by ${p.spill}px`);
+    const problems = [
+      ...pages.filter((p) => p.spill > 1).map((p) => `${p.id}: content overflows by ${p.spill}px`),
+      ...pages.filter((p) => p.empty > MAX_EMPTY).map((p) => `${p.id}: leaves ${Math.round(p.empty / 3.78)}mm empty at the bottom; add content or a figure with .grow`),
+    ];
     return { out, previews, count: pages.length, problems };
   } finally {
     await browser.close();

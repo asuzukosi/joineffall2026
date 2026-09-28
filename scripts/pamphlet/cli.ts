@@ -64,7 +64,7 @@ async function render(name: string | undefined) {
   const result = await build(folder(name), TOPICS, name!);
   console.log(`pdf: ${result.out}  (${result.count} pages)`);
   console.log(`previews: ${result.previews}`);
-  for (const problem of result.problems) console.error(`overflow: ${problem}`);
+  for (const problem of result.problems) console.error(`layout: ${problem}`);
   if (result.problems.length) process.exit(2);
 }
 
