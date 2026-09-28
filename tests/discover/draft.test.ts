@@ -108,12 +108,12 @@ describe("draftAll", () => {
     expect(Object.keys(failures)).toEqual([ben]);
     expect(failures[ben][0]).toMatch(/not valid JSON/);
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
-    expect(email.startsWith("Subject: [Founder field guide] Co-founder breakups decide more early companies than markets do, here's how to see it coming\n\nhi ada,")).toBe(true);
+    expect(email.startsWith("Subject: [Founder field guide] Co-founder breakups decide more early companies than markets do, here's how to see it coming\n\nhi Ada,")).toBe(true);
     expect(email.indexOf("co-founder")).toBeLessThan(email.indexOf("20 minute"));
     expect(email.endsWith(`kosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`)).toBe(true);
     expect(email).toContain("and i'm sure customer discovery");
-    const body = email.slice(email.indexOf("\n"));
-    expect(body.replace(BOOKING, "")).toBe(body.replace(BOOKING, "").toLowerCase());
+    const body = email.slice(email.indexOf("\n")).replace(BOOKING, "").replaceAll("Ada", "");
+    expect(body).toBe(body.toLowerCase());
     expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
     expect(email).not.toContain("Attach");
     expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nkosi`);
@@ -136,6 +136,16 @@ describe("draftAll", () => {
     const brief = readJson<Brief>(join(dir, "brief.json"));
     writeJson(join(dir, "brief.json"), { ...brief, sender: { ...brief.sender, booking_link: "" } });
     expect(() => draftAll(dir, base())).toThrow("brief.json needs sender.booking_link");
+  });
+
+  it("keeps the person's name in its own casing anywhere in the body", () => {
+    const { dir, ids: [ada] } = batch();
+    const note = { ...GOOD, why_me: "Ada, I want you to win. I've been working with founders like you, ada." };
+    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify(note));
+    draftAll(dir, base());
+    const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
+    expect(email).toContain("Ada, i want you to win. i've been working with founders like you, Ada.");
+    expect(email).not.toContain("adapt");
   });
 
   it("reports a note for someone not in the batch", () => {

@@ -80,7 +80,7 @@ Build it from the same signal as `seen`, so the subject and the first line tell 
 
 ## Lowercase
 
-`draft` writes the body, sign-off and LinkedIn note in lowercase (the subject keeps proper casing), even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you. It also adds the opt-out line under the sign-off: `not relevant? that's fine! send a "no" and i won't follow up`. Anyone who replies "no" is never contacted again.
+`draft` writes the body, sign-off and LinkedIn note in lowercase (the subject and the person's name keep proper casing), even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you. It also adds the opt-out line under the sign-off: `not relevant? that's fine! send a "no" and i won't follow up`. Anyone who replies "no" is never contacted again.
 
 ## Never open with
 
