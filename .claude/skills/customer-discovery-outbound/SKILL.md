@@ -34,7 +34,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 
 ## Tiers — how much we can get wrong
 
-| Tier | Company size | Gift | You | Human |
+| Tier | Company size | Usual gift | You | Human |
 |---|---|---|---|---|
 | mouse | 1–10 | one shared pamphlet for everyone with the same to-do | write and draft | spot-check |
 | rabbit | 11–50 | shared pamphlet, cover page naming their company | write and draft | skim each |
@@ -42,7 +42,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 | elephant | 501–5,000 | their own pamphlet, plus a film | draft | rewrite each |
 | whale | 5,000+ or strategic | their own pamphlet and film, reviewed page by page | draft only | writes and sends it, ideally through a warm intro |
 
-Pamphlets are made with the **customer-pamphlet** skill (`npm run pamphlet -- new|brand|build <name>`), films with **customer-video**. `draft` refuses a note whose pamphlet has not been built.
+The gift can be any type in the **outreach-writing** gift menu — pamphlet, film, deck, spreadsheet, checklist, brief or link — whichever takes their to-do off the list fastest. `draft` refuses a note whose pamphlet is not built or whose file is missing.
 
 Start every new industry with mice. Carry the opening lines and gifts that earned replies up the tiers; a whale only gets a message shape that already worked lower down.
 

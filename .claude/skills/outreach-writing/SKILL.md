@@ -48,9 +48,20 @@ Value-first:
 
 1. Write `todo_guess`: the one item most likely on their list this quarter, from their role, signals and `brief.roles[].todo_guesses`. Specific: "pick between two vendors before the October budget freeze", not "improve operations".
 2. Pick the one research task that removes or shortens that item: what peers did, what it cost, what failed, who supplies what.
-3. Make it as a pamphlet with the **customer-pamphlet** skill — the default gift for every tier — then set `"gift": {"text": "…", "pamphlet": "<name>"}`. Mice and rabbits with the same to-do share one pamphlet; deer and above get their own, in their brand. The gift text says what is inside and which page to read first.
-4. Sometimes a short film says it better: make it with the **customer-video** skill — a made-up character in their role living the problem, in their brand. Never their own face, name or likeness. Save it as `out/<id>/film.mp4` and set `"file": "film.mp4"`.
-5. When a public page already answers their question, use `"link"` and say what to look at first.
+3. Pick the gift type that fits the job, not the one that is easiest to make:
+
+   | Gift | When it fits | Make it with | In the note |
+   |---|---|---|---|
+   | Pamphlet | A research question with several parts: what peers did, costs, suppliers | **customer-pamphlet** | `"pamphlet": "<name>"` |
+   | Film | The problem is easier shown than read | **customer-video** — a made-up character in their role, never their own face or likeness | `"file": "film.mp4"` |
+   | Slide deck | They have to take the case to a boss or board | the gcr slides pipeline or the **pptx** skill | `"file": "deck.pptx"` |
+   | Spreadsheet | They are comparing vendors, prices, sites or options | the **xlsx** skill | `"file": "comparison.xlsx"` |
+   | Checklist or template | They are about to run a process for the first time | the **pdf** or **docx** skill | `"file": "checklist.pdf"` |
+   | One-page brief | One sharp finding is enough (often mice) | the **pdf** skill | `"file": "brief.pdf"` |
+   | Dashboard or public page | The question is ongoing, or a page already answers it | an existing page | `"link": "https://…"` |
+
+   Files go in `out/<id>/`. Pamphlets are the usual choice; use another type when it removes their to-do faster. Mice and rabbits with the same to-do can share one gift.
+4. The gift text says what is inside and where to look first.
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
 
