@@ -66,6 +66,18 @@ Value-first:
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
 
+## The subject line
+
+The subject earns the open. It names the **impact** on them, the **outcome** at stake, and pulls them into the email — never a greeting, a status update or our name.
+
+Shape: *what is about to happen to them* + *why they should open now*.
+
+- "your ai accountability is about to outpace your capacity, here's what happens next"
+- "your first quarter at beta is when the backlog decides your year, here's how peers got ahead"
+- "the <deadline> lands in 6 weeks, here's what the teams who are ready did"
+
+Build it from the same signal as `seen`, so the subject and the first line tell one story. Front-load the stake: phones show about the first 40 characters. `draft` rejects empty subjects ("quick question", "following up", "checking in", "intro…", "hi…").
+
 ## Lowercase
 
 `draft` writes the subject, body, sign-off and LinkedIn note in lowercase, even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you. It also adds the opt-out line under the sign-off: `not relevant? that's fine! send a "no" and i won't follow up`. Anyone who replies "no" is never contacted again.

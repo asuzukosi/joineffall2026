@@ -69,6 +69,13 @@ describe("checkNote", () => {
     expect(check({ ...GOOD, linkedin: "Co-founder breakups getting to you?" })).toContain("the LinkedIn note must include the gift link");
   });
 
+  it("rejects subjects that are about us or say nothing", () => {
+    for (const subject of ["Quick question", "following up", "Checking in", "Intro to Example Co", "Hi Ada"]) {
+      expect(check({ ...GOOD, subject })).toContain(`subject says nothing about their outcome: "${subject}"`);
+    }
+    expect(check({ ...GOOD, subject: "Your AI accountability is about to outpace your capacity, here's what happens next" })).toEqual([]);
+  });
+
   it("limits length by tier", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
     expect(check(long).some((p) => p.includes("limit is 90"))).toBe(true);

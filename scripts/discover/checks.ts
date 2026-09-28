@@ -7,6 +7,7 @@ const REQUIRED = ["subject", "seen", "gift", "why_me", "ask", "order", "linkedin
 const BANNED = ["i'm a", "i am a", "i've helped", "i have helped", "are you open to", "quick call", "hope this finds you"];
 const WORD_LIMITS: Record<string, number> = { mouse: 90, rabbit: 90, deer: 120, elephant: 150, whale: 150 };
 const LINKEDIN_LIMIT = 200;
+const EMPTY_SUBJECTS = /^(quick question|following up|follow up|checking in|touching base|intro\b|introduction|hi\b|hello\b|hey\b)/i;
 
 export function partText(note: Note, part: string) {
   const value = note[part as keyof Note];
@@ -38,6 +39,7 @@ function checkWords(note: Note, person: Person) {
   const email = PARTS.map((part) => partText(note, part)).join(" ");
   const everything = `${email} ${note.linkedin}`.toLowerCase().replaceAll("’", "'");
   const problems = BANNED.filter((phrase) => everything.includes(phrase)).map((phrase) => `banned phrase: "${phrase}"`);
+  if (EMPTY_SUBJECTS.test(note.subject.trim())) problems.push(`subject says nothing about their outcome: "${note.subject}"`);
   const tier = person.tier ?? "deer";
   const words = email.split(/\s+/).filter(Boolean).length;
   if (words > WORD_LIMITS[tier]) problems.push(`email is ${words} words; the ${tier} limit is ${WORD_LIMITS[tier]}`);
