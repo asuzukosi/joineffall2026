@@ -4,6 +4,7 @@ import { parseArgs } from "node:util";
 import { addCrumb, addHypothesis } from "./add.ts";
 import { checkMaze, type Hypothesis, type Maze } from "./check.ts";
 import { events } from "./events.ts";
+import { latest } from "./latest.ts";
 import { market } from "./market.ts";
 import { table } from "./markdown.ts";
 import { papers } from "./papers.ts";
@@ -15,7 +16,7 @@ const DAY = 86_400_000;
 const USAGE = `usage: npm run maze -- <command>
 
   add <maze> "<belief>" --wrong-if "..." --do "..."   hypothesis to action in one step
-      [--id short-name] [--method "..."] [--bet inbox] [--by YYYY-MM-DD] [--type desirability]
+      [--id short-name] [--method "..."] [--bet inbox] [--by YYYY-MM-DD] [--type problem|spend|solution]
   crumb <maze> "<what we give>" --for "<who>" [--tests <hypothesis-id>] [--bet inbox] [--by YYYY-MM-DD]
                                   something useful the buyer gets free today; their reaction is evidence
   check <maze>                    what to do now, then everything that blocks a test
@@ -23,6 +24,7 @@ const USAGE = `usage: npm run maze -- <command>
                                   transcript into notes/: Wispr Flow or any .txt/.md,
                                   claude.ai export conversations.json, Claude Code .jsonl
   new <maze> --thesis "..."       create mazes/<maze>/maze.json (add does this for you)
+  latest "<field>" [--days 90]    newest news, research, launches and open-source tools (Exa)
   events "<topic>" [--days 60]    in-person London events from Meetup, Luma and confs.tech
   market "<query>" [--sic 62012,...]  UK buyer counts, public contracts, research funding, HN attention
   papers "<query>"                paper counts per year and the most relevant recent papers`;
@@ -42,9 +44,9 @@ function mazeFile(name: string) {
 
 function create(name: string, thesis: string) {
   const dir = join(MAZES, name);
-  if (existsSync(dir)) fail(`mazes/${name} already exists`);
+  if (existsSync(mazeFile(name))) fail(`mazes/${name}/maze.json already exists`);
   cpSync(join(import.meta.dirname, "template"), dir, { recursive: true });
-  mkdirSync(join(dir, "notes"));
+  mkdirSync(join(dir, "notes"), { recursive: true });
   save(name, { ...load(name), thesis });
   console.log(`created mazes/${name}/maze.json`);
 }
@@ -86,7 +88,7 @@ function add(name: string, belief: string, v: Record<string, string | undefined>
     wrongIf: v["wrong-if"] ?? fail('--wrong-if is required: "fewer than <n> of <sample> <did what>"'),
     action: v.do ?? fail("--do is required: the first thing to do today to test it"),
     bet: v.bet ?? "inbox",
-    type: (v.type ?? "desirability") as Hypothesis["type"],
+    type: (v.type ?? "problem") as Hypothesis["type"],
     method: v.method ?? "customer conversations",
     deadline: v.by ?? date(14),
     today: date(),
@@ -100,7 +102,8 @@ function crumb(name: string, give: string, v: Record<string, string | undefined>
   if (!existsSync(mazeFile(name))) create(name, "");
   const maze = load(name);
   const forWho = v.for ?? fail('--for is required: the named person or group who gets it, e.g. "Sarah at Northside Clinic"');
-  addCrumb(maze, v.bet ?? "inbox", { give, for: forWho, tests: v.tests, due: v.by ?? date() });
+  const testedBet = maze.bets.find((b) => b.hypotheses.some((h) => h.id === v.tests))?.id;
+  addCrumb(maze, v.bet ?? testedBet ?? "inbox", { give, for: forWho, tests: v.tests, due: v.by ?? date() });
   save(name, maze);
   console.log(`added crumb for ${forWho}\n`);
   report(maze, false);
@@ -135,7 +138,7 @@ const { positionals, values } = parseArgs({
   allowPositionals: true,
   options: {
     thesis: { type: "string" },
-    days: { type: "string", default: "60" },
+    days: { type: "string" },
     sic: { type: "string", default: "" },
     "wrong-if": { type: "string" },
     do: { type: "string" },
@@ -158,7 +161,8 @@ else if (command === "check") report(load(arg));
 else if (command === "crumb") crumb(arg, text ?? fail(USAGE), values);
 else if (command === "import") importTranscript(arg, text ?? fail(USAGE), values);
 else if (command === "new") create(arg, values.thesis ?? fail("--thesis is required"));
-else if (command === "events") console.log(await events(arg, Number(values.days)));
+else if (command === "events") console.log(await events(arg, Number(values.days ?? 60)));
 else if (command === "market") console.log(await market(arg, values.sic.split(",").filter(Boolean)));
 else if (command === "papers") console.log(await papers(arg));
+else if (command === "latest") console.log(await latest(arg, Number(values.days ?? 90)));
 else fail(USAGE);

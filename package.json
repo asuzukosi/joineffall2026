@@ -10,7 +10,7 @@
     "test": "vitest run --passWithNoTests",
     "discover": "node --env-file-if-exists=.env.local scripts/discover/cli.ts",
     "setup:discovery": "bash scripts/discover/setup.sh",
-    "maze": "node scripts/maze/cli.ts",
+    "maze": "node --env-file-if-exists=.env.local scripts/maze/cli.ts",
     "pamphlet": "node scripts/pamphlet/cli.ts",
     "video": "node scripts/video/cli.ts"
   },

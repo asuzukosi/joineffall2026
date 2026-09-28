@@ -16,6 +16,7 @@ async function recent(query: string) {
   const res = await getJson<HfPaper[]>(`https://huggingface.co/api/papers/search?q=${encodeURIComponent(query)}`);
   const rows = res
     .slice(0, 15)
+    .sort((a, b) => b.paper.publishedAt.localeCompare(a.paper.publishedAt))
     .map(({ paper: p }) => [day(p.publishedAt), p.title, p.upvotes, `https://huggingface.co/papers/${p.id}`]);
   return table(["Published", "Paper", "Upvotes", "Link"], rows);
 }
@@ -23,7 +24,7 @@ async function recent(query: string) {
 export async function papers(query: string) {
   const parts = await Promise.all([
     section("Is the field speeding up?", () => trend(query)),
-    section("Most relevant papers (Hugging Face Papers)", () => recent(query)),
+    section("Most relevant papers, newest first (Hugging Face Papers)", () => recent(query)),
   ]);
   return `# Research: "${query}"\n\n${parts.join("\n")}`;
 }

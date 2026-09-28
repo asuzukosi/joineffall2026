@@ -3,7 +3,8 @@
 Get from a hypothesis to something you do today in one command. The agent does
 the thinking and writes it into `mazes/<maze>/maze.json`; the scripts turn it into
 an ordered list of actions, check each test can actually fail, and fetch free
-market data. No API keys needed.
+market data. `latest` needs `EXA_API_KEY` in `.env.local` (about 3 cents a run);
+everything else is free with no key.
 
 `mazes/` is git-ignored: the repo is public and mazes hold unreleased ideas.
 
@@ -17,6 +18,7 @@ hypothesis ──► add ──► Do now: <first action>        (seconds; creat
                check ──► Do now, then the rest by risk
                          blocking problems (exit 2): a test that cannot run or fail
                          planning gaps (exit 0): fill after acting
+   latest ── what changed this month (Exa): news, research, launches, open-source tools
    papers / market / events ── evidence
    import <transcript> ──► notes/ ──► facts, commitments ──► evidence scores, new `add`s
 ```
@@ -34,12 +36,13 @@ npm run maze -- crumb clinics "Free list of 3 call-triage tools that work with E
   --for "The 10 managers from the cohort search" --tests triage-hours
 npm run maze -- check clinics
 npm run maze -- import clinics ~/Downloads/call-with-sarah.txt --title "Sarah, practice manager"
+npm run maze -- latest "warehouse pickers during peak season" --days 30
 npm run maze -- papers "warehouse picking robot"
 npm run maze -- market "warehouse robotics" --sic 52103,28220
 npm run maze -- events "robotics, robot, humanoid" --days 60
 ```
 
-`add` defaults: bet `inbox`, type `desirability`, importance 4, evidence 1,
+`add` defaults: bet `inbox`, type `problem`, importance 4, evidence 1,
 deadline 14 days out, action due today, id from the belief's first words. Change
 them with `--id`, `--method`, `--bet`, `--type`, `--by`, or edit the file.
 
@@ -93,7 +96,7 @@ Save any output to the maze folder, e.g. `> mazes/<maze>/market.md`.
         {
           "id": "peak-labour-pain",
           "belief": "3PL site managers lose margin every peak to agency labour",
-          "type": "desirability",
+          "type": "problem",
           "importance": 5,
           "evidence": 1,
           "disproof_test": {
@@ -110,7 +113,7 @@ Save any output to the maze folder, e.g. `> mazes/<maze>/market.md`.
 }
 ```
 
-- `type`: desirability (do they want it), viability (will it pay), feasibility (can we build it).
+- `type`: `problem` (it happens and hurts), `spend` (they already pay or work around it), `solution` (our approach fixes it). A solution hypothesis blocks `check` until a problem hypothesis in the same bet has survived; a problem worded as a solution is flagged.
 - `importance` and `evidence`: 1–5. Risk is `importance × (6 − evidence)`; `check` sorts by it.
 - `status`: untested, testing, survived, killed. Survived or killed needs a `result`.
 - A hypothesis without `we_are_wrong_if` and `deadline` fails `check`, and so does an open one past its deadline.
