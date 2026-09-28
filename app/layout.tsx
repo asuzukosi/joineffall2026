@@ -12,7 +12,7 @@ const newRocker = New_Rocker({
 });
 
 export const metadata: Metadata = {
-  title: "EF Fall 2026",
+  title: "Connection search Fall 2026",
   description: "Search the cohort's combined network.",
 };
 
