@@ -36,7 +36,7 @@ npm run pamphlet -- brand acme-jane https://acme.com
 npm run pamphlet -- build acme-jane
 ```
 
-`new` without `--topic` still copies the full ten-page sample template for a one-off pamphlet.
+`new` refuses to run without `--topic`: every pamphlet builds on researched topic pages.
 
 `build` first checks the prose on every page with the avoid-ai-writing
 detector (`writing.ts`) and stops on any medium or high finding, naming the page.
@@ -53,25 +53,28 @@ Chrome comes from `/Applications/Google Chrome.app`; set `CHROME_PATH` to use an
 
 ## Page components (page.css)
 
-Everything is set in one font, `--font-body` (and `--font-display`, normally the same family).
+One font, four sizes (22 / 11 / 9.5 / 7.5pt) and two weights; see the
+`customer-pamphlet` skill for why. The components are deliberately few.
 
 | Class | Use |
 |---|---|
-| `.page` `.dark` `.tint` `.flush` | A4 page; cover colours; accent tint; no padding for full-bleed |
-| `.cover` `.glow` `.hero` `.logo` `.button` | cover with accent glow or a generated hero image |
-| `.contents` `.chapter` | clickable chapter cards with a thumbnail each |
-| `.home` `.folio` | "← Contents" link and page number in the footer |
-| `.bleed` `.shade` `.bleed-text` | full-page image with headline over it |
-| `.figure` `.caption` `.grow` | rounded image block; `.grow` fills the rest of the page |
-| `.hotspots` `.dot` `.legend` | numbered markers on an image (`style="--x: 20%; --y: 30%"`) |
-| `.split` `.tag` | before/after pair of images |
-| `.mosaic` | one large and two small images |
-| `.stats` `.stat` `.big-number` | numbers as graphics |
-| `.bars` `.bar` | bar chart (`<i style="--v: 60%">`) |
-| `.stack` `.layer` `.hot` `.gap` `.arrow` | layered box diagram |
-| `.checklist` `.check` `.score` | score-yourself quiz |
-| `.callout` `.quote` `.steps` `.cols` | did-you-know card, pull quote, numbered plan, two columns |
-| `.matrix` | comparison table; `td.y` highlights, `td.n` mutes |
-| `.issues` `.issue` | linked list of cited issues or documents with a big number each |
-| `.source` | clickable source under a number |
-| `.code` | dark code block; `<b>` highlights, `<i>` dims |
+| `.page` `.dark` `.flush` | A4 page; dark cover colours; no padding for full-bleed |
+| `.runhead` `.home` `.folio` | running head, link back to contents, page number (filled at build) |
+| `.head` `.kicker` `.lede` | page opening: small label, 22pt title (`h2`), 11pt standfirst |
+| `.cols2` `.cols` | two columns of running text; two blocks side by side |
+| `.exhibit` `.title` `.source` | numbered exhibit with its title and source line |
+| `.matrix` (`.compact`, `.dense`) | tables; `td.y` normal, `td.n` muted |
+| `.stats` (`.four`) `.stat` | headline numbers with a short label |
+| `.bars` `.bar` | horizontal bar chart (`<i style="--v: 60%">`) |
+| `.steps` `.step` | numbered findings |
+| `.checklist` `.check` | a question with a one-line answer under it |
+| `.toc` `.part` | contents list; page numbers filled at build |
+| `.stack` `.layer` `.arrow` | stacked box diagram |
+| `.callout` `.quote` | left-rule callout and quotation |
+| `.figure` `.fig-s` `.fig-m` `.fig-l` `.grow` `.caption` | images; `.grow` fills the rest of the page |
+| `.cover` `.glow` `.hero` `.logo` `.for` `.button` | cover and back page |
+| `.bleed` `.shade` `.bleed-text` | full-bleed part openers |
+| `.note` `.muted` `.ref` | small print, muted text, links |
+
+Wrap genuine reference lists in `<!-- data -->` … `<!-- /data -->` so the
+writing check treats them as data.
