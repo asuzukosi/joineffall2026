@@ -57,3 +57,6 @@ photos/
 
 # idea mazes hold unreleased business ideas; the repo is public
 /mazes/
+
+# shared research behind pamphlets
+/topics/

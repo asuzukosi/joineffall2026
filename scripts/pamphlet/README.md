@@ -5,29 +5,43 @@ own brand, full of generated images, with a contents page and links that jump
 between pages. The agent writes the story as one HTML file per page; the scripts
 copy the template, pull the customer's brand, and print the pages to one PDF.
 
-`pamphlets/` is git-ignored: the repo is public and pamphlets hold customer research.
+`pamphlets/` and `topics/` are git-ignored: the repo is public.
+
+Research and personalisation are separate steps, so outbound to many people
+reuses one piece of research:
 
 ```text
-customer url ──► brand ──► brand/brand.json, logo.svg, output/<host>/DESIGN.md
-                                │
-                                ▼  agent sets tokens
-   new ──► pamphlets/<name>/ ── brand.css ── page.css (shared components)
-                  │
-                  ├── pages/NN-*.html   one page per file, sorted by name
-                  ├── images/           generated images
-                  ▼
-                build ──► pamphlet.pdf + previews/NN.png   (exit 2 on overflow)
+ONCE PER TOPIC (hours)                         PER RECIPIENT (minutes)
+──────────────────────                         ───────────────────────
+topics/<topic>/                                pamphlets/<name>/
+  research/   sources, fact sheets,              pamphlet.json  { "topic": "<topic>" }
+              numbers.json, facts.json,          brand.css      their colours (brand <name> <url>)
+              page generator                     pages/00-cover.html     their name, their logo
+  images/     shared illustrations               pages/01-for-you.html   3 findings that touch them
+  pages/      02-… research pages   ──┐          pages/99-back.html
+                                      └──► build merges both by file name ──► pamphlet.pdf
+                                           topic pages take the recipient’s brand.css
 ```
+
+Contents page numbers (`.toc a` with an empty `<i>`) are filled in at build time,
+so adding a personal page never breaks them. A page name that exists in both
+the pamphlet and its topic stops the build.
 
 ## Commands
 
 ```sh
-npm run pamphlet -- new acme-agent-security
-npm run pamphlet -- brand acme-agent-security https://acme.com
-npm run pamphlet -- build acme-agent-security
+npm run pamphlet -- topic agent-spend-limits                       # once
+npm run pamphlet -- new acme-jane --topic agent-spend-limits        # per recipient
+npm run pamphlet -- brand acme-jane https://acme.com
+npm run pamphlet -- build acme-jane
 ```
 
-`build` joins the pages into one document and prints it with Chrome, so text
+`new` without `--topic` still copies the full ten-page sample template for a one-off pamphlet.
+
+`build` first checks the prose on every page with the avoid-ai-writing
+detector (`writing.ts`) and stops on any medium or high finding, naming the page.
+Tables, source lines and anything between `<!-- data -->` and `<!-- /data -->`
+count as data and are skipped. It then joins the pages into one document and prints it with Chrome, so text
 stays selectable and links work: `href="#03-at-a-glance"` jumps to the page file
 `03-at-a-glance.html`, and web links open in the browser. Any `.folio` element
 gets the page number. A page whose content is taller than A4 fails the build and
