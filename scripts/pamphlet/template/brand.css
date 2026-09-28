@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+:root {
+  --paper: #ffffff;
+  --ink: #111318;
+  --muted: #5d6270;
+  --rule: #e2e4ea;
+  --accent: #6d4aff;
+  --accent-soft: #f1edff;
+  --accent-ink: #ffffff;
+  --cover: #0b0a1f;
+  --cover-ink: #ffffff;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --display-weight: 300;
+  --radius: 10px;
+}

@@ -1,0 +1,49 @@
+{
+  "customer": "Customer",
+  "value": "[who at Customer] watches this and sees [their own day with the problem gone]",
+  "characters": [
+    {
+      "id": "lead",
+      "name": "First name",
+      "role": "the person at Customer's customer who carries the problem",
+      "look": "age, build, hair, clothes, one distinctive detail — the same words every time",
+      "ref": "cast/lead.jpg"
+    }
+  ],
+  "scenes": [
+    { "id": "01-open", "seconds": 4, "card": "title", "kicker": "Made for Customer", "title": "The promise, in their words" },
+    {
+      "id": "02-meet", "seconds": 6, "clip": "clips/02-meet.mp4", "cast": ["lead"],
+      "narration": "Introduce the person and their world in one line.",
+      "caption": "Where and when, e.g. 02:10, night shift",
+      "still_prompt": "The lead in their real workplace, doing their normal job",
+      "motion_prompt": "Slow push-in, calm documentary feel"
+    },
+    {
+      "id": "03-problem", "seconds": 6, "clip": "clips/03-problem.mp4", "cast": ["lead"],
+      "narration": "The moment the problem bites, said plainly.",
+      "still_prompt": "The same place, the problem arriving",
+      "motion_prompt": "Handheld, slight tension"
+    },
+    {
+      "id": "04-cost", "seconds": 6, "clip": "clips/04-cost.mp4", "cast": ["lead"],
+      "narration": "What it costs them, with one real number.",
+      "still_prompt": "The weight of it: time passing, work piling up",
+      "motion_prompt": "Static, clock visible, slow"
+    },
+    {
+      "id": "05-turn", "seconds": 6, "clip": "clips/05-turn.mp4", "cast": ["lead"],
+      "narration": "The same moment, with the problem handled.",
+      "still_prompt": "The same place and person, relieved",
+      "motion_prompt": "Smooth dolly, light lifts"
+    },
+    {
+      "id": "06-result", "seconds": 6, "clip": "clips/06-result.mp4", "cast": ["lead"],
+      "narration": "The result for the customer, in one line.",
+      "caption": "The number that changed",
+      "still_prompt": "A quiet moment that shows the outcome",
+      "motion_prompt": "Slow pull-out"
+    },
+    { "id": "07-close", "seconds": 5, "card": "end", "title": "One next step", "text": "you@yourcompany.com" }
+  ]
+}

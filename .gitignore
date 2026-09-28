@@ -51,8 +51,9 @@ photos/
 # outbound batches hold prospect data
 /outbound/
 
-# pamphlets hold customer research and generated media
+# pamphlets and videos hold customer research and generated media
 /pamphlets/
+/videos/
 
 # idea mazes hold unreleased business ideas; the repo is public
 /mazes/
