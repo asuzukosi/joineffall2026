@@ -1,7 +1,7 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadPeople, readJson, signalsFor } from "./batch.ts";
-import { checkNote, partText } from "./checks.ts";
+import { checkNote, partText, valueText } from "./checks.ts";
 import type { Brief, Company, FollowUp, Note, Person } from "./types.ts";
 
 export const PAMPHLETS = join(import.meta.dirname, "../../pamphlets");
@@ -55,12 +55,12 @@ function signOff(text: string, person: Person, brief: Brief) {
 }
 
 export function composeFollowUp(followUp: FollowUp, person: Person, brief: Brief) {
-  return signOff(`${followUp.text}\n${followUp.link}`, person, brief);
+  return signOff(`${valueText(followUp)}\n${followUp.link}`, person, brief);
 }
 
 export function composeEmail(note: Note, person: Person, brief: Brief) {
   const paragraphs = note.order.filter((part) => part !== "why_me").map((part) =>
-    part === "gift" ? `${note.gift.text}\n${note.gift.link}`
+    part === "gift" ? `${valueText(note.gift)}\n${note.gift.link}`
       : part === "ask" ? `${note.why_me} ${note.ask}\n${brief.sender.booking_link}`
       : partText(note, part));
   return `Subject: ${note.subject.trim()}\n\n${signOff(paragraphs.join("\n\n"), person, brief)}`;

@@ -26,7 +26,7 @@ Value-first:
 | Part | Rule |
 |---|---|
 | `seen` | Their likely problem now. A question unless the signal states it outright. Cite signal ids in `evidence`. |
-| `gift` | What they get today and why it helps. No ask here. |
+| `gift` | The value itself, handed over in the email: `finding` — what they are missing, stated plainly, useful even if they never click — and `means` — what it means for them and what the link gives them, spoken to them (you / your). No ask here. |
 | `why_me` | One line of credibility, after the gift. |
 | `ask` | Last. 20 minutes, naming what you will cover — about them, not one slice of their business ("how it applies to you", not "to your sites"). Easy to say no to. `draft` puts the booking link on the line after it — do not paste it yourself. |
 
@@ -62,7 +62,7 @@ Value-first:
 
    Files go in `out/<id>/`. Pamphlets are the usual choice; use another type when it removes their to-do faster. Mice and rabbits with the same to-do can share one gift.
 4. **Every gift reaches them as a Google Drive link, never an attachment.** Upload the file to the sender's Drive, share it as "anyone with the link can view", and put the link in `gift.link` (keep `pamphlet` or `file` too, so we know what was shared). A link opens in the browser with nothing to download, which feels safer than a file from a stranger and lands in the inbox more often. If you cannot upload as the sender, list the files for the human and leave `link` empty — `draft` refuses the note until it is filled.
-5. The gift text says what is inside and where to look first, so they know what the link is before they click. `draft` puts the link on the line after it, and the LinkedIn note must include it too.
+5. The gift states the finding and what it means for them, so the email is useful before they click and they know exactly what the link holds. `draft` puts the link on the line after it, and the LinkedIn note must include it too.
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
 
@@ -70,14 +70,22 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 The first email is not the only one that gives. Every follow-up and LinkedIn message brings something new with its own link — the next finding, the page to read first, a peer example, one chart — so each one is worth opening on its own. Never "bumping this", "following up", "circling back", "checking in", "any thoughts". Plan the follow-ups when you make the gift: a pamphlet has several findings, and each follow-up hands over the next one.
 
+A pointer is not value. The email says the thing itself; the link is where they go deeper.
+
+| Pointer (refused) | Value (what to write) |
+|---|---|
+| "page 4 has the three warning signs your peers caught too late." | "teams that stalled all hit the same wall: the pilot had no owner once the vendor left site. page 4 shows you the handover your peers now write into the contract." |
+| "take a look at the attached guide." | "most co-founder splits start months earlier, as a silent gap in how much risk each founder can carry. the guide gives you five questions that surface it while it is still an easy talk." |
+
 ```json
 "follow_ups": [
-  {"text": "page 4 has the three warning signs peers caught too late.", "link": "https://drive.google.com/…"},
-  {"text": "last one from me: the one-page checklist the teams who got ahead used.", "link": "https://drive.google.com/…"}
+  {"finding": "founders who split had usually stopped sharing their personal runway numbers a quarter before.",
+   "means": "the one-page check shows you how to raise it without it feeling like an accusation.",
+   "link": "https://drive.google.com/…"}
 ]
 ```
 
-`draft` writes each as `follow-up-1.md`, `follow-up-2.md` in the same thread voice, and refuses one with no new link, the first gift's link again, over 60 words, or bump wording.
+`draft` writes each as `follow-up-1.md`, `follow-up-2.md` in the same thread voice, and refuses one with no new link, the first gift's link again, over 60 words, bump wording, a pointer instead of the finding, a finding under 10 words, or a `means` that does not speak to them.
 
 ## The subject line
 
@@ -110,11 +118,12 @@ Every email, every tier: at most 90 words and 3 short paragraphs. `draft` lays t
   "todo_guess": "…",
   "subject": "Names the gift, not us",
   "seen":   {"text": "…", "evidence": ["<signal id>"]},
-  "gift":   {"text": "…", "pamphlet": "<pamphlets/ folder name>", "link": "https://drive.google.com/…"},
+  "gift":   {"finding": "what they are missing, plainly", "means": "what it means for you, and what the link gives you",
+             "pamphlet": "<pamphlets/ folder name>", "link": "https://drive.google.com/…"},
   "why_me": "…",
   "ask":    "…",
   "order":  ["seen", "gift", "why_me", "ask"],
   "linkedin": "…",
-  "follow_ups": [{"text": "…", "link": "https://drive.google.com/…"}]
+  "follow_ups": [{"finding": "…", "means": "…you…", "link": "https://drive.google.com/…"}]
 }
 ```

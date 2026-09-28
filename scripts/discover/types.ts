@@ -36,9 +36,11 @@ export type Company = { name: string; signals: Signal[] };
 
 export type Job = { title: string; company: string; start: string | null; end: string | null; current: boolean };
 
-export type Gift = { text: string; pamphlet?: string; file?: string; link?: string };
+export type Value = { finding: string; means: string };
 
-export type FollowUp = { text: string; link: string };
+export type Gift = Value & { pamphlet?: string; file?: string; link?: string };
+
+export type FollowUp = Value & { link: string };
 
 export type Note = {
   todo_guess: string;

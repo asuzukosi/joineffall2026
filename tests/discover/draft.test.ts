@@ -13,8 +13,12 @@ const GOOD: Note = {
   todo_guess: "Keep the founding team together through discovery",
   subject: "[Founder field guide] Co-founder breakups decide more early companies than markets do, here's how to see it coming",
   seen: { text: "Co-founder breakups getting to you? And I'm sure customer discovery and its demands are getting very tough.", evidence: ["profile:1"] },
-  gift: { text: "I created a guide for founders in the very early stages that helps them introspect and manage these challenges better, here's the link.", link: "https://example.com/guide" },
-  why_me: "I want you to win and I think this would really give you a leg up. I've been working with founders going through this.",
+  gift: {
+    finding: "Most co-founder splits start months earlier, as a silent gap in how much risk each founder can carry.",
+    means: "The guide gives you five questions that surface it while it is still an easy talk.",
+    link: "https://example.com/guide",
+  },
+  why_me: "I've been working with founders going through this.",
   ask: "Feel free to book a 20 minute conversation if you'd like to talk face to face about these.",
   order: ["seen", "gift", "why_me", "ask"],
   linkedin: "Co-founder breakups getting to you? I made a short guide for early founders on handling it: https://example.com/guide",
@@ -23,7 +27,7 @@ const GOOD: Note = {
 const BAD: Note = {
   ...GOOD,
   seen: { text: "Saw you just joined EF.", evidence: ["profile:1"] },
-  gift: { text: "I'm a psychiatric clinician specializing in founder mental health.", link: "https://example.com" },
+  gift: { finding: "I'm a psychiatric clinician specializing in founder mental health.", means: "It could help you.", link: "https://example.com" },
   why_me: "I've helped X amount of founders go through the tough founding process.",
   ask: "Are you open to a 20 minute conversation?",
 };
@@ -54,7 +58,7 @@ describe("checkNote", () => {
   it("needs the gift to exist", () => {
     const gifts = { pamphlets: base(), out: base() };
     const drive = "https://drive.google.com/file/d/abc/view";
-    const note = { ...GOOD, gift: { text: "Made for you.", pamphlet: "acme", link: drive }, linkedin: `Made this for you: ${drive}` };
+    const note = { ...GOOD, gift: { ...GOOD.gift, pamphlet: "acme", link: drive }, linkedin: `Made this for you: ${drive}` };
     expect(check(note, mouse, gifts)[0]).toMatch(/pamphlet .* not built/);
     mkdirSync(join(gifts.pamphlets, "acme"));
     writeFileSync(join(gifts.pamphlets, "acme", "pamphlet.pdf"), "%PDF");
@@ -63,9 +67,9 @@ describe("checkNote", () => {
 
   it("needs a share link for every gift, and the LinkedIn note carries it", () => {
     const shareLink = "gift needs a link they can open, such as a Google Drive link anyone can view";
-    expect(check({ ...GOOD, gift: { text: "x" } })).toContain(shareLink);
-    expect(check({ ...GOOD, gift: { text: "x", file: "brief.pdf" } }, mouse, { pamphlets: base(), out: base() })).toContain(shareLink);
-    expect(check({ ...GOOD, gift: { text: "x", link: "file:///Users/me/brief.pdf" } })).toContain(shareLink);
+    expect(check({ ...GOOD, gift: { ...GOOD.gift, link: undefined } })).toContain(shareLink);
+    expect(check({ ...GOOD, gift: { ...GOOD.gift, link: undefined, file: "brief.pdf" } }, mouse, { pamphlets: base(), out: base() })).toContain(shareLink);
+    expect(check({ ...GOOD, gift: { ...GOOD.gift, link: "file:///Users/me/brief.pdf" } })).toContain(shareLink);
     expect(check({ ...GOOD, linkedin: "Co-founder breakups getting to you?" })).toContain("the LinkedIn note must include the gift link");
   });
 
@@ -79,18 +83,33 @@ describe("checkNote", () => {
   });
 
   it("makes every follow-up bring something new, with its own link", () => {
-    const followUp = (text: string, link = "https://drive.google.com/file/d/two/view") => ({ ...GOOD, follow_ups: [{ text, link }] });
-    expect(check(followUp("page 4 has the three warning signs peers wish they had caught earlier."))).toEqual([]);
-    expect(check(followUp("just bumping this to the top of your inbox."))).toContain("follow-up 1 brings nothing new: \"bumping\"");
-    expect(check(followUp("here is another angle.", GOOD.gift.link!))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
-    expect(check(followUp("here is another angle.", ""))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
-    expect(check(followUp("word ".repeat(61)))).toContain("follow-up 1 is 61 words; the limit is 60");
+    const finding = "Founders who split had usually stopped sharing their personal runway numbers a quarter before.";
+    const means = "The one-page check shows you how to raise it without it feeling like an accusation.";
+    const followUp = (f = finding, m = means, link = "https://drive.google.com/file/d/two/view") => ({ ...GOOD, follow_ups: [{ finding: f, means: m, link }] });
+    expect(check(followUp())).toEqual([]);
+    expect(check(followUp("just bumping this to the top of your inbox so it does not get lost."))).toContain("follow-up 1 brings nothing new: \"bumping\"");
+    expect(check(followUp(finding, means, GOOD.gift.link!))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
+    expect(check(followUp(finding, means, ""))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
+    expect(check(followUp(finding, "word ".repeat(50)))).toContain("follow-up 1 is 64 words; the limit is 60");
+  });
+
+  it("makes the email hand over the finding itself, told to them, not a pointer to a file", () => {
+    const gift = (finding: string, means = GOOD.gift.means) => check({ ...GOOD, gift: { ...GOOD.gift, finding, means } });
+    expect(gift("Page 4 has the three warning signs your peers caught too late.")).toContain("gift only points at the file; say what they are missing: \"page 4 has\"");
+    expect(gift("Take a look at the attached guide for early founders.")).toContain("gift only points at the file; say what they are missing: \"take a look\"");
+    expect(gift("Splits start early.")).toContain("gift finding is too thin to be useful on its own; state what they are missing in a full sentence");
+    expect(gift(GOOD.gift.finding, "The guide has five questions that surface it early.")).toContain("gift must say what it means for them, speaking to them (you / your)");
+    const followUp = { finding: "Page 6 has the checklist.", means: "Worth a read.", link: "https://drive.google.com/file/d/two/view" };
+    expect(check({ ...GOOD, follow_ups: [followUp] })).toEqual(expect.arrayContaining([
+      "follow-up 1 only points at the file; say what they are missing: \"page 6 has\"",
+      "follow-up 1 must say what it means for them, speaking to them (you / your)",
+    ]));
   });
 
   it("keeps every email to 90 words, whatever the tier", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
-    expect(check(long)).toContain("email is 124 words; the limit is 90");
-    expect(check(long, { tier: "whale" } as Person)).toContain("email is 124 words; the limit is 90");
+    expect(check(long)).toContain("email is 119 words; the limit is 90");
+    expect(check(long, { tier: "whale" } as Person)).toContain("email is 119 words; the limit is 90");
     const long201 = GOOD.linkedin.padEnd(201, ".");
     expect(check({ ...GOOD, linkedin: long201 })).toContain("LinkedIn note is 201 characters; the limit is 200");
     expect(check({ ...GOOD, linkedin: GOOD.linkedin.padEnd(200, ".") })).toEqual([]);
@@ -123,7 +142,8 @@ describe("draftAll", () => {
     expect(email).toContain("and i'm sure customer discovery");
     const body = email.slice(email.indexOf("\n")).replace(BOOKING, "").replaceAll("Ada", "");
     expect(body).toBe(body.toLowerCase());
-    expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
+    expect(email).toContain("while it is still an easy talk.\nhttps://example.com/guide\n");
+    expect(email).toContain("most co-founder splits start months earlier, as a silent gap in how much risk each founder can carry. the guide gives you five questions");
     expect(email).not.toContain("Attach");
     expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nkosi`);
     expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^co-founder/);
@@ -154,21 +174,22 @@ describe("draftAll", () => {
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
     const body = email.slice(email.indexOf("hi Ada,\n\n") + 9, email.indexOf("\n\nkosi"));
     expect(body.split("\n\n")).toHaveLength(3);
-    expect(body.split("\n\n")[2]).toMatch(/^i want you to win.*going through this\. feel free to book/);
+    expect(body.split("\n\n")[2]).toMatch(/^i've been working with founders going through this\. feel free to book/);
   });
 
   it("drafts each follow-up in the same voice, with its link", () => {
     const { dir, ids: [ada] } = batch();
     const link = "https://drive.google.com/file/d/Two/view";
-    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify({ ...GOOD, follow_ups: [{ text: "Page 4 has the three warning signs Ada's peers caught late.", link }] }));
+    const followUps = [{ finding: "Founders who split had usually stopped sharing their runway numbers a quarter before.", means: "Ada, the one-page check shows you how to raise it gently.", link }];
+    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify({ ...GOOD, follow_ups: followUps }));
     expect(draftAll(dir, base())).toEqual({});
     const followUp = readFileSync(join(dir, "out", ada, "follow-up-1.md"), "utf8");
-    expect(followUp).toBe(`hi Ada,\n\npage 4 has the three warning signs Ada's peers caught late.\n${link}\n\nkosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`);
+    expect(followUp).toBe(`hi Ada,\n\nfounders who split had usually stopped sharing their runway numbers a quarter before. Ada, the one-page check shows you how to raise it gently.\n${link}\n\nkosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`);
   });
 
   it("keeps the person's and company's names in their own casing anywhere in the body", () => {
     const { dir, ids: [ada] } = batch();
-    const note = { ...GOOD, why_me: "Ada, I want you to win at ACME. I've been working with founders like you, ada." };
+    const note = { ...GOOD, why_me: "Ada, I want you to win at ACME. I've been working with founders like you, ada." , ask: "Book 20 minutes if useful." };
     writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify(note));
     draftAll(dir, base());
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
