@@ -1,7 +1,7 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { basename, extname, join } from "node:path";
 import { parseArgs } from "node:util";
-import { addHypothesis } from "./add.ts";
+import { addCrumb, addHypothesis } from "./add.ts";
 import { checkMaze, type Hypothesis, type Maze } from "./check.ts";
 import { events } from "./events.ts";
 import { market } from "./market.ts";
@@ -16,6 +16,8 @@ const USAGE = `usage: npm run maze -- <command>
 
   add <maze> "<belief>" --wrong-if "..." --do "..."   hypothesis to action in one step
       [--id short-name] [--method "..."] [--bet inbox] [--by YYYY-MM-DD] [--type desirability]
+  crumb <maze> "<what we give>" --for "<who>" [--tests <hypothesis-id>] [--bet inbox] [--by YYYY-MM-DD]
+                                  something useful the buyer gets free today; their reaction is evidence
   check <maze>                    what to do now, then everything that blocks a test
   import <maze> <file> [--match "title words"] [--title "..."]
                                   transcript into notes/: Wispr Flow or any .txt/.md,
@@ -56,19 +58,22 @@ function save(name: string, maze: Maze) {
   writeFileSync(mazeFile(name), JSON.stringify(maze, null, 2) + "\n");
 }
 
-function report(maze: Maze) {
-  const { blocking, gaps, next, summary } = checkMaze(maze, date());
+function report(maze: Maze, showGaps = true) {
+  const { blocking, gaps, next, crumbs, summary } = checkMaze(maze, date());
   const now = next[0];
   console.log(
     now
-      ? `Do now: ${now.action}\n  tests ${now.bet}/${now.hypothesis}, risk ${now.risk}, due ${now.due}${now.overdue ? " (OVERDUE)" : ""}\n`
+      ? `Do now: ${now.action}\n  due ${now.due}${now.overdue ? " (OVERDUE)" : ""}; tests ${now.bet}/${now.hypothesis}, risk ${now.risk}\n  wrong if ${now.wrongIf}, by ${now.deadline}\n`
       : "Do now: nothing open. Add a hypothesis with `maze add`.\n",
   );
   const rows = next.slice(1).map((n) => [n.risk, n.bet, n.hypothesis, n.action, n.overdue ? `${n.due} OVERDUE` : n.due]);
   if (rows.length) console.log(`# Then\n\n${table(["Risk", "Bet", "Hypothesis", "Action", "Due"], rows)}`);
+  const crumbRows = crumbs.map((c) => [c.status === "given" ? "given: note their reaction" : c.overdue ? `${c.due} OVERDUE` : c.due, c.give, c.for, c.bet, c.tests ?? ""]);
+  if (crumbRows.length) console.log(`# Crumbs of value\n\n${table(["Due", "Give", "For", "Bet", "Tests"], crumbRows)}`);
   const betRows = summary.map((b) => [b.parked ? `${b.bet} (parked)` : b.bet, b.open, b.survived, b.killed, b.topRisk]);
   if (betRows.length > 1) console.log(`# Bets\n\n${table(["Bet", "Open", "Survived", "Killed", "Top risk"], betRows)}`);
-  if (gaps.length) console.log(`# Planning gaps (fill after acting)\n\n${gaps.map((g) => `- ${g}`).join("\n")}\n`);
+  if (gaps.length && showGaps) console.log(`# Planning gaps (fill after acting)\n\n${gaps.map((g) => `- ${g}`).join("\n")}\n`);
+  else if (gaps.length) console.log(`${gaps.length} planning gaps; \`check\` lists them.\n`);
   if (blocking.length) fail(`# Blocking: fix before testing\n\n${blocking.map((p) => `- ${p}`).join("\n")}`);
 }
 
@@ -88,7 +93,17 @@ function add(name: string, belief: string, v: Record<string, string | undefined>
   });
   save(name, maze);
   console.log(`added ${h.id}\n`);
-  report(maze);
+  report(maze, false);
+}
+
+function crumb(name: string, give: string, v: Record<string, string | undefined>) {
+  if (!existsSync(mazeFile(name))) create(name, "");
+  const maze = load(name);
+  const forWho = v.for ?? fail('--for is required: the named person or group who gets it, e.g. "Sarah at Northside Clinic"');
+  addCrumb(maze, v.bet ?? "inbox", { give, for: forWho, tests: v.tests, due: v.by ?? date() });
+  save(name, maze);
+  console.log(`added crumb for ${forWho}\n`);
+  report(maze, false);
 }
 
 function readTranscript(file: string, v: Record<string, string | undefined>): Transcript {
@@ -130,6 +145,8 @@ const { positionals, values } = parseArgs({
     method: { type: "string" },
     id: { type: "string" },
     match: { type: "string" },
+    for: { type: "string" },
+    tests: { type: "string" },
     title: { type: "string" },
   },
 });
@@ -138,6 +155,7 @@ if (!arg) fail(USAGE);
 
 if (command === "add") add(arg, text ?? fail(USAGE), values);
 else if (command === "check") report(load(arg));
+else if (command === "crumb") crumb(arg, text ?? fail(USAGE), values);
 else if (command === "import") importTranscript(arg, text ?? fail(USAGE), values);
 else if (command === "new") create(arg, values.thesis ?? fail("--thesis is required"));
 else if (command === "events") console.log(await events(arg, Number(values.days)));

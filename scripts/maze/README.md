@@ -9,6 +9,7 @@ market data. No API keys needed.
 
 ```text
 hypothesis ──► add ──► Do now: <first action>        (seconds; creates the maze if needed)
+             crumb ──► something useful the buyer gets free today; their reaction is evidence
                  │
                  ▼
             maze.json ◄── agent edits: more bets, walk, premortem, results
@@ -29,6 +30,8 @@ npm run maze -- add clinics "Clinic managers lose 5+ hours a week to phone triag
   --wrong-if "fewer than 4 of 12 managers describe a recent week of it" \
   --do "Message 10 clinic managers from the cohort search asking for 20 minutes" \
   --id triage-hours --method "Mom Test calls about last week's phones"
+npm run maze -- crumb clinics "Free list of 3 call-triage tools that work with EMIS" \
+  --for "The 10 managers from the cohort search" --tests triage-hours
 npm run maze -- check clinics
 npm run maze -- import clinics ~/Downloads/call-with-sarah.txt --title "Sarah, practice manager"
 npm run maze -- papers "warehouse picking robot"
@@ -113,6 +116,8 @@ Save any output to the maze folder, e.g. `> mazes/<maze>/market.md`.
 - A hypothesis without `we_are_wrong_if` and `deadline` fails `check`, and so does an open one past its deadline.
 - `walk` and `premortem` belong on every unparked bet, and `decisions` starts with the destination; `check` lists them as planning gaps until filled.
 - `"parked": true` takes a bet out of play: its actions leave the list, and its deadlines, walk and premortem stop counting.
+- `crumbs` on a bet: `{ "give", "for", "tests", "due", "status": "to-give" | "given" | "used" | "ignored", "result" }`.
+  Something useful the buyer gets free today; `check` lists a gap for any bet in play without one.
 - `decisions` is the path walked: each choice of lead bet, with the date and why.
 
 ## Working a maze

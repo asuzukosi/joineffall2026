@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addHypothesis } from "../scripts/maze/add.ts";
+import { addCrumb, addHypothesis } from "../scripts/maze/add.ts";
 import { checkMaze, type Hypothesis, type Maze } from "../scripts/maze/check.ts";
 import { dedupe, matches } from "../scripts/maze/events.ts";
 import { fromClaudeAi, fromClaudeCode, toNote } from "../scripts/maze/transcript.ts";
@@ -26,7 +26,8 @@ function maze(...hypotheses: Hypothesis[]): Maze {
   const walk = { why_now: "w", dead_attempts: "d", moving_walls: "m", who_pays: "p" };
   const premortem = { buyer: "b", incumbent: "i", regulator: "r", researcher: "s" };
   const decisions = [{ date: "2026-09-28", decision: "Destination: a paid pilot by 2026-11-30; floor £20m a year", why: "w" }];
-  return { thesis: "t", open_questions: [], decisions, bets: [{ id: "b", name: "Bet", secret: "s", walk, premortem, hypotheses }] };
+  const crumbs = [{ give: "List of 5 OSS triage tools", for: "Sarah at Northside", due: "2026-09-28", status: "given" as const }];
+  return { thesis: "t", open_questions: [], decisions, bets: [{ id: "b", name: "Bet", secret: "s", walk, premortem, crumbs, hypotheses }] };
 }
 
 describe("checkMaze", () => {
@@ -34,7 +35,18 @@ describe("checkMaze", () => {
     const { blocking, gaps, next } = checkMaze(maze(hypothesis()), "2026-09-28");
     expect(blocking).toEqual([]);
     expect(gaps).toEqual([]);
-    expect(next).toEqual([{ risk: 25, bet: "b", hypothesis: "h-pays", action: "Book 12 interviews", due: "2026-10-01", overdue: false }]);
+    expect(next).toEqual([
+      {
+        risk: 25,
+        bet: "b",
+        hypothesis: "h-pays",
+        wrongIf: "fewer than 4 of 12 do",
+        deadline: "2026-10-12",
+        action: "Book 12 interviews",
+        due: "2026-10-01",
+        overdue: false,
+      },
+    ]);
   });
 
   it("flags a hypothesis with no kill line", () => {
@@ -94,6 +106,31 @@ describe("checkMaze", () => {
     const { blocking, next } = checkMaze(maze(hypothesis({ status: "killed" })), "2026-09-28");
     expect(next).toEqual([]);
     expect(blocking).toEqual(["b/h-pays: killed but no result written"]);
+  });
+});
+
+describe("crumbs of value", () => {
+  it("wants a crumb on every bet in play", () => {
+    const m = maze(hypothesis());
+    m.bets[0].crumbs = [];
+    expect(checkMaze(m, "2026-09-28").gaps).toEqual(["b: no crumb of value: what can we give the buyer free today?"]);
+  });
+
+  it("lists crumbs still to give or awaiting a reaction, and wants a result once they land", () => {
+    const m = maze(hypothesis());
+    m.bets[0].crumbs = [
+      { give: "Competitor digest", for: "Sarah", due: "2026-09-27", status: "to-give" },
+      { give: "Script", for: "Tom", due: "2026-09-26", status: "used" },
+    ];
+    const { crumbs, gaps } = checkMaze(m, "2026-09-28");
+    expect(crumbs).toMatchObject([{ give: "Competitor digest", overdue: true }]);
+    expect(gaps).toEqual(['b: crumb "Script" is used but has no result']);
+  });
+
+  it("adds a crumb due today", () => {
+    const m: Maze = { thesis: "", open_questions: [], bets: [] };
+    addCrumb(m, "inbox", { give: "Events list", for: "Sarah", due: "2026-09-28" });
+    expect(m.bets[0].crumbs).toEqual([{ give: "Events list", for: "Sarah", due: "2026-09-28", status: "to-give" }]);
   });
 });
 
