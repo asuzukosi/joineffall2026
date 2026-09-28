@@ -49,10 +49,12 @@ function checkWords(note: Note, person: Person) {
 
 function checkGift(note: Note, gifts: { pamphlets: string; out: string }) {
   const { pamphlet, file, link } = note.gift;
-  if (pamphlet) {
-    const pdf = join(gifts.pamphlets, pamphlet, "pamphlet.pdf");
-    return existsSync(pdf) ? [] : [`pamphlet ${pamphlet} is not built; run npm run pamphlet -- build ${pamphlet}`];
+  const problems = [];
+  if (!link?.startsWith("https://")) problems.push("gift needs a link they can open, such as a Google Drive link anyone can view");
+  else if (!note.linkedin.includes(link)) problems.push("the LinkedIn note must include the gift link");
+  if (pamphlet && !existsSync(join(gifts.pamphlets, pamphlet, "pamphlet.pdf"))) {
+    problems.push(`pamphlet ${pamphlet} is not built; run npm run pamphlet -- build ${pamphlet}`);
   }
-  if (file) return existsSync(join(gifts.out, file)) ? [] : [`gift file ${join(gifts.out, file)} does not exist`];
-  return link ? [] : ["gift needs a pamphlet, file or link"];
+  if (file && !existsSync(join(gifts.out, file))) problems.push(`gift file ${join(gifts.out, file)} does not exist`);
+  return problems;
 }

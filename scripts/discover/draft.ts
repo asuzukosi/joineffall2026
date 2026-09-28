@@ -28,7 +28,7 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
     const problems = checkNote(note, person, signalsFor(companies, person), { pamphlets, out });
     if (problems.length) return problems;
     mkdirSync(out, { recursive: true });
-    writeFileSync(join(out, "email.md"), composeEmail(note, person, brief, pamphlets));
+    writeFileSync(join(out, "email.md"), composeEmail(note, person, brief));
     writeFileSync(join(out, "linkedin.md"), note.linkedin.trim() + "\n");
   } catch (error) {
     const reason = error instanceof SyntaxError ? "is not valid JSON" : "has the wrong shape";
@@ -37,10 +37,8 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
   return [];
 }
 
-export function composeEmail(note: Note, person: Person, brief: Brief, pamphlets: string) {
+export function composeEmail(note: Note, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
-  const attach = note.gift.pamphlet ? `Attach: ${join(pamphlets, note.gift.pamphlet, "pamphlet.pdf")}\n`
-    : note.gift.file ? `Attach: ${note.gift.file}\n` : "";
-  const body = note.order.map((part) => partText(note, part)).join("\n\n");
-  return `Subject: ${note.subject}\n${attach}\nHi ${first},\n\n${body}\n\n${brief.sender.name}\n`;
+  const parts = note.order.map((part) => part === "gift" ? `${note.gift.text}\n${note.gift.link}` : partText(note, part));
+  return `Subject: ${note.subject}\n\nHi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n`;
 }

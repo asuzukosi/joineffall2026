@@ -52,12 +52,20 @@ describe("checkNote", () => {
 
   it("needs the gift to exist", () => {
     const gifts = { pamphlets: base(), out: base() };
-    const note = { ...GOOD, gift: { text: "Made for you.", pamphlet: "acme" } };
+    const drive = "https://drive.google.com/file/d/abc/view";
+    const note = { ...GOOD, gift: { text: "Made for you.", pamphlet: "acme", link: drive }, linkedin: `Made this for you: ${drive}` };
     expect(check(note, mouse, gifts)[0]).toMatch(/pamphlet .* not built/);
     mkdirSync(join(gifts.pamphlets, "acme"));
     writeFileSync(join(gifts.pamphlets, "acme", "pamphlet.pdf"), "%PDF");
     expect(check(note, mouse, gifts)).toEqual([]);
-    expect(check({ ...GOOD, gift: { text: "x" } })).toContain("gift needs a pamphlet, file or link");
+  });
+
+  it("needs a share link for every gift, and the LinkedIn note carries it", () => {
+    const shareLink = "gift needs a link they can open, such as a Google Drive link anyone can view";
+    expect(check({ ...GOOD, gift: { text: "x" } })).toContain(shareLink);
+    expect(check({ ...GOOD, gift: { text: "x", file: "brief.pdf" } }, mouse, { pamphlets: base(), out: base() })).toContain(shareLink);
+    expect(check({ ...GOOD, gift: { text: "x", link: "file:///Users/me/brief.pdf" } })).toContain(shareLink);
+    expect(check({ ...GOOD, linkedin: "Co-founder breakups getting to you?" })).toContain("the LinkedIn note must include the gift link");
   });
 
   it("limits length by tier", () => {
@@ -91,6 +99,8 @@ describe("draftAll", () => {
     expect(email.startsWith("Subject: A guide for the early days\n\nHi Ada,")).toBe(true);
     expect(email.indexOf("Co-founder")).toBeLessThan(email.indexOf("20 minute"));
     expect(email.trimEnd().endsWith("Kosi")).toBe(true);
+    expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
+    expect(email).not.toContain("Attach");
     expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^Co-founder/);
   });
 

@@ -42,7 +42,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 | elephant | 501–5,000 | their own pamphlet, plus a film | draft | rewrite each |
 | whale | 5,000+ or strategic | their own pamphlet and film, reviewed page by page | draft only | writes and sends it, ideally through a warm intro |
 
-The gift can be any type in the **outreach-writing** gift menu — pamphlet, film, deck, spreadsheet, checklist, brief or link — whichever takes their to-do off the list fastest. `draft` refuses a note whose pamphlet is not built or whose file is missing.
+The gift can be any type in the **outreach-writing** gift menu — pamphlet, film, deck, spreadsheet, checklist, brief or link — whichever takes their to-do off the list fastest. Every gift goes out as a Google Drive link, never an attachment. `draft` refuses a note with no `https://` gift link, or whose pamphlet or file is missing.
 
 Start every new industry with mice. Carry the opening lines and gifts that earned replies up the tiers; a whale only gets a message shape that already worked lower down.
 

@@ -61,7 +61,8 @@ Value-first:
    | Dashboard or public page | The question is ongoing, or a page already answers it | an existing page | `"link": "https://…"` |
 
    Files go in `out/<id>/`. Pamphlets are the usual choice; use another type when it removes their to-do faster. Mice and rabbits with the same to-do can share one gift.
-4. The gift text says what is inside and where to look first.
+4. **Every gift reaches them as a Google Drive link, never an attachment.** Upload the file to the sender's Drive, share it as "anyone with the link can view", and put the link in `gift.link` (keep `pamphlet` or `file` too, so we know what was shared). A link opens in the browser with nothing to download, which feels safer than a file from a stranger and lands in the inbox more often. If you cannot upload as the sender, list the files for the human and leave `link` empty — `draft` refuses the note until it is filled.
+5. The gift text says what is inside and where to look first, so they know what the link is before they click. `draft` puts the link on the line after it, and the LinkedIn note must include it too.
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
 
@@ -71,7 +72,7 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 ## Length
 
-Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn note: 300 characters, the seen question and the gift only.
+Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn note: 300 characters, the seen question and the gift link only.
 
 ## Note format
 
@@ -80,7 +81,7 @@ Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale:
   "todo_guess": "…",
   "subject": "Names the gift, not us",
   "seen":   {"text": "…", "evidence": ["<signal id>"]},
-  "gift":   {"text": "…", "pamphlet": "<pamphlets/ folder name>"},
+  "gift":   {"text": "…", "pamphlet": "<pamphlets/ folder name>", "link": "https://drive.google.com/…"},
   "why_me": "…",
   "ask":    "…",
   "order":  ["seen", "gift", "why_me", "ask"],
