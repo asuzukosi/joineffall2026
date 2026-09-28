@@ -8,15 +8,15 @@ import * as papers from "../../scripts/discover/papers.ts";
 const fixture = (name: string) => JSON.parse(readFileSync(join(import.meta.dirname, "fixtures", name), "utf8"));
 
 describe("exa", () => {
-  it("reads a person, their current job and a recent move", () => {
+  it("reads a person, their current job and a recent move from Exa's real reply shape", () => {
     const person = exa.personFrom({
       id: "abc",
       url: "https://www.linkedin.com/in/ada-obi",
       title: "Ada Obi - Head of Inspection - Beta",
-      entities: [{ name: "Ada Obi", workHistory: [
-        { title: "Head of Inspection", company: { name: "Beta" }, dates: { start: "2026-08-01" } },
-        { title: "Inspection Lead", company: { name: "Acme" }, dates: { start: "2021-01", end: "2026-07" } },
-      ] }],
+      entities: [{ id: "e1", type: "person", version: 1, properties: { name: "Ada Obi", workHistory: [
+        { title: "Head of Inspection", dates: { from: "2026-08-01", to: null }, company: { id: "c1", name: "Beta" } },
+        { title: "Inspection Lead", dates: { from: "2021-01", to: "2026-07" }, company: { id: "c2", name: "Acme" } },
+      ] } }],
     }, "inspection leads", "2026-09-28");
     expect(person).toMatchObject({ name: "Ada Obi", title: "Head of Inspection", company: "Beta", linkedin: "https://www.linkedin.com/in/ada-obi" });
     expect(person.signals.map((s) => s.kind)).toEqual(["profile", "joined"]);

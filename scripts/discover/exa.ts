@@ -3,8 +3,10 @@ import { postJson } from "./http.ts";
 import { requireKey } from "./keys.ts";
 import type { Found, Job } from "./types.ts";
 
-type ExaJob = { title?: string; company?: string | { name?: string }; dates?: { start?: string; end?: string }; startDate?: string; endDate?: string };
-export type ExaResult = { id?: string; url?: string; title?: string; publishedDate?: string; entities?: { name?: string; workHistory?: ExaJob[] }[] };
+type ExaJob = { title?: string; company?: string | { id?: string; name?: string } | null; dates?: { from?: string | null; to?: string | null } | null };
+type ExaPerson = { name?: string; workHistory?: ExaJob[] };
+export type ExaResult = { id?: string; url?: string; title?: string; publishedDate?: string;
+  entities?: ({ properties?: ExaPerson } & Record<string, unknown>)[] };
 
 export async function find(query: string, limit: number, today: string) {
   const res = await postJson<{ results?: ExaResult[] }>("https://api.exa.ai/search",
@@ -14,12 +16,12 @@ export async function find(query: string, limit: number, today: string) {
 
 function toJob(work: ExaJob): Job {
   const company = typeof work.company === "string" ? work.company : work.company?.name ?? "";
-  const end = work.dates?.end ?? work.endDate ?? null;
-  return { title: work.title ?? "", company, start: work.dates?.start ?? work.startDate ?? null, end, current: !end };
+  const end = work.dates?.to ?? null;
+  return { title: work.title ?? "", company, start: work.dates?.from ?? null, end, current: !end };
 }
 
 export function personFrom(result: ExaResult, query: string, today: string): Found {
-  const entity = result.entities?.[0] ?? {};
+  const entity: ExaPerson = result.entities?.[0]?.properties ?? {};
   const history = (entity.workHistory ?? []).map(toJob);
   const current = history.find((j) => j.current) ?? history[0];
   const url = result.url ?? "";
