@@ -1,4 +1,4 @@
-import type { Bet, Hypothesis, Maze } from "./check.ts";
+import type { Bet, Crumb, Hypothesis, Maze } from "./check.ts";
 
 export type NewHypothesis = {
   id?: string;
@@ -23,7 +23,7 @@ function uniqueId(maze: Maze, base: string) {
   return id;
 }
 
-function findOrCreateBet(maze: Maze, id: string): Bet {
+export function findOrCreateBet(maze: Maze, id: string): Bet {
   const existing = maze.bets.find((b) => b.id === id);
   if (existing) return existing;
   const bet: Bet = {
@@ -52,4 +52,11 @@ export function addHypothesis(maze: Maze, n: NewHypothesis): Hypothesis {
   };
   bet.hypotheses.push(hypothesis);
   return hypothesis;
+}
+
+export function addCrumb(maze: Maze, betId: string, crumb: Omit<Crumb, "status">): Crumb {
+  const bet = findOrCreateBet(maze, betId);
+  const added: Crumb = { ...crumb, status: "to-give" };
+  bet.crumbs = [...(bet.crumbs ?? []), added];
+  return added;
 }

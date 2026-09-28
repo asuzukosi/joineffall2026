@@ -21,6 +21,15 @@ export type Walk = { why_now: string; dead_attempts: string; moving_walls: strin
 
 export type Premortem = { buyer: string; incumbent: string; regulator: string; researcher: string };
 
+export type Crumb = {
+  give: string;
+  for: string;
+  tests?: string;
+  due: string;
+  status: "to-give" | "given" | "used" | "ignored";
+  result?: string;
+};
+
 export type Bet = {
   id: string;
   name: string;
@@ -28,8 +37,11 @@ export type Bet = {
   walk: Walk;
   premortem: Premortem;
   parked?: boolean;
+  crumbs?: Crumb[];
   hypotheses: Hypothesis[];
 };
+
+export type OpenCrumb = Crumb & { bet: string; overdue: boolean };
 
 export type Decision = { date: string; decision: string; why: string };
 
@@ -41,6 +53,8 @@ export type NextAction = {
   risk: number;
   bet: string;
   hypothesis: string;
+  wrongIf: string;
+  deadline: string;
   action: string;
   due: string;
   overdue: boolean;
@@ -63,6 +77,10 @@ function betGaps(bet: Bet): string[] {
   if (!bet.hypotheses?.length) problems.push("no hypotheses");
   if (!bet.secret?.trim()) problems.push("no secret (what we believe that most people don't)");
   if (bet.parked) return problems;
+  if (!bet.crumbs?.length) problems.push("no crumb of value: what can we give the buyer free today?");
+  for (const c of bet.crumbs ?? []) {
+    if ((c.status === "used" || c.status === "ignored") && !c.result?.trim()) problems.push(`crumb "${c.give}" is ${c.status} but has no result`);
+  }
   const walk = missing(bet.walk, ["why_now", "dead_attempts", "moving_walls", "who_pays"]);
   if (walk.length) problems.push(`walk missing ${walk.join(", ")}`);
   const seats = missing(bet.premortem, ["buyer", "incumbent", "regulator", "researcher"]);
@@ -117,11 +135,16 @@ export function checkMaze(maze: Maze, today: string) {
       if (bet.parked || (h.status !== "untested" && h.status !== "testing")) continue;
       const risk = h.importance * (6 - h.evidence);
       for (const a of (h.actions ?? []).filter((a) => !a.done)) {
-        next.push({ risk, bet: bet.id, hypothesis: h.id, action: a.do, due: a.due, overdue: a.due < today });
+        const { we_are_wrong_if: wrongIf, deadline } = h.disproof_test;
+        next.push({ risk, bet: bet.id, hypothesis: h.id, wrongIf, deadline, action: a.do, due: a.due, overdue: a.due < today });
       }
     }
   }
   next.sort((a, b) => b.risk - a.risk || a.due.localeCompare(b.due));
+  const crumbs: OpenCrumb[] = bets
+    .filter((b) => !b.parked)
+    .flatMap((b) => (b.crumbs ?? []).filter((c) => c.status === "to-give" || c.status === "given").map((c) => ({ ...c, bet: b.id, overdue: c.status === "to-give" && c.due < today })))
+    .sort((a, b) => a.due.localeCompare(b.due));
   const summary = bets.filter((b) => b.hypotheses?.length).map(summarise);
-  return { blocking, gaps, next, summary };
+  return { blocking, gaps, next, crumbs, summary };
 }
