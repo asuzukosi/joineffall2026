@@ -48,6 +48,5 @@ export function composeEmail(note: Note, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
   const links: Record<string, string> = { gift: note.gift.link ?? "", ask: brief.sender.booking_link };
   const parts = note.order.map((part) => links[part] ? `${partText(note, part)}\n${links[part]}` : partText(note, part));
-  const [, tag = "", rest = note.subject] = /^(\[[^\]]*\]\s*)?([\s\S]*)$/.exec(note.subject.trim()) ?? [];
-  return `Subject: ${tag}${lower(rest)}\n\n${lower(`hi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n\n${OPT_OUT}`)}\n`;
+  return `Subject: ${note.subject.trim()}\n\n${lower(`hi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n\n${OPT_OUT}`)}\n`;
 }

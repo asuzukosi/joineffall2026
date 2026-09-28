@@ -108,7 +108,7 @@ describe("draftAll", () => {
     expect(Object.keys(failures)).toEqual([ben]);
     expect(failures[ben][0]).toMatch(/not valid JSON/);
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
-    expect(email.startsWith("Subject: [Founder field guide] co-founder breakups decide more early companies than markets do, here's how to see it coming\n\nhi ada,")).toBe(true);
+    expect(email.startsWith("Subject: [Founder field guide] Co-founder breakups decide more early companies than markets do, here's how to see it coming\n\nhi ada,")).toBe(true);
     expect(email.indexOf("co-founder")).toBeLessThan(email.indexOf("20 minute"));
     expect(email.endsWith(`kosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`)).toBe(true);
     expect(email).toContain("and i'm sure customer discovery");
