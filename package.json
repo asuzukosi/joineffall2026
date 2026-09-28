@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "pamphlet": "node scripts/pamphlet/cli.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.5",
@@ -31,6 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "puppeteer-core": "^25.12.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.0.1"
