@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { parseArgs } from "node:util";
 import { addCompanySignals, addPeople, addSignals, create, loadPeople, openBatch, savePeople, today } from "./batch.ts";
+import { apollo, enrichAll } from "./enrich.ts";
 import * as exa from "./exa.ts";
 import * as jobs from "./jobs.ts";
 import * as papers from "./papers.ts";
@@ -15,7 +16,8 @@ const USAGE = `usage: npm run discover -- <command>
   find <batch> --source jobs --board greenhouse:<token> --company "..." --query "..."
                                                       record matching job posts as company hiring signals
   signal <batch> <p_id|company> --kind ... --text "..." --url ... [--date YYYY-MM-DD]
-                                                      record one dated piece of evidence`;
+                                                      record one dated piece of evidence
+  enrich <batch> [--phones]                           email, company size, job changes, funding from Apollo`;
 
 function fail(message: string): never {
   console.error(message);
@@ -29,6 +31,7 @@ const { positionals, values } = parseArgs({
     source: { type: "string" }, query: { type: "string" }, limit: { type: "string", default: "25" },
     since: { type: "string" }, board: { type: "string" }, company: { type: "string" },
     kind: { type: "string" }, text: { type: "string" }, url: { type: "string" }, date: { type: "string" },
+    phones: { type: "boolean", default: false },
   },
 });
 const need = (name: keyof typeof values) => (values[name] as string | undefined) ?? fail(`--${name} is required`);
@@ -72,6 +75,14 @@ function signal(name: string, target: string) {
   console.log(record.id);
 }
 
+async function enrich(name: string) {
+  const dir = openBatch(name);
+  const people = loadPeople(dir);
+  const matched = await enrichAll(people, Boolean(values.phones), apollo(), today());
+  savePeople(dir, people);
+  console.log(`${matched} matched in Apollo, ${people.filter((p) => p.phone).length} with phones`);
+}
+
 const [command, arg, target] = positionals;
 if (!arg) fail(USAGE);
 
@@ -81,6 +92,7 @@ try {
     console.log(`created ${dir}\nnext: fill in brief.json — sender, roles with todo_guesses, strategic_companies`);
   } else if (command === "find") await find(arg);
   else if (command === "signal") signal(arg, target ?? fail(USAGE));
+  else if (command === "enrich") await enrich(arg);
   else fail(USAGE);
 } catch (error) {
   fail((error as Error).message);
