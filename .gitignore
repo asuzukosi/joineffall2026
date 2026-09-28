@@ -47,3 +47,10 @@ photos/
 .issue-notes.md
 !.env.example
 .gstack/
+
+# pamphlets and videos hold customer research and generated media
+/pamphlets/
+/videos/
+
+# shared research behind pamphlets
+/topics/
