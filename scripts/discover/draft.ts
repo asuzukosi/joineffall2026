@@ -30,7 +30,7 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
     if (problems.length) return problems;
     mkdirSync(out, { recursive: true });
     writeFileSync(join(out, "email.md"), composeEmail(note, person, brief));
-    writeFileSync(join(out, "linkedin.md"), note.linkedin.trim() + "\n");
+    writeFileSync(join(out, "linkedin.md"), lower(note.linkedin.trim()) + "\n");
   } catch (error) {
     const reason = error instanceof SyntaxError ? "is not valid JSON" : "has the wrong shape";
     return [`notes/${id}.json ${reason}: ${(error as Error).message}`];
@@ -38,9 +38,13 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
   return [];
 }
 
+function lower(text: string) {
+  return text.split(/(https?:\/\/\S+)/).map((piece, i) => (i % 2 ? piece : piece.toLowerCase())).join("");
+}
+
 export function composeEmail(note: Note, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
   const links: Record<string, string> = { gift: note.gift.link ?? "", ask: brief.sender.booking_link };
   const parts = note.order.map((part) => links[part] ? `${partText(note, part)}\n${links[part]}` : partText(note, part));
-  return `Subject: ${note.subject}\n\nHi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n`;
+  return `Subject: ${lower(note.subject)}\n\n${lower(`hi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}`)}\n`;
 }

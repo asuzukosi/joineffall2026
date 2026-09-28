@@ -28,7 +28,7 @@ Value-first:
 | `seen` | Their likely problem now. A question unless the signal states it outright. Cite signal ids in `evidence`. |
 | `gift` | What they get today and why it helps. No ask here. |
 | `why_me` | One line of credibility, after the gift. |
-| `ask` | Last. 20 minutes, naming what you will cover. Easy to say no to. `draft` puts the booking link on the line after it — do not paste it yourself. |
+| `ask` | Last. 20 minutes, naming what you will cover — about them, not one slice of their business ("how it applies to you", not "to your sites"). Easy to say no to. `draft` puts the booking link on the line after it — do not paste it yourself. |
 
 `seen` and `gift` can swap: lead with the gift when it stands on its own.
 
@@ -65,6 +65,10 @@ Value-first:
 5. The gift text says what is inside and where to look first, so they know what the link is before they click. `draft` puts the link on the line after it, and the LinkedIn note must include it too.
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
+
+## Lowercase
+
+`draft` writes the subject, body, sign-off and LinkedIn note in lowercase, even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you.
 
 ## Never open with
 

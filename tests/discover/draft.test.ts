@@ -97,13 +97,15 @@ describe("draftAll", () => {
     expect(Object.keys(failures)).toEqual([ben]);
     expect(failures[ben][0]).toMatch(/not valid JSON/);
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
-    expect(email.startsWith("Subject: A guide for the early days\n\nHi Ada,")).toBe(true);
-    expect(email.indexOf("Co-founder")).toBeLessThan(email.indexOf("20 minute"));
-    expect(email.trimEnd().endsWith("Kosi")).toBe(true);
+    expect(email.startsWith("Subject: a guide for the early days\n\nhi ada,")).toBe(true);
+    expect(email.indexOf("co-founder")).toBeLessThan(email.indexOf("20 minute"));
+    expect(email.trimEnd().endsWith("kosi")).toBe(true);
+    expect(email).toContain("and i'm sure customer discovery");
+    expect(email.replace(BOOKING, "")).toBe(email.replace(BOOKING, "").toLowerCase().replace("subject:", "Subject:"));
     expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
     expect(email).not.toContain("Attach");
-    expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nKosi`);
-    expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^Co-founder/);
+    expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nkosi`);
+    expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^co-founder/);
   });
 
   it("reports a note with the wrong shape and still drafts the rest", () => {
