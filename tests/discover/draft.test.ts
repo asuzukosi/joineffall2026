@@ -78,10 +78,10 @@ describe("checkNote", () => {
     expect(check({ ...GOOD, subject: "Your AI accountability is about to outpace your capacity" })).toContain("subject must start with a [report name] tag, e.g. [Global CIO report]");
   });
 
-  it("limits length by tier", () => {
+  it("keeps every email to 90 words, whatever the tier", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
-    expect(check(long).some((p) => p.includes("limit is 90"))).toBe(true);
-    expect(check(long, { tier: "elephant" } as Person)).toEqual([]);
+    expect(check(long)).toContain("email is 124 words; the limit is 90");
+    expect(check(long, { tier: "whale" } as Person)).toContain("email is 124 words; the limit is 90");
     const long201 = GOOD.linkedin.padEnd(201, ".");
     expect(check({ ...GOOD, linkedin: long201 })).toContain("LinkedIn note is 201 characters; the limit is 200");
     expect(check({ ...GOOD, linkedin: GOOD.linkedin.padEnd(200, ".") })).toEqual([]);
@@ -138,13 +138,23 @@ describe("draftAll", () => {
     expect(() => draftAll(dir, base())).toThrow("brief.json needs sender.booking_link");
   });
 
-  it("keeps the person's name in its own casing anywhere in the body", () => {
+  it("writes at most three short paragraphs between the greeting and the sign-off", () => {
     const { dir, ids: [ada] } = batch();
-    const note = { ...GOOD, why_me: "Ada, I want you to win. I've been working with founders like you, ada." };
+    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify(GOOD));
+    draftAll(dir, base());
+    const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
+    const body = email.slice(email.indexOf("hi Ada,\n\n") + 9, email.indexOf("\n\nkosi"));
+    expect(body.split("\n\n")).toHaveLength(3);
+    expect(body.split("\n\n")[2]).toMatch(/^i want you to win.*going through this\. feel free to book/);
+  });
+
+  it("keeps the person's and company's names in their own casing anywhere in the body", () => {
+    const { dir, ids: [ada] } = batch();
+    const note = { ...GOOD, why_me: "Ada, I want you to win at ACME. I've been working with founders like you, ada." };
     writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify(note));
     draftAll(dir, base());
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
-    expect(email).toContain("Ada, i want you to win. i've been working with founders like you, Ada.");
+    expect(email).toContain("Ada, i want you to win at Acme. i've been working with founders like you, Ada.");
     expect(email).not.toContain("adapt");
   });
 

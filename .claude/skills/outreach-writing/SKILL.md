@@ -88,7 +88,7 @@ Build it from the same signal as `seen`, so the subject and the first line tell 
 
 ## Length
 
-Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn connect note: 200 characters (LinkedIn's limit on free accounts), the seen question and the gift link — value first, always.
+Every email, every tier: at most 90 words and 3 short paragraphs. `draft` lays them out as (1) seen, (2) the gift and its link, (3) why me and the ask together, with the booking link — or gift first when you lead with it. LinkedIn connect note: 200 characters (LinkedIn's limit on free accounts), the seen question and the gift link — value first, always.
 
 ## Note format
 
