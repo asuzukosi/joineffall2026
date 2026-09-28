@@ -6,7 +6,7 @@ export const PARTS = ["seen", "gift", "why_me", "ask"] as const;
 const REQUIRED = ["subject", "seen", "gift", "why_me", "ask", "order", "linkedin"] as const;
 const BANNED = ["i'm a", "i am a", "i've helped", "i have helped", "are you open to", "quick call", "hope this finds you"];
 const WORD_LIMITS: Record<string, number> = { mouse: 90, rabbit: 90, deer: 120, elephant: 150, whale: 150 };
-const LINKEDIN_LIMIT = 300;
+const LINKEDIN_LIMIT = 200;
 
 export function partText(note: Note, part: string) {
   const value = note[part as keyof Note];

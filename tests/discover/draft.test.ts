@@ -73,7 +73,7 @@ describe("checkNote", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
     expect(check(long).some((p) => p.includes("limit is 90"))).toBe(true);
     expect(check(long, { tier: "elephant" } as Person)).toEqual([]);
-    expect(check({ ...GOOD, linkedin: "x".repeat(301) }).some((p) => p.includes("LinkedIn"))).toBe(true);
+    expect(check({ ...GOOD, linkedin: "x".repeat(201) }).some((p) => p.includes("LinkedIn"))).toBe(true);
   });
 });
 

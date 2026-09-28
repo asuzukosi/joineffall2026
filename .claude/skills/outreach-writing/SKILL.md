@@ -76,7 +76,7 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 ## Length
 
-Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn note: 300 characters, the seen question and the gift link only.
+Mouse and rabbit: 90 words across the four parts. Deer: 120. Elephant and whale: 150. LinkedIn connect note: 200 characters (LinkedIn's limit on free accounts), the seen question and the gift link — value first, always.
 
 ## Note format
 
