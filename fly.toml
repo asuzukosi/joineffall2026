@@ -18,3 +18,11 @@ primary_region = "lhr"
   auto_start_machines = true
   auto_stop_machines = "off"
   min_machines_running = 1
+
+# A search loads every person's vector into memory at once. At 256 MB — the
+# default — the kernel OOM-kills next-server mid-request and the machine
+# reboots, which reads as a page that never loads. Declared here so a deploy
+# from a clean checkout cannot quietly put it back.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"

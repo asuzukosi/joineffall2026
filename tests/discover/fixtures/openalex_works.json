@@ -1,0 +1,696 @@
+{
+ "results": [
+  {
+   "id": "https://openalex.org/W4406431707",
+   "doi": "https://doi.org/10.3322/caac.21871",
+   "display_name": "Cancer statistics, 2025",
+   "publication_date": "2025-01-01",
+   "authorships": [
+    {
+     "author": {
+      "display_name": "Rebecca L. Siegel"
+     },
+     "institutions": [
+      {
+       "display_name": "American Cancer Society"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Tyler B. Kratzer"
+     },
+     "institutions": [
+      {
+       "display_name": "American Cancer Society"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Angela N. Giaquinto"
+     },
+     "institutions": [
+      {
+       "display_name": "American Cancer Society"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Hyuna Sung"
+     },
+     "institutions": [
+      {
+       "display_name": "American Cancer Society"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Ahmedin Jemal"
+     },
+     "institutions": [
+      {
+       "display_name": "American Cancer Society"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "https://openalex.org/W4406352787",
+   "doi": "https://doi.org/10.1016/s2213-8587(24)00316-4",
+   "display_name": "Definition and diagnostic criteria of clinical obesity",
+   "publication_date": "2025-01-14",
+   "authorships": [
+    {
+     "author": {
+      "display_name": "Francesco Rubino"
+     },
+     "institutions": [
+      {
+       "display_name": "King's College Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "David E. Cummings"
+     },
+     "institutions": [
+      {
+       "display_name": "VA Puget Sound Health Care System"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Robert H. Eckel"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Colorado Anschutz"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "RICARDO VITOR COHEN"
+     },
+     "institutions": [
+      {
+       "display_name": "Hospital Alem\u00e3o Oswaldo Cruz"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "John P.H. Wilding"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Liverpool"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Wendy A. Brown"
+     },
+     "institutions": [
+      {
+       "display_name": "Monash Alfred Psychiatry Research centre"
+      },
+      {
+       "display_name": "Monash University"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Fatima Cody Stanford"
+     },
+     "institutions": [
+      {
+       "display_name": "Massachusetts General Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Rachel Louise Batterham"
+     },
+     "institutions": [
+      {
+       "display_name": "Eli Lilly (United Kingdom)"
+      },
+      {
+       "display_name": "University College London"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "I. Sadaf Farooqi"
+     },
+     "institutions": [
+      {
+       "display_name": "National Institute for Health and Care Research"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Nathalie J. Farpour\u2010Lambert"
+     },
+     "institutions": [
+      {
+       "display_name": "University Hospital of Geneva"
+      },
+      {
+       "display_name": "Geneva College"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Carel Wynand le Roux"
+     },
+     "institutions": [
+      {
+       "display_name": "University College Dublin"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Naveed A. Sattar"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Glasgow"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Louise Alison Baur"
+     },
+     "institutions": [
+      {
+       "display_name": "Children's Hospital at Westmead"
+      },
+      {
+       "display_name": "Sydney Children's Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Katherine Mary Morrison"
+     },
+     "institutions": [
+      {
+       "display_name": "McMaster Children's Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Anoop Misra"
+     },
+     "institutions": [
+      {
+       "display_name": "National Diabetes Obesity and Cholesterol Foundation"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Takashi Kadowaki"
+     },
+     "institutions": [
+      {
+       "display_name": "Toranomon Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Kwang Wei Tham"
+     },
+     "institutions": [
+      {
+       "display_name": "Nanyang Technological University"
+      },
+      {
+       "display_name": "Woodlands Health Campus"
+      },
+      {
+       "display_name": "National Healthcare Group"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Priya Sumithran"
+     },
+     "institutions": [
+      {
+       "display_name": "Alfred Health"
+      },
+      {
+       "display_name": "Monash University"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "William Timothy Garvey"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Alabama at Birmingham"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "John P. Kirwan"
+     },
+     "institutions": [
+      {
+       "display_name": "Pennington Biomedical Research Center"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Jos\u00e9 Manuel Fern\u00e1ndez\u2010Real"
+     },
+     "institutions": [
+      {
+       "display_name": "Institut d'Investigaci\u00f3 Biom\u00e8dica de Girona"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Barbara E. Corkey"
+     },
+     "institutions": [
+      {
+       "display_name": "Boston University"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Hermann Toplak"
+     },
+     "institutions": [
+      {
+       "display_name": "Medical University of Graz"
+      },
+      {
+       "display_name": "Graz University Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Alexander D. Kokkinos"
+     },
+     "institutions": [
+      {
+       "display_name": "National and Kapodistrian University of Athens"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Robert F. Kushner"
+     },
+     "institutions": [
+      {
+       "display_name": "Northwestern University"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Francesco Branca"
+     },
+     "institutions": [
+      {
+       "display_name": "World Health Organization"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Jonathan Valabhji"
+     },
+     "institutions": [
+      {
+       "display_name": "Chelsea and Westminster Hospital NHS Foundation Trust"
+      },
+      {
+       "display_name": "Imperial College London"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Matthias Bl\u00fcher"
+     },
+     "institutions": [
+      {
+       "display_name": "University Hospital Leipzig"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Stefan Richard Bornstein"
+     },
+     "institutions": [
+      {
+       "display_name": "University Hospital Carl Gustav Carus"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Harvey J. Grill"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Pennsylvania"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "\u00c9ric Ravussin"
+     },
+     "institutions": [
+      {
+       "display_name": "Pennington Biomedical Research Center"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Edward W. Gregg"
+     },
+     "institutions": [
+      {
+       "display_name": "Royal College of Surgeons in Ireland"
+      },
+      {
+       "display_name": "Imperial College London"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Noor Al Busaidi"
+     },
+     "institutions": [
+      {
+       "display_name": "Royal Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Nasreen Alfaris"
+     },
+     "institutions": [
+      {
+       "display_name": "King Fahd Medical City"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Ebaa Al\u2010Ozairi"
+     },
+     "institutions": [
+      {
+       "display_name": "Dasman Diabetes Institute"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Lena M. S. Carlsson"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Gothenburg"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Karine Cl\u00e9ment"
+     },
+     "institutions": [
+      {
+       "display_name": "Inserm"
+      },
+      {
+       "display_name": "Sorbonne Universit\u00e9"
+      },
+      {
+       "display_name": "Nutrition et ob\u00e9sit\u00e9 : approches syst\u00e9miques"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Jean\u2010Pierre Despr\u00e9s"
+     },
+     "institutions": []
+    },
+    {
+     "author": {
+      "display_name": "John B. Dixon"
+     },
+     "institutions": [
+      {
+       "display_name": "Swinburne University of Technology"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Gauden Galea"
+     },
+     "institutions": [
+      {
+       "display_name": "World Health Organization Regional Office for Europe"
+      },
+      {
+       "display_name": "World Health Organization"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Lee M. Kaplan"
+     },
+     "institutions": [
+      {
+       "display_name": "Dartmouth College"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Blandine Laferr\u00e8re"
+     },
+     "institutions": [
+      {
+       "display_name": "Columbia University Irving Medical Center"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Martine Laville"
+     },
+     "institutions": [
+      {
+       "display_name": "Lyon 1 Universit\u00e9"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Soo Kun Lim"
+     },
+     "institutions": [
+      {
+       "display_name": "Seoul National University Bundang Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Jes\u00fas R Luna Fuentes"
+     },
+     "institutions": []
+    },
+    {
+     "author": {
+      "display_name": "Vicki Mooney"
+     },
+     "institutions": [
+      {
+       "display_name": "European Foundation for the Improvement of Living and Working Conditions"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Joseph F. Nadglowski"
+     },
+     "institutions": [
+      {
+       "display_name": "Immunization Action Coalition"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Urudinachi Nnenne Agbo"
+     },
+     "institutions": [
+      {
+       "display_name": "Federal Teaching Hospital Abakaliki"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Magdalena Olszanecka\u2010Glinianowicz"
+     },
+     "institutions": [
+      {
+       "display_name": "Medical University of Silesia"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "An Pan"
+     },
+     "institutions": [
+      {
+       "display_name": "Huazhong University of Science and Technology"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Fran\u00e7ois N. Pattou"
+     },
+     "institutions": [
+      {
+       "display_name": "Inserm"
+      },
+      {
+       "display_name": "Universit\u00e9 de Lille"
+      },
+      {
+       "display_name": "Institut Pasteur de Lille"
+      },
+      {
+       "display_name": "Lille\u2019s Cardiology Hospital"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Philip R. Schauer"
+     },
+     "institutions": [
+      {
+       "display_name": "Pennington Biomedical Research Center"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Matthias H. Tsch\u00f6p"
+     },
+     "institutions": [
+      {
+       "display_name": "Helmholtz Munich"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "M. T. van der Merwe"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Pretoria"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Roberto Vettor"
+     },
+     "institutions": [
+      {
+       "display_name": "University of Padua"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Geltrude Mingrone"
+     },
+     "institutions": []
+    }
+   ]
+  },
+  {
+   "id": "https://openalex.org/W1684349371",
+   "doi": "https://doi.org/10.17169/refubium-47759",
+   "display_name": "Negation in English and other languages",
+   "publication_date": "2025-01-01",
+   "authorships": [
+    {
+     "author": {
+      "display_name": "Otto Jespersen"
+     },
+     "institutions": []
+    },
+    {
+     "author": {
+      "display_name": "Reynolds, Brett"
+     },
+     "institutions": [
+      {
+       "display_name": "Humber Polytechnic"
+      }
+     ]
+    },
+    {
+     "author": {
+      "display_name": "Evans, Peter"
+     },
+     "institutions": []
+    }
+   ]
+  }
+ ]
+}

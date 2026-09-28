@@ -10,7 +10,7 @@ and stitch picture and sound into `film.mp4`.
 `videos/` is git-ignored: the repo is public and films hold customer research.
 
 ```text
-customer url ──► brand ──► brand/DESIGN.md, logo.svg ──► brand.css (agent sets tokens)
+customer url ──► brand ──► brand/output/<host>/DESIGN.md, logo.svg ──► brand.css (agent sets tokens)
                                                               │
    new ──► videos/<name>/storyboard.json ──► check ──► script.md (read before spending)
                  │  value, cast, scenes         card.html ──► title, caption and end cards (Chrome)

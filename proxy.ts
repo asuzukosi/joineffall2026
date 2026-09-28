@@ -10,6 +10,6 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|icon.png|ef.png|go-get-that-money.mp4).*)",
+    "/((?!_next/static|_next/image|icon.png|ef.png).*)",
   ],
 };
