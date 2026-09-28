@@ -1,5 +1,5 @@
 import { jobChanges } from "./changes.ts";
-import { postJson } from "./http.ts";
+import { postJson } from "../maze/http.ts";
 import { requireKey } from "./keys.ts";
 import type { Found, Job } from "./types.ts";
 

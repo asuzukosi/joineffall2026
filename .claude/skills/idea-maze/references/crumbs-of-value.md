@@ -8,12 +8,13 @@ it is evidence. Every bet in play has at least one (`check` lists a gap until it
 
 | Crumb | Example | Made with |
 |---|---|---|
-| Point them to something that already works | "These 3 open-source tools do appointment reminders with their booking system; here's how to set up the first" | Web search; test it yourself first |
+| Point them to something that already works | "These 3 open-source tools do appointment reminders with their booking system; here's how to set up the first" | `maze latest` (open-source section); test it yourself first |
 | A small script or no-code fix | A spreadsheet formula or 30-line script that cleans their export | An hour of code; send it running, with a 3-line readme |
 | A tiny web app on their data | A one-page calculator of what peak agency staff cost them | Built in an afternoon, hosted free |
-| Market research they would not do themselves | "Who is selling into your sector, what they charge, what changed this year" | `maze market`, `maze papers`, web search |
+| What changed in their field this month | "Three things that changed for you in September, with links" | `maze latest --days 30` |
+| Market research they would not do themselves | "Who is selling into your sector, what they charge, what changed this year" | `maze latest`, `maze market`, `maze papers` |
 | A report in their brand | A 4-page brief on the rule change hitting them | `customer-pamphlet` skill |
-| Competitor watch | "What your three nearest competitors shipped and hired for this month" | Web search, job boards |
+| Competitor watch | "What your three nearest competitors shipped and hired for this month" | `maze latest "<competitor>"`, job boards |
 | Where their peers are | "Five events next month where practice managers meet" | `maze events` |
 | An introduction | Someone in the cohort network who solved the same problem | Cohort connections search |
 | A digest of a rule or deadline | "What the new rule means for you, in one page, with the dates" | Primary sources only |

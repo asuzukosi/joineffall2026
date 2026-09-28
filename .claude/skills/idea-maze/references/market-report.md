@@ -9,10 +9,12 @@ change hypotheses, not to look complete: end with what it changed.
 npm run -s maze -- market "<bet keywords>" --sic <5-digit SIC codes>
 npm run -s maze -- papers "<technology or problem keywords>"
 npm run -s maze -- events "<term>, <synonym>, <buyer's trade>" --days 60
+npm run -s maze -- latest "<bet keywords>" --days 180
 ```
 
-Then web-search for leaders and startups, one search per angle (incumbents,
-funded startups, recent shutdowns), and open each company's own site.
+`latest` gives the newest launches, rounds, research and open-source tools. Then
+search for incumbents and recent shutdowns, and open each company's own site.
+Newest first in every table.
 
 ## Count who pays
 

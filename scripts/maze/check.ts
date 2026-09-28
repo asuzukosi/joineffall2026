@@ -3,7 +3,7 @@ export type Action = { do: string; due: string; done: boolean };
 export type Hypothesis = {
   id: string;
   belief: string;
-  type: "desirability" | "viability" | "feasibility";
+  type: "problem" | "spend" | "solution";
   importance: number;
   evidence: number;
   disproof_test: {
@@ -60,7 +60,8 @@ export type NextAction = {
   overdue: boolean;
 };
 
-const TYPES = ["desirability", "viability", "feasibility"];
+const TYPES = ["problem", "spend", "solution"];
+const SOLUTION_WORDS = /\b(would|will|want to) (pay|use|buy|switch|adopt)\b|\bour (product|app|tool|software|platform)\b|\b(app|software|platform|tool|AI) (that|to|which) /i;
 const STATUSES = ["untested", "testing", "survived", "killed"];
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -86,6 +87,19 @@ function betGaps(bet: Bet): string[] {
   const seats = missing(bet.premortem, ["buyer", "incumbent", "regulator", "researcher"]);
   if (seats.length) problems.push(`premortem missing ${seats.join(", ")} (run the gaps pass)`);
   return problems;
+}
+
+function solutionFirst(bet: Bet): string[] {
+  const provenProblem = bet.hypotheses.some((h) => h.type === "problem" && h.status === "survived");
+  const openSolutions = bet.hypotheses.filter((h) => h.type === "solution" && (h.status === "untested" || h.status === "testing"));
+  if (bet.parked || provenProblem) return [];
+  return openSolutions.map((h) => `${h.id}: solution test before any problem in this bet survived; test the problem first`);
+}
+
+function solutionWorded(bet: Bet): string[] {
+  return bet.hypotheses
+    .filter((h) => h.type !== "solution" && SOLUTION_WORDS.test(h.belief))
+    .map((h) => `${h.id}: reads like a solution; restate it as what the buyer does or suffers today`);
 }
 
 function hypothesisProblems(h: Hypothesis, today: string, parked: boolean): string[] {
@@ -130,6 +144,8 @@ export function checkMaze(maze: Maze, today: string) {
   if (!maze.decisions?.length) gaps.push("maze: no destination in decisions");
   for (const bet of bets) {
     for (const p of betGaps(bet)) gaps.push(`${bet.id}: ${p}`);
+    for (const p of solutionWorded(bet)) gaps.push(`${bet.id}/${p}`);
+    for (const p of solutionFirst(bet)) blocking.push(`${bet.id}/${p}`);
     for (const h of bet.hypotheses ?? []) {
       for (const p of hypothesisProblems(h, today, !!bet.parked)) blocking.push(`${bet.id}/${h.id}: ${p}`);
       if (bet.parked || (h.status !== "untested" && h.status !== "testing")) continue;

@@ -5,7 +5,7 @@
 Fill this table from `maze.json`, the market reports and `check`'s Bets summary.
 Write it into the decision's `why`.
 
-| Bet | Best desirability evidence (1–5) | Crumbs used / given | Secret: sourced and disputed? | Days to first kill line | Low case above the destination's floor? | Who owns the buyer today |
+| Bet | Best problem evidence (1–5) | Crumbs used / given | Secret: sourced and disputed? | Days to first kill line | Low case above the destination's floor? | Who owns the buyer today |
 |---|---|---|---|---|---|---|
 
 Low case: the smallest credible buyer count (primary source) × the lowest price
@@ -48,7 +48,7 @@ Write it to `decisions`: `{ "date": "...", "decision": "Lead: X; hedge: Y", "why
 
 ## When to leave the maze
 
-A bet leaves the maze when its desirability and viability hypotheses have both
-survived at evidence 4 or higher. The next step is delivering the pilot, not more
+A bet leaves the maze when its `problem` and `spend` hypotheses have both survived
+at evidence 4 or higher, and then one `solution` hypothesis has too. The next step is delivering the pilot, not more
 research. If every bet has died, the thesis goes back to charting with what the
 dead ends taught you, written in `decisions`.

@@ -1,4 +1,4 @@
-import { getJson } from "./http.ts";
+import { getJson } from "../maze/http.ts";
 import type { Found } from "./types.ts";
 
 type Authorship = { author: { display_name: string }; institutions?: { display_name?: string }[] };

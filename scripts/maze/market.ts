@@ -93,6 +93,6 @@ export async function market(query: string, sics: string[]) {
     section("UK public research funding", () => researchFunding(query)),
     section("Attention on Hacker News", () => attention(query)),
   ]);
-  const gap = "\n_Not covered here: leaders, startups and funding. Name them with a web search and cite each one._\n";
+  const gap = "\n_Not covered here: leaders, startups and funding. Run `maze latest` for launches and rounds, then cite each one._\n";
   return `# Market signals: "${query}"\n\n${parts.join("\n")}${gap}`;
 }

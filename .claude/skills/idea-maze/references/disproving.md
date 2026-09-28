@@ -15,8 +15,11 @@ Combine where you can: one call can test pain, ask for data, and offer a pilot.
 
 ## Write the kill line
 
-`fewer than <n> of <sample> <who> <did what>, by <date>`. Past behaviour or a
-commitment, never an opinion. Two weeks at most.
+`fewer than <n> of <sample> <who> <did what>`: a sample, one behaviour people did
+or committed to (never what they say they would do), and a threshold. The date
+goes in `deadline`, at most 14 days out; actions at most 7. A second behaviour is
+a second hypothesis. For `problem` and `spend` hypotheses, the behaviour is about
+the problem ("describe last week's after-hours notes"), never about our idea.
 
 | Weak | Strong |
 |---|---|

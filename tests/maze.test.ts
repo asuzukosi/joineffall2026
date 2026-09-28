@@ -2,13 +2,14 @@ import { describe, expect, it } from "vitest";
 import { addCrumb, addHypothesis } from "../scripts/maze/add.ts";
 import { checkMaze, type Hypothesis, type Maze } from "../scripts/maze/check.ts";
 import { dedupe, matches } from "../scripts/maze/events.ts";
+import { latest } from "../scripts/maze/latest.ts";
 import { fromClaudeAi, fromClaudeCode, toNote } from "../scripts/maze/transcript.ts";
 
 function hypothesis(overrides: Partial<Hypothesis> = {}): Hypothesis {
   return {
     id: "h-pays",
     belief: "Warehouse managers pay for picking help",
-    type: "desirability",
+    type: "problem",
     importance: 5,
     evidence: 1,
     disproof_test: {
@@ -109,6 +110,24 @@ describe("checkMaze", () => {
   });
 });
 
+describe("problems before solutions", () => {
+  it("blocks a solution test until a problem in the bet has survived", () => {
+    const m = maze(hypothesis(), hypothesis({ id: "h-tool", type: "solution" }));
+    expect(checkMaze(m, "2026-09-28").blocking).toEqual([
+      "b/h-tool: solution test before any problem in this bet survived; test the problem first",
+    ]);
+    m.bets[0].hypotheses[0] = hypothesis({ status: "survived", result: "5 of 12 described it" });
+    expect(checkMaze(m, "2026-09-28").blocking).toEqual([]);
+  });
+
+  it("flags a problem hypothesis worded as a solution", () => {
+    const m = maze(hypothesis({ belief: "Physio clinics would pay for AI that writes their notes" }));
+    expect(checkMaze(m, "2026-09-28").gaps).toEqual([
+      "b/h-pays: reads like a solution; restate it as what the buyer does or suffers today",
+    ]);
+  });
+});
+
 describe("crumbs of value", () => {
   it("wants a crumb on every bet in play", () => {
     const m = maze(hypothesis());
@@ -140,7 +159,7 @@ describe("addHypothesis", () => {
     wrongIf: "fewer than 4 of 12 describe it",
     action: "Message 10 clinic managers",
     bet: "inbox",
-    type: "desirability" as const,
+    type: "problem" as const,
     method: "customer conversations",
     deadline: "2026-10-12",
     today: "2026-09-28",
@@ -210,5 +229,14 @@ describe("transcripts", () => {
       { speaker: "Claude", text: "Charting now." },
     ]);
     expect(toNote(t, "s.jsonl")).toContain("**Claude:** Charting now.");
+  });
+});
+
+describe("latest", () => {
+  it("says where the Exa key goes when it is missing", async () => {
+    const key = process.env.EXA_API_KEY;
+    delete process.env.EXA_API_KEY;
+    await expect(latest("robots", 30)).rejects.toThrow("EXA_API_KEY is not set; add it to .env.local");
+    if (key) process.env.EXA_API_KEY = key;
   });
 });

@@ -15,16 +15,25 @@ the time. Usually "one bet with a buyer committed to a paid pilot by <date>; flo
 
 A thesis is a direction, not a bet. Generate bets by changing one thing at a time:
 
+A bet is a problem, not a product: "<who> <struggles with what> <when>". If the
+thesis names a solution ("robots will take over picking"), first ask what problem
+it assumes, then vary that problem:
+
 | Change | Question | Example from "robots will take over warehouse picking" |
 |---|---|---|
-| Buyer | Who else has this problem, with no incumbent yet? | Small e-commerce brands packing from their own unit |
-| Side | Sell to the incumbent instead of replacing them? | Software for the staffing agencies that supply peak pickers |
-| Wedge | What is the narrowest painful slice? | Only the eight weeks of peak season |
-| Shape | Software, service, or a firm run on software? | Robot picking rented by the month, operated by us |
+| Who | Who else has this problem, with nobody serving them yet? | Small e-commerce brands packing from their own unit |
+| Upstream | Whose problem causes this one? | Staffing agencies that cannot find peak pickers |
+| Moment | When is it worst? | The eight weeks of peak season |
+| Root | Is this problem a symptom of a deeper one? | Order volumes nobody can forecast |
 
 Drop bets that need the same thing to be true as another bet; merge them.
 
 ## 3. Walk the maze for each bet
+
+Start each bet with `npm run -s maze -- latest "<bet in a few words>" --days 90`
+and `maze papers`. Why now and moving walls come from what changed in the last
+quarter, not from what everyone already knows.
+
 
 Write these into the bet's `walk`, one or two lines each, with a source where it
 is a fact ("unknown yet" is allowed and goes in `open_questions` too):
@@ -44,7 +53,7 @@ Test it before writing it down:
 1. Would a well-informed buyer or investor dispute it? If not, it is consensus.
 2. Search the claim. If the first page of results states it, it is consensus.
 3. Where does your evidence come from? The strongest sources are a recent change
-   (a regulation, a research result: run `maze papers`) or a pattern only
+   (a regulation, a research result, a launch: run `maze latest` and `maze papers`) or a pattern only
    interviews reveal. Name it.
 
 A consensus secret is not a failure; mark it `"secret": "none yet: <best guess>"`
@@ -52,9 +61,10 @@ and add the question to `open_questions`.
 
 ## 5. List what must be true
 
-For each bet, list the beliefs the bet dies without. Include at least one
-desirability hypothesis (they want it) and one viability hypothesis (they will
-pay enough). Add feasibility only where building it is genuinely uncertain.
+For each bet, list the beliefs the bet dies without, problems first: at least
+one `problem` hypothesis (it happens, often, and hurts) and one `spend` hypothesis
+(they already pay money or time to cope). No `solution` hypothesis until a
+problem hypothesis has survived; `check` blocks it.
 
 Write each belief as past or present behaviour of a named group:
 - Weak: "Warehouses want robots."

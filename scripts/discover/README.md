@@ -25,6 +25,8 @@ npm run discover -- status <batch>
 npm run discover -- draft <batch>
 ```
 
+First time on a machine: `npm run setup:discovery`. It installs or checks the tools, asks for each key and tests it, sets the sender and booking link, checks Apollo has a mailbox and Drive can share, and checks the skills are present.
+
 Keys in `.env.local`: `EXA_API_KEY`, `APOLLO_API_KEY` (a master key), `OPENALEX_API_KEY`
 (free; anonymous OpenAlex search is sometimes paused), optional `OPENALEX_MAILTO`.
 

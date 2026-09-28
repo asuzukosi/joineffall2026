@@ -16,6 +16,18 @@ describe("batch", () => {
     expect(loadPeople(dir)).toEqual([]);
   });
 
+  it("fills the sender from the environment set up once", () => {
+    process.env.DISCOVER_SENDER_NAME = "Kosi";
+    process.env.DISCOVER_SENDER_COMPANY = "Example Co";
+    process.env.DISCOVER_BOOKING_LINK = "https://calendar.app.google/abc";
+    const dir = create("sender", "a", "b", root());
+    expect(readJson<Brief>(join(dir, "brief.json")).sender).toEqual({
+      name: "Kosi", company: "Example Co", why_me: "", booking_link: "https://calendar.app.google/abc" });
+    delete process.env.DISCOVER_SENDER_NAME;
+    delete process.env.DISCOVER_SENDER_COMPANY;
+    delete process.env.DISCOVER_BOOKING_LINK;
+  });
+
   it("refuses to overwrite a batch", () => {
     const base = root();
     create("x", "a", "b", base);

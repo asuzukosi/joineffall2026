@@ -5,7 +5,7 @@ description: Use when finding people to talk to for customer discovery, running 
 
 # Customer discovery outbound
 
-All commands: `npm run discover -- <command>` from the repo root. Batches live in `outbound/`, which is never committed.
+All commands: `npm run discover -- <command>` from the repo root. First time on a machine: `npm run setup:discovery` (tools, keys, sender, mailbox, Drive, skills). Batches live in `outbound/` on this machine only — never committed, never pushed to a CRM beyond what sending needs.
 If the bet or the target roles are not settled yet, use the `idea-maze` skill first.
 
 ## Order
@@ -51,6 +51,11 @@ Start every new industry with mice. Carry the opening lines and gifts that earne
 ## Speed first
 
 Prefer people who will move fast: just joined or promoted, recently funded, hiring for the problem, facing a deadline, founder-led. A slow whale can wait a quarter.
+
+## After they book
+
+- **Bookings:** you manage them. Check the sender's calendar for new bookings from the booking link, mark that person `booked` in Apollo, and stop their sequence.
+- **Transcripts:** the user records calls with Granola or Wispr Flow and moves the transcript over when needed. Save each one in the maze's `notes/` folder, one file per conversation, and log what it proved or killed with the **idea-maze** skill. Apollo holds who; the maze holds what was learned.
 
 ## LinkedIn
 
