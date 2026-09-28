@@ -28,6 +28,7 @@ const BAD: Note = {
   ask: "Are you open to a 20 minute conversation?",
 };
 
+const BOOKING = "https://calendar.app.google/JWd2cyMtkWQ6kzMx8";
 const base = () => mkdtempSync(join(tmpdir(), "discover-"));
 const mouse = { tier: "mouse" } as Person;
 const check = (note: Note, person = mouse, gifts = { pamphlets: base(), out: base() }) => checkNote(note, person, SIGNALS, gifts);
@@ -80,7 +81,7 @@ describe("draftAll", () => {
   function batch() {
     const dir = create("x", "Any", "Any", base());
     const brief = readJson<Brief>(join(dir, "brief.json"));
-    writeJson(join(dir, "brief.json"), { ...brief, sender: { name: "Kosi", company: "Example Co", why_me: "" } });
+    writeJson(join(dir, "brief.json"), { ...brief, sender: { name: "Kosi", company: "Example Co", why_me: "", booking_link: BOOKING } });
     addPeople(dir, [
       { name: "Ada Obi", company: "Acme", tier: "mouse", signals: SIGNALS },
       { name: "Ben Ade", company: "Beta", tier: "mouse", signals: SIGNALS },
@@ -101,6 +102,7 @@ describe("draftAll", () => {
     expect(email.trimEnd().endsWith("Kosi")).toBe(true);
     expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
     expect(email).not.toContain("Attach");
+    expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nKosi`);
     expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^Co-founder/);
   });
 
@@ -113,6 +115,13 @@ describe("draftAll", () => {
       expect(Object.keys(failures)).toEqual([ben]);
       expect(failures[ben][0]).toMatch(/^notes\/p_[0-9a-f]+\.json has the wrong shape:/);
     }
+  });
+
+  it("refuses to draft without a booking link in the brief", () => {
+    const { dir } = batch();
+    const brief = readJson<Brief>(join(dir, "brief.json"));
+    writeJson(join(dir, "brief.json"), { ...brief, sender: { ...brief.sender, booking_link: "" } });
+    expect(() => draftAll(dir, base())).toThrow("brief.json needs sender.booking_link");
   });
 
   it("reports a note for someone not in the batch", () => {

@@ -10,7 +10,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 
 ## Order
 
-1. `new <slug> --industry "…" --offer "…"`, then fill `brief.json`: `sender` (name, company, one-line why_me),
+1. `new <slug> --industry "…" --offer "…"`, then fill `brief.json`: `sender` (name, company, one-line why_me, `booking_link` — the 20-minute booking page),
    `roles` (each with 2–3 `todo_guesses` for this quarter), `strategic_companies` (whales).
 2. Find people. Look past the obvious — use at least two:
    - `find <batch> --source exa --query "<role> at <kind of company> <context>"` — vary the context: a recent move, a tool they use, a region.

@@ -28,7 +28,7 @@ Value-first:
 | `seen` | Their likely problem now. A question unless the signal states it outright. Cite signal ids in `evidence`. |
 | `gift` | What they get today and why it helps. No ask here. |
 | `why_me` | One line of credibility, after the gift. |
-| `ask` | Last. 20 minutes, naming what you will cover. Easy to say no to. |
+| `ask` | Last. 20 minutes, naming what you will cover. Easy to say no to. `draft` puts the booking link on the line after it — do not paste it yourself. |
 
 `seen` and `gift` can swap: lead with the gift when it stands on its own.
 

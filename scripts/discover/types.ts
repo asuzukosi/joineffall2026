@@ -27,7 +27,7 @@ export type Found = Partial<Omit<Person, "signals">> & { signals: Signal[] };
 export type Brief = {
   industry: string;
   offer: string;
-  sender: { name: string; company: string; why_me: string };
+  sender: { name: string; company: string; why_me: string; booking_link: string };
   roles: { role: string; todo_guesses: string[] }[];
   strategic_companies: string[];
 };

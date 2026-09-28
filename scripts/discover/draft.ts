@@ -8,6 +8,7 @@ export const PAMPHLETS = join(import.meta.dirname, "../../pamphlets");
 
 export function draftAll(dir: string, pamphlets = PAMPHLETS) {
   const brief = readJson<Brief>(join(dir, "brief.json"));
+  if (!brief.sender?.booking_link?.startsWith("https://")) throw new Error("brief.json needs sender.booking_link, the 20-minute booking page");
   const companies = readJson<Record<string, Company>>(join(dir, "companies.json"));
   const people = new Map(loadPeople(dir).map((p) => [p.id, p]));
   const failures: Record<string, string[]> = {};
@@ -39,6 +40,7 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
 
 export function composeEmail(note: Note, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
-  const parts = note.order.map((part) => part === "gift" ? `${note.gift.text}\n${note.gift.link}` : partText(note, part));
+  const links: Record<string, string> = { gift: note.gift.link ?? "", ask: brief.sender.booking_link };
+  const parts = note.order.map((part) => links[part] ? `${partText(note, part)}\n${links[part]}` : partText(note, part));
   return `Subject: ${note.subject}\n\nHi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n`;
 }
