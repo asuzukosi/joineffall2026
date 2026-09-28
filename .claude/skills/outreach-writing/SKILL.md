@@ -70,13 +70,13 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 The subject earns the open. It names the **impact** on them, the **outcome** at stake, and pulls them into the email — never a greeting, a status update or our name.
 
-Shape: *what is about to happen to them* + *why they should open now*.
+Shape: *[report name]* + *what is about to happen to them* + *why they should open now*. The bracket tag names the gift as a publication made for their world, and keeps its capitals; the rest is lowercased by `draft`.
 
-- "your ai accountability is about to outpace your capacity, here's what happens next"
-- "your first quarter at beta is when the backlog decides your year, here's how peers got ahead"
-- "the <deadline> lands in 6 weeks, here's what the teams who are ready did"
+- "[Global CIO report] your ai accountability is about to outpace your capacity, here's what happens next"
+- "[Utility inspection brief] your first quarter at beta is when the backlog decides your year, here's how peers got ahead"
+- "[<Sector> readiness report] the <deadline> lands in 6 weeks, here's what the teams who are ready did"
 
-Build it from the same signal as `seen`, so the subject and the first line tell one story. Front-load the stake: phones show about the first 40 characters. `draft` rejects empty subjects ("quick question", "following up", "checking in", "intro…", "hi…").
+Build it from the same signal as `seen`, so the subject and the first line tell one story. Front-load the stake: phones show about the first 40 characters. `draft` rejects a subject without the `[tag]`, and empty subjects ("quick question", "following up", "checking in", "intro…", "hi…").
 
 ## Lowercase
 

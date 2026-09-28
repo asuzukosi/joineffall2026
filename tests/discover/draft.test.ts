@@ -11,7 +11,7 @@ const SIGNALS: Signal[] = [{ id: "profile:1", kind: "profile", date: "2026-09-01
 
 const GOOD: Note = {
   todo_guess: "Keep the founding team together through discovery",
-  subject: "A guide for the early days",
+  subject: "[Founder field guide] Co-founder breakups decide more early companies than markets do, here's how to see it coming",
   seen: { text: "Co-founder breakups getting to you? And I'm sure customer discovery and its demands are getting very tough.", evidence: ["profile:1"] },
   gift: { text: "I created a guide for founders in the very early stages that helps them introspect and manage these challenges better, here's the link.", link: "https://example.com/guide" },
   why_me: "I want you to win and I think this would really give you a leg up. I've been working with founders going through this.",
@@ -70,10 +70,12 @@ describe("checkNote", () => {
   });
 
   it("rejects subjects that are about us or say nothing", () => {
-    for (const subject of ["Quick question", "following up", "Checking in", "Intro to Example Co", "Hi Ada"]) {
+    for (const line of ["Quick question", "following up", "Checking in", "Intro to Example Co", "Hi Ada"]) {
+      const subject = `[Field guide] ${line}`;
       expect(check({ ...GOOD, subject })).toContain(`subject says nothing about their outcome: "${subject}"`);
     }
-    expect(check({ ...GOOD, subject: "Your AI accountability is about to outpace your capacity, here's what happens next" })).toEqual([]);
+    expect(check({ ...GOOD, subject: "[Global CIO report] Your AI accountability is about to outpace your capacity, here's what happens next" })).toEqual([]);
+    expect(check({ ...GOOD, subject: "Your AI accountability is about to outpace your capacity" })).toContain("subject must start with a [report name] tag, e.g. [Global CIO report]");
   });
 
   it("limits length by tier", () => {
@@ -106,11 +108,12 @@ describe("draftAll", () => {
     expect(Object.keys(failures)).toEqual([ben]);
     expect(failures[ben][0]).toMatch(/not valid JSON/);
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
-    expect(email.startsWith("Subject: a guide for the early days\n\nhi ada,")).toBe(true);
+    expect(email.startsWith("Subject: [Founder field guide] co-founder breakups decide more early companies than markets do, here's how to see it coming\n\nhi ada,")).toBe(true);
     expect(email.indexOf("co-founder")).toBeLessThan(email.indexOf("20 minute"));
     expect(email.endsWith(`kosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`)).toBe(true);
     expect(email).toContain("and i'm sure customer discovery");
-    expect(email.replace(BOOKING, "")).toBe(email.replace(BOOKING, "").toLowerCase().replace("subject:", "Subject:"));
+    const body = email.slice(email.indexOf("\n"));
+    expect(body.replace(BOOKING, "")).toBe(body.replace(BOOKING, "").toLowerCase());
     expect(email).toContain("here's the link.\nhttps://example.com/guide\n");
     expect(email).not.toContain("Attach");
     expect(email).toContain(`talk face to face about these.\n${BOOKING}\n\nkosi`);
