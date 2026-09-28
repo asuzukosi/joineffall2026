@@ -3,6 +3,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { addCompanySignals, addPeople, addSignals, create, loadPeople, openBatch, readJson, savePeople, today } from "./batch.ts";
+import { draftAll } from "./draft.ts";
 import { apollo, enrichAll } from "./enrich.ts";
 import * as exa from "./exa.ts";
 import * as jobs from "./jobs.ts";
@@ -23,7 +24,8 @@ const USAGE = `usage: npm run discover -- <command>
                                                       record one dated piece of evidence
   enrich <batch> [--phones]                           email, company size, job changes, funding from Apollo
   rank <batch>                                        set tiers and speed scores; print the send order
-  status <batch>                                      counts per step and tier; seats that just opened`;
+  status <batch>                                      counts per step and tier; seats that just opened
+  draft <batch>                                       check every note; write out/<id>/email.md and linkedin.md`;
 
 function fail(message: string): never {
   console.error(message);
@@ -115,6 +117,15 @@ function status(name: string) {
   if (seats.length) console.log(`\nseats that just opened — find who replaced them:\n${seats.map((s) => `  ${s}`).join("\n")}`);
 }
 
+function draft(name: string) {
+  const dir = openBatch(name);
+  const failures = draftAll(dir);
+  const notes = readdirSync(join(dir, "notes")).filter((f) => f.endsWith(".json")).length;
+  console.log(`${notes - Object.keys(failures).length} of ${notes} drafted into ${join(dir, "out")}`);
+  const report = Object.entries(failures).map(([id, problems]) => `\n${id}:\n${problems.map((p) => `  - ${p}`).join("\n")}`);
+  if (report.length) fail(report.join("\n"));
+}
+
 const [command, arg, target] = positionals;
 if (!arg) fail(USAGE);
 
@@ -127,6 +138,7 @@ try {
   else if (command === "enrich") await enrich(arg);
   else if (command === "rank") rank(arg);
   else if (command === "status") status(arg);
+  else if (command === "draft") draft(arg);
   else fail(USAGE);
 } catch (error) {
   fail((error as Error).message);
