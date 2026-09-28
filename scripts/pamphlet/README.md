@@ -39,6 +39,8 @@ Chrome comes from `/Applications/Google Chrome.app`; set `CHROME_PATH` to use an
 
 ## Page components (page.css)
 
+Everything is set in one font, `--font-body` (and `--font-display`, normally the same family).
+
 | Class | Use |
 |---|---|
 | `.page` `.dark` `.tint` `.flush` | A4 page; cover colours; accent tint; no padding for full-bleed |
@@ -55,5 +57,7 @@ Chrome comes from `/Applications/Google Chrome.app`; set `CHROME_PATH` to use an
 | `.stack` `.layer` `.hot` `.gap` `.arrow` | layered box diagram |
 | `.checklist` `.check` `.score` | score-yourself quiz |
 | `.callout` `.quote` `.steps` `.cols` | did-you-know card, pull quote, numbered plan, two columns |
+| `.matrix` | comparison table; `td.y` highlights, `td.n` mutes |
+| `.issues` `.issue` | linked list of cited issues or documents with a big number each |
 | `.source` | clickable source under a number |
 | `.code` | dark code block; `<b>` highlights, `<i>` dims |
