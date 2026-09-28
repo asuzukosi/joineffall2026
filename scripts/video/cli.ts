@@ -1,4 +1,4 @@
-import { cpSync, existsSync } from "node:fs";
+import { cpSync, existsSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { brand } from "../pamphlet/brand.ts";
@@ -16,7 +16,9 @@ const USAGE = `usage: npm run video -- <command>
   brand <name> <url>    pull colours, fonts and logo from the customer's site into videos/<name>/brand/
   check <name>          check storyboard.json before spending credits on footage
   script <name>         write script.md: the whole film as a readable shooting script
-  build <name>          render cards, cut scenes, lay narration and music, write film.mp4, film.srt, previews/`;
+  build <name>          render cards, cut scenes, lay narration and music, write film.mp4, film.srt, previews/
+  clean <name>          after the film is reviewed: delete stills, clips, audio, cast, build files and previews,
+                        keeping film.mp4, film.srt, script.md and storyboard.json`;
 
 function fail(message: string): never {
   console.error(message);
@@ -72,6 +74,13 @@ function script(name: string | undefined) {
   console.log(`script: ${writeScript(dir, load(dir))}`);
 }
 
+function clean(name: string | undefined) {
+  const dir = folder(name);
+  if (!existsSync(join(dir, "film.mp4"))) fail(`videos/${name} has no film.mp4 yet; build it first`);
+  for (const f of ["build", "previews", "stills", "clips", "audio", "cast", "brand/output", "brand/brand.json"]) rmSync(join(dir, f), { recursive: true, force: true });
+  console.log(`cleaned videos/${name}/; kept film.mp4, film.srt, script.md, storyboard.json`);
+}
+
 const { positionals } = parseArgs({ allowPositionals: true });
 const [command, name, arg] = positionals;
 
@@ -80,4 +89,5 @@ else if (command === "brand") pullBrand(name, arg);
 else if (command === "check") verify(folder(name), false);
 else if (command === "script") script(name);
 else if (command === "build") await build(name);
+else if (command === "clean") clean(name);
 else fail(USAGE);

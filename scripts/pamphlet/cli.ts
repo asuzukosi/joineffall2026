@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { brand } from "./brand.ts";
@@ -14,7 +14,9 @@ const USAGE = `usage: npm run pamphlet -- <command>
   new <name> --topic <topic>     start a recipient pamphlet holding only the personal pages
   brand <name> <url>    pull colours, fonts and logo from the customer's site into pamphlets/<name>/brand/
   build <name>          check every page's prose for AI-writing patterns, then render pamphlet.pdf and previews/NN.png;
-                        exit 2 on a writing problem or an overflowing page`;
+                        exit 2 on a writing problem or an overflowing page
+  clean <name>          after the PDF is reviewed: delete previews, copied images and brand scrape,
+                        keeping pamphlet.pdf and the pages needed to rebuild`;
 
 function fail(message: string): never {
   console.error(message);
@@ -66,6 +68,14 @@ async function render(name: string | undefined) {
   if (result.problems.length) process.exit(2);
 }
 
+// the pdf embeds everything it needs, so working files can go once it is reviewed
+function clean(name: string | undefined) {
+  const dir = folder(name);
+  if (!existsSync(join(dir, "pamphlet.pdf"))) fail(`pamphlets/${name} has no pamphlet.pdf yet; build it first`);
+  for (const f of ["previews", "images", "brand/output", "brand/brand.json"]) rmSync(join(dir, f), { recursive: true, force: true });
+  console.log(`cleaned pamphlets/${name}/; kept pamphlet.pdf, pages/, brand.css`);
+}
+
 const { positionals, values } = parseArgs({ allowPositionals: true, options: { topic: { type: "string" } } });
 const [command, name, arg] = positionals;
 
@@ -73,4 +83,5 @@ if (command === "topic") createTopic(name);
 else if (command === "new") create(name, values.topic);
 else if (command === "brand") pullBrand(name, arg);
 else if (command === "build") await render(name);
+else if (command === "clean") clean(name);
 else fail(USAGE);
