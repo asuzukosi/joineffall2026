@@ -1,10 +1,14 @@
 import { createHash } from "node:crypto";
+import { existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { parseArgs } from "node:util";
-import { addCompanySignals, addPeople, addSignals, create, loadPeople, openBatch, savePeople, today } from "./batch.ts";
+import { addCompanySignals, addPeople, addSignals, create, loadPeople, openBatch, readJson, savePeople, today } from "./batch.ts";
 import { apollo, enrichAll } from "./enrich.ts";
 import * as exa from "./exa.ts";
 import * as jobs from "./jobs.ts";
 import * as papers from "./papers.ts";
+import { openSeats, rankAll, TIERS } from "./rank.ts";
+import type { Brief, Company } from "./types.ts";
 
 const KINDS = new Set(["profile", "news", "joined", "role_change", "left", "funding", "hiring",
   "deadline", "competitor_news", "publishes", "speaks"]);
@@ -17,7 +21,9 @@ const USAGE = `usage: npm run discover -- <command>
                                                       record matching job posts as company hiring signals
   signal <batch> <p_id|company> --kind ... --text "..." --url ... [--date YYYY-MM-DD]
                                                       record one dated piece of evidence
-  enrich <batch> [--phones]                           email, company size, job changes, funding from Apollo`;
+  enrich <batch> [--phones]                           email, company size, job changes, funding from Apollo
+  rank <batch>                                        set tiers and speed scores; print the send order
+  status <batch>                                      counts per step and tier; seats that just opened`;
 
 function fail(message: string): never {
   console.error(message);
@@ -83,6 +89,32 @@ async function enrich(name: string) {
   console.log(`${matched} matched in Apollo, ${people.filter((p) => p.phone).length} with phones`);
 }
 
+function rank(name: string) {
+  const dir = openBatch(name);
+  const brief = readJson<Brief>(join(dir, "brief.json"));
+  const companies = readJson<Record<string, Company>>(join(dir, "companies.json"));
+  const ordered = rankAll(loadPeople(dir), companies, brief.strategic_companies, today());
+  savePeople(dir, ordered);
+  for (const p of ordered) {
+    console.log(`${p.tier!.padEnd(9)}${String(p.speed_score).padStart(3)}  ${p.id}  ${p.name}, ${p.title} at ${p.company}`);
+  }
+}
+
+function status(name: string) {
+  const dir = openBatch(name);
+  const people = loadPeople(dir);
+  const notes = readdirSync(join(dir, "notes")).filter((f) => f.endsWith(".json")).length;
+  const drafted = people.filter((p) => existsSync(join(dir, "out", p.id, "email.md"))).length;
+  console.log(`${people.length} people · ${people.filter((p) => p.email).length} with email · ${notes} notes · ` +
+    `${drafted} drafted · ${people.filter((p) => p.approved).length} approved`);
+  for (const tier of TIERS) {
+    const count = people.filter((p) => p.tier === tier).length;
+    if (count) console.log(`  ${tier.padEnd(9)}${count}`);
+  }
+  const seats = openSeats(people);
+  if (seats.length) console.log(`\nseats that just opened — find who replaced them:\n${seats.map((s) => `  ${s}`).join("\n")}`);
+}
+
 const [command, arg, target] = positionals;
 if (!arg) fail(USAGE);
 
@@ -93,6 +125,8 @@ try {
   } else if (command === "find") await find(arg);
   else if (command === "signal") signal(arg, target ?? fail(USAGE));
   else if (command === "enrich") await enrich(arg);
+  else if (command === "rank") rank(arg);
+  else if (command === "status") status(arg);
   else fail(USAGE);
 } catch (error) {
   fail((error as Error).message);
