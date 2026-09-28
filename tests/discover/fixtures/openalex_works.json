@@ -1,0 +1,2744 @@
+{
+    "meta": {
+        "count": 7024198,
+        "db_response_time_ms": 3081,
+        "page": 1,
+        "per_page": 3,
+        "groups_count": null,
+        "x_query": {
+            "oql": "works where year is (2025) and type is (article)",
+            "oqo": {
+                "get_rows": "works",
+                "filter_rows": [
+                    {
+                        "column_id": "publication_year",
+                        "value": 2025
+                    },
+                    {
+                        "column_id": "type",
+                        "value": "article"
+                    }
+                ]
+            },
+            "url": "/works?filter=publication_year:2025,type:article&per_page=3"
+        },
+        "cost_usd": 0.0001
+    },
+    "results": [
+        {
+            "id": "https://openalex.org/W4406431707",
+            "doi": "https://doi.org/10.3322/caac.21871",
+            "display_name": "Cancer statistics, 2025",
+            "publication_date": "2025-01-01",
+            "authorships": [
+                {
+                    "author_position": "first",
+                    "author": {
+                        "id": "https://openalex.org/A5047300895",
+                        "display_name": "Rebecca L. Siegel",
+                        "orcid": "https://orcid.org/0000-0001-5247-8522",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5247-8522"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I1288198617",
+                            "display_name": "American Cancer Society",
+                            "ror": "https://ror.org/02e463172",
+                            "country_code": "US",
+                            "type": "nonprofit",
+                            "lineage": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": true,
+                    "raw_author_name": "Rebecca L. Siegel",
+                    "raw_affiliation_strings": [
+                        "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                        "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA"
+                    ],
+                    "raw_orcid": "https://orcid.org/0000-0001-5247-8522",
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        },
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5008996983",
+                        "display_name": "Tyler B. Kratzer",
+                        "orcid": "https://orcid.org/0000-0002-5618-6380",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5618-6380",
+                            "https://orcid.org/0000-0002-6699-5309"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I1288198617",
+                            "display_name": "American Cancer Society",
+                            "ror": "https://ror.org/02e463172",
+                            "country_code": "US",
+                            "type": "nonprofit",
+                            "lineage": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Tyler B. Kratzer",
+                    "raw_affiliation_strings": [
+                        "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                        "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA"
+                    ],
+                    "raw_orcid": "https://orcid.org/0000-0002-5618-6380",
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        },
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5054757892",
+                        "display_name": "Angela N. Giaquinto",
+                        "orcid": "https://orcid.org/0000-0003-2548-9693",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-2548-9693"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I1288198617",
+                            "display_name": "American Cancer Society",
+                            "ror": "https://ror.org/02e463172",
+                            "country_code": "US",
+                            "type": "nonprofit",
+                            "lineage": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Angela N. Giaquinto",
+                    "raw_affiliation_strings": [
+                        "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                        "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA"
+                    ],
+                    "raw_orcid": "https://orcid.org/0000-0003-2548-9693",
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        },
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5082191284",
+                        "display_name": "Hyuna Sung",
+                        "orcid": "https://orcid.org/0000-0002-8021-5997",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-8021-5997"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I1288198617",
+                            "display_name": "American Cancer Society",
+                            "ror": "https://ror.org/02e463172",
+                            "country_code": "US",
+                            "type": "nonprofit",
+                            "lineage": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Hyuna Sung",
+                    "raw_affiliation_strings": [
+                        "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                        "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA"
+                    ],
+                    "raw_orcid": "https://orcid.org/0000-0002-8021-5997",
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research American Cancer Society  Atlanta Georgia USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        },
+                        {
+                            "raw_affiliation_string": "Cancer Surveillance Research, American Cancer Society, Atlanta, Georgia, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "last",
+                    "author": {
+                        "id": "https://openalex.org/A5009198168",
+                        "display_name": "Ahmedin Jemal",
+                        "orcid": "https://orcid.org/0000-0002-0000-4111",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-0000-4111"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I1288198617",
+                            "display_name": "American Cancer Society",
+                            "ror": "https://ror.org/02e463172",
+                            "country_code": "US",
+                            "type": "nonprofit",
+                            "lineage": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Ahmedin Jemal",
+                    "raw_affiliation_strings": [
+                        "Surveillance and Health Equity Science American Cancer Society  Atlanta Georgia USA",
+                        "Surveillance and Health Equity Science, American Cancer Society, Atlanta, Georgia, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Surveillance and Health Equity Science American Cancer Society  Atlanta Georgia USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        },
+                        {
+                            "raw_affiliation_string": "Surveillance and Health Equity Science, American Cancer Society, Atlanta, Georgia, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I1288198617"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "https://openalex.org/W4406352787",
+            "doi": "https://doi.org/10.1016/s2213-8587(24)00316-4",
+            "display_name": "Definition and diagnostic criteria of clinical obesity",
+            "publication_date": "2025-01-14",
+            "authorships": [
+                {
+                    "author_position": "first",
+                    "author": {
+                        "id": "https://openalex.org/A5015829737",
+                        "display_name": "Francesco Rubino",
+                        "orcid": "https://orcid.org/0000-0001-8581-2515",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-8581-2515"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210153400",
+                            "display_name": "King's College Hospital",
+                            "ror": "https://ror.org/044nptt90",
+                            "country_code": "GB",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210111135",
+                                "https://openalex.org/I4210153400"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Francesco Rubino",
+                    "raw_affiliation_strings": [
+                        "Metabolic and Bariatric Surgery, School of Cardiovascular and Metabolic Medicine & Sciences, King's College London, London, UK; King's College Hospital, London, UK. Electronic address: francesco.rubino@kcl.ac.uk"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Metabolic and Bariatric Surgery, School of Cardiovascular and Metabolic Medicine & Sciences, King's College London, London, UK; King's College Hospital, London, UK. Electronic address: francesco.rubino@kcl.ac.uk",
+                            "institution_ids": [
+                                "https://openalex.org/I4210153400"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5111653656",
+                        "display_name": "David E. Cummings",
+                        "orcid": null,
+                        "observed_orcids": []
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210094549",
+                            "display_name": "VA Puget Sound Health Care System",
+                            "ror": "https://ror.org/00ky3az31",
+                            "country_code": "US",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I1322918889",
+                                "https://openalex.org/I2799886695",
+                                "https://openalex.org/I4210094549",
+                                "https://openalex.org/I4210138024"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "David E Cummings",
+                    "raw_affiliation_strings": [
+                        "University of Washington, Seattle, WA, USA; Veterans Affairs Puget Sound Health Care System, Seattle, WA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "University of Washington, Seattle, WA, USA; Veterans Affairs Puget Sound Health Care System, Seattle, WA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I4210094549"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5086336385",
+                        "display_name": "Robert H. Eckel",
+                        "orcid": "https://orcid.org/0000-0002-4870-4600",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-4870-4600"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I51713134",
+                            "display_name": "University of Colorado Anschutz",
+                            "ror": "https://ror.org/03wmf1y16",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I51713134"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Robert H Eckel",
+                    "raw_affiliation_strings": [
+                        "University of Colorado Anschutz Medical Campus, Aurora, CO, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "University of Colorado Anschutz Medical Campus, Aurora, CO, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I51713134"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5063255450",
+                        "display_name": "RICARDO VITOR COHEN",
+                        "orcid": "https://orcid.org/0000-0001-8779-3055",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-8779-3055"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210098119",
+                            "display_name": "Hospital Alem\u00e3o Oswaldo Cruz",
+                            "ror": "https://ror.org/00xmzb398",
+                            "country_code": "BR",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210098119"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "BR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Ricardo V Cohen",
+                    "raw_affiliation_strings": [
+                        "Center for the Treatment of Obesity and Diabetes, Hospital Alem\u00e3o Oswaldo Cruz, S\u00e3o Paulo, Brazil"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Center for the Treatment of Obesity and Diabetes, Hospital Alem\u00e3o Oswaldo Cruz, S\u00e3o Paulo, Brazil",
+                            "institution_ids": [
+                                "https://openalex.org/I4210098119"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5047195042",
+                        "display_name": "John P.H. Wilding",
+                        "orcid": "https://orcid.org/0000-0003-2839-8404",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-2839-8404"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I146655781",
+                            "display_name": "University of Liverpool",
+                            "ror": "https://ror.org/04xs57h96",
+                            "country_code": "GB",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I146655781"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "John P H Wilding",
+                    "raw_affiliation_strings": [
+                        "Department of Cardiovascular and Metabolic Medicine, University of Liverpool, Liverpool, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Cardiovascular and Metabolic Medicine, University of Liverpool, Liverpool, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I146655781"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5045545106",
+                        "display_name": "Wendy A. Brown",
+                        "orcid": "https://orcid.org/0000-0002-0137-2688",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-0137-2688"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210093092",
+                            "display_name": "Monash Alfred Psychiatry Research centre",
+                            "ror": "https://ror.org/01e310919",
+                            "country_code": "AU",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I4210093092"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I56590836",
+                            "display_name": "Monash University",
+                            "ror": "https://ror.org/02bfwt286",
+                            "country_code": "AU",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I56590836"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "AU"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Wendy A Brown",
+                    "raw_affiliation_strings": [
+                        "Monash University Department of Surgery, Central Clinical School, Alfred Health, Melbourne, VIC, Australia"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Monash University Department of Surgery, Central Clinical School, Alfred Health, Melbourne, VIC, Australia",
+                            "institution_ids": [
+                                "https://openalex.org/I4210093092",
+                                "https://openalex.org/I56590836"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5015963587",
+                        "display_name": "Fatima Cody Stanford",
+                        "orcid": "https://orcid.org/0000-0003-4616-533X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-4616-533X"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210087915",
+                            "display_name": "Massachusetts General Hospital",
+                            "ror": "https://ror.org/002pd6e78",
+                            "country_code": "US",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210087915",
+                                "https://openalex.org/I48633490"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Fatima Cody Stanford",
+                    "raw_affiliation_strings": [
+                        "Neuroendocrine Unit, Division of Endocrinology, Department of Medicine, Massachusetts General Hospital and Harvard Medical School, Boston, MA, USA; Division of Endocrinology, Department of Pediatrics, Massachusetts General Hospital and Harvard Medical School, Boston, MA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Neuroendocrine Unit, Division of Endocrinology, Department of Medicine, Massachusetts General Hospital and Harvard Medical School, Boston, MA, USA; Division of Endocrinology, Department of Pediatrics, Massachusetts General Hospital and Harvard Medical School, Boston, MA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I4210087915"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5085481226",
+                        "display_name": "Rachel Louise Batterham",
+                        "orcid": "https://orcid.org/0000-0002-5477-8585",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5477-8585"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210095227",
+                            "display_name": "Eli Lilly (United Kingdom)",
+                            "ror": "https://ror.org/00psab413",
+                            "country_code": "GB",
+                            "type": "company",
+                            "lineage": [
+                                "https://openalex.org/I168537998",
+                                "https://openalex.org/I4210095227"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I45129253",
+                            "display_name": "University College London",
+                            "ror": "https://ror.org/02jx3x895",
+                            "country_code": "GB",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I124357947",
+                                "https://openalex.org/I45129253"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Rachel L Batterham",
+                    "raw_affiliation_strings": [
+                        "International Medical Affairs, Eli Lilly, Basingstoke, UK; Diabetes and Endocrinology, University College London, London, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "International Medical Affairs, Eli Lilly, Basingstoke, UK; Diabetes and Endocrinology, University College London, London, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I4210095227",
+                                "https://openalex.org/I45129253"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5005912071",
+                        "display_name": "I. Sadaf Farooqi",
+                        "orcid": "https://orcid.org/0000-0001-7609-3504",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-7609-3504"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I34931013",
+                            "display_name": "National Institute for Health and Care Research",
+                            "ror": "https://ror.org/0187kwz08",
+                            "country_code": "GB",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I34931013"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "I Sadaf Farooqi",
+                    "raw_affiliation_strings": [
+                        "Institute of Metabolic Science and National Institute for Health and Care Research, Cambridge Biomedical Research Centre at Addenbrookes Hospital, Cambridge, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Institute of Metabolic Science and National Institute for Health and Care Research, Cambridge Biomedical Research Centre at Addenbrookes Hospital, Cambridge, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I34931013"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5001661933",
+                        "display_name": "Nathalie J. Farpour\u2010Lambert",
+                        "orcid": "https://orcid.org/0000-0001-6478-7269",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-6478-7269"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210106256",
+                            "display_name": "University Hospital of Geneva",
+                            "ror": "https://ror.org/01m1pv723",
+                            "country_code": "CH",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210106256"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I6312358",
+                            "display_name": "Geneva College",
+                            "ror": "https://ror.org/02vb7sj25",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I6312358"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CH",
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Nathalie J Farpour-Lambert",
+                    "raw_affiliation_strings": [
+                        "Obesity Prevention and Care Program, Department of Medicine, University Hospitals of Geneva, Geneva, Switzerland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Obesity Prevention and Care Program, Department of Medicine, University Hospitals of Geneva, Geneva, Switzerland",
+                            "institution_ids": [
+                                "https://openalex.org/I4210106256",
+                                "https://openalex.org/I6312358"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5010753663",
+                        "display_name": "Carel Wynand le Roux",
+                        "orcid": "https://orcid.org/0000-0001-5521-5445",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5521-5445"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I100930933",
+                            "display_name": "University College Dublin",
+                            "ror": "https://ror.org/05m7pjf47",
+                            "country_code": "IE",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I100930933"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "IE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Carel W le Roux",
+                    "raw_affiliation_strings": [
+                        "Diabetes Complications Research Centre, University College Dublin, Dublin, Ireland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Diabetes Complications Research Centre, University College Dublin, Dublin, Ireland",
+                            "institution_ids": [
+                                "https://openalex.org/I100930933"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5078498803",
+                        "display_name": "Naveed A. Sattar",
+                        "orcid": "https://orcid.org/0000-0002-1604-2593",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-1604-2593"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I7882870",
+                            "display_name": "University of Glasgow",
+                            "ror": "https://ror.org/00vtgdb53",
+                            "country_code": "GB",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I7882870"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Naveed Sattar",
+                    "raw_affiliation_strings": [
+                        "School of Cardiovascular and Metabolic Health, University of Glasgow, Glasgow, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "School of Cardiovascular and Metabolic Health, University of Glasgow, Glasgow, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I7882870"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5046880323",
+                        "display_name": "Louise Alison Baur",
+                        "orcid": "https://orcid.org/0000-0002-4521-9482",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-4521-9482"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2802384191",
+                            "display_name": "Children's Hospital at Westmead",
+                            "ror": "https://ror.org/05k0s5494",
+                            "country_code": "AU",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I2802384191"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210125633",
+                            "display_name": "Sydney Children's Hospital",
+                            "ror": "https://ror.org/02tj04e91",
+                            "country_code": "AU",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210125633",
+                                "https://openalex.org/I4210149013"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "AU"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Louise A Baur",
+                    "raw_affiliation_strings": [
+                        "Sydney Medical School, The University of Sydney, Sydney, NSW, Australia; Weight Management Services, The Children's Hospital at Westmead, Sydney, NSW, Australia"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Sydney Medical School, The University of Sydney, Sydney, NSW, Australia; Weight Management Services, The Children's Hospital at Westmead, Sydney, NSW, Australia",
+                            "institution_ids": [
+                                "https://openalex.org/I2802384191",
+                                "https://openalex.org/I4210125633"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5040727760",
+                        "display_name": "Katherine Mary Morrison",
+                        "orcid": "https://orcid.org/0000-0002-1737-256X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-1737-256X"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2801880889",
+                            "display_name": "McMaster Children's Hospital",
+                            "ror": "https://ror.org/03cegwq60",
+                            "country_code": "CA",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I2801880889",
+                                "https://openalex.org/I76442945"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CA"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Katherine M Morrison",
+                    "raw_affiliation_strings": [
+                        "Centre for Metabolism, Obesity and Diabetes Research, Department of Pediatrics, McMaster University, Hamilton, ON, Canada; McMaster Children's Hospital, Hamilton, ON, Canada"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Centre for Metabolism, Obesity and Diabetes Research, Department of Pediatrics, McMaster University, Hamilton, ON, Canada; McMaster Children's Hospital, Hamilton, ON, Canada",
+                            "institution_ids": [
+                                "https://openalex.org/I2801880889"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5027589811",
+                        "display_name": "Anoop Misra",
+                        "orcid": "https://orcid.org/0000-0001-5785-5833",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5785-5833"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210130025",
+                            "display_name": "National Diabetes Obesity and Cholesterol Foundation",
+                            "ror": "https://ror.org/03b7d3909",
+                            "country_code": "IN",
+                            "type": "other",
+                            "lineage": [
+                                "https://openalex.org/I4210130025"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "IN"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Anoop Misra",
+                    "raw_affiliation_strings": [
+                        "Fortis C-DOC Center of Excellence for Diabetes, Metabolic Diseases and Endocrinology, New Delhi, India; National Diabetes Obesity and Cholesterol Foundation, New Delhi, India; Diabetes Foundation New Delhi, India"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Fortis C-DOC Center of Excellence for Diabetes, Metabolic Diseases and Endocrinology, New Delhi, India; National Diabetes Obesity and Cholesterol Foundation, New Delhi, India; Diabetes Foundation New Delhi, India",
+                            "institution_ids": [
+                                "https://openalex.org/I4210130025"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5040548657",
+                        "display_name": "Takashi Kadowaki",
+                        "orcid": "https://orcid.org/0000-0002-5428-3582",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5428-3582"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210166463",
+                            "display_name": "Toranomon Hospital",
+                            "ror": "https://ror.org/05rkz5e28",
+                            "country_code": "JP",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210166463"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "JP"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Takashi Kadowaki",
+                    "raw_affiliation_strings": [
+                        "Toranomon Hospital, Tokyo, Japan"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Toranomon Hospital, Tokyo, Japan",
+                            "institution_ids": [
+                                "https://openalex.org/I4210166463"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5056805960",
+                        "display_name": "Kwang Wei Tham",
+                        "orcid": "https://orcid.org/0000-0003-1904-5711",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-1904-5711"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I172675005",
+                            "display_name": "Nanyang Technological University",
+                            "ror": "https://ror.org/02e7b5302",
+                            "country_code": "SG",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I172675005"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210143268",
+                            "display_name": "Woodlands Health Campus",
+                            "ror": "https://ror.org/03b489496",
+                            "country_code": "SG",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210143268"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4405257834",
+                            "display_name": "National Healthcare Group",
+                            "ror": "https://ror.org/05qkemg93",
+                            "country_code": "SG",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4405257834"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "SG"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Kwang Wei Tham",
+                    "raw_affiliation_strings": [
+                        "Department of Endocrinology, Woodlands Health, National Healthcare Group, Singapore; Lee Kong Chian School of Medicine, Nanyang Technological University, Singapore"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Endocrinology, Woodlands Health, National Healthcare Group, Singapore; Lee Kong Chian School of Medicine, Nanyang Technological University, Singapore",
+                            "institution_ids": [
+                                "https://openalex.org/I172675005",
+                                "https://openalex.org/I4210143268",
+                                "https://openalex.org/I4405257834"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5057243298",
+                        "display_name": "Priya Sumithran",
+                        "orcid": "https://orcid.org/0000-0002-9576-1050",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-9576-1050"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210163178",
+                            "display_name": "Alfred Health",
+                            "ror": "https://ror.org/04scfb908",
+                            "country_code": "AU",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210163178"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I56590836",
+                            "display_name": "Monash University",
+                            "ror": "https://ror.org/02bfwt286",
+                            "country_code": "AU",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I56590836"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "AU"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Priya Sumithran",
+                    "raw_affiliation_strings": [
+                        "Department of Surgery, School of Translational Medicine, Monash University, Melbourne, VIC, Australia; Department of Endocrinology and Diabetes, Alfred Health, Melbourne, VIC, Australia"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Surgery, School of Translational Medicine, Monash University, Melbourne, VIC, Australia; Department of Endocrinology and Diabetes, Alfred Health, Melbourne, VIC, Australia",
+                            "institution_ids": [
+                                "https://openalex.org/I4210163178",
+                                "https://openalex.org/I56590836"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5038221659",
+                        "display_name": "William Timothy Garvey",
+                        "orcid": "https://orcid.org/0000-0003-0822-0860",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-0822-0860"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I32389192",
+                            "display_name": "University of Alabama at Birmingham",
+                            "ror": "https://ror.org/008s83205",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I32389192"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "W Timothy Garvey",
+                    "raw_affiliation_strings": [
+                        "Department of Nutrition Sciences, University of Alabama at Birmingham, Birmingham, AL, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Nutrition Sciences, University of Alabama at Birmingham, Birmingham, AL, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I32389192"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5040290418",
+                        "display_name": "John P. Kirwan",
+                        "orcid": "https://orcid.org/0000-0001-7321-9917",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-7321-9917"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I103990859",
+                            "display_name": "Pennington Biomedical Research Center",
+                            "ror": "https://ror.org/040cnym54",
+                            "country_code": "US",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "John P Kirwan",
+                    "raw_affiliation_strings": [
+                        "Pennington Biomedical Research Center, Baton Rouge, LA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Pennington Biomedical Research Center, Baton Rouge, LA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5088545221",
+                        "display_name": "Jos\u00e9 Manuel Fern\u00e1ndez\u2010Real",
+                        "orcid": "https://orcid.org/0000-0002-7442-9323",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-7442-9323"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210113168",
+                            "display_name": "Institut d'Investigaci\u00f3 Biom\u00e8dica de Girona",
+                            "ror": "https://ror.org/020yb3m85",
+                            "country_code": "ES",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I4210113168",
+                                "https://openalex.org/I4387153040"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "ES"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Jos\u00e9-Manuel Fern\u00e1ndez-Real",
+                    "raw_affiliation_strings": [
+                        "CIBER Pathophysiology of Obesity and Nutrition, Girona, Spain; Department of Medical Sciences, School of Medicine, University of Girona, Girona, Spain; Hospital Trueta of Girona and Institut d'Investigaci\u00f3 Biom\u00e8dica de Girona, Girona, Spain"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "CIBER Pathophysiology of Obesity and Nutrition, Girona, Spain; Department of Medical Sciences, School of Medicine, University of Girona, Girona, Spain; Hospital Trueta of Girona and Institut d'Investigaci\u00f3 Biom\u00e8dica de Girona, Girona, Spain",
+                            "institution_ids": [
+                                "https://openalex.org/I4210113168"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5001442165",
+                        "display_name": "Barbara E. Corkey",
+                        "orcid": "https://orcid.org/0000-0002-5467-1630",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5467-1630"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I111088046",
+                            "display_name": "Boston University",
+                            "ror": "https://ror.org/05qwgg493",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I111088046"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Barbara E Corkey",
+                    "raw_affiliation_strings": [
+                        "Chobanian & Avedisian School of Medicine, Boston University, Boston, MA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Chobanian & Avedisian School of Medicine, Boston University, Boston, MA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I111088046"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5036073749",
+                        "display_name": "Hermann Toplak",
+                        "orcid": "https://orcid.org/0000-0002-7513-5167",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-7513-5167"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I202276237",
+                            "display_name": "Medical University of Graz",
+                            "ror": "https://ror.org/02n0bts35",
+                            "country_code": "AT",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I202276237"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210095425",
+                            "display_name": "Graz University Hospital",
+                            "ror": "https://ror.org/00pw0pp06",
+                            "country_code": "AT",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210095425"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "AT"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Hermann Toplak",
+                    "raw_affiliation_strings": [
+                        "Division of Endocrinology and Diabetology, Department of Medicine, University of Graz, Graz, Austria"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Division of Endocrinology and Diabetology, Department of Medicine, University of Graz, Graz, Austria",
+                            "institution_ids": [
+                                "https://openalex.org/I202276237",
+                                "https://openalex.org/I4210095425"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5082358327",
+                        "display_name": "Alexander D. Kokkinos",
+                        "orcid": "https://orcid.org/0000-0002-5491-2545",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5491-2545"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I200777214",
+                            "display_name": "National and Kapodistrian University of Athens",
+                            "ror": "https://ror.org/04gnjpq42",
+                            "country_code": "GR",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I200777214"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Alexander Kokkinos",
+                    "raw_affiliation_strings": [
+                        "First Department of Propaedeutic Internal Medicine, School of Medicine, National and Kapodistrian University of Athens, Athens, Greece"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "First Department of Propaedeutic Internal Medicine, School of Medicine, National and Kapodistrian University of Athens, Athens, Greece",
+                            "institution_ids": [
+                                "https://openalex.org/I200777214"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5062192624",
+                        "display_name": "Robert F. Kushner",
+                        "orcid": "https://orcid.org/0000-0002-1380-3705",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-1380-3705"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I111979921",
+                            "display_name": "Northwestern University",
+                            "ror": "https://ror.org/000e0be47",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I111979921"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Robert F Kushner",
+                    "raw_affiliation_strings": [
+                        "Department of Medicine, Northwestern University Feinberg School of Medicine, Chicago, IL, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Medicine, Northwestern University Feinberg School of Medicine, Chicago, IL, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I111979921"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5072296292",
+                        "display_name": "Francesco Branca",
+                        "orcid": "https://orcid.org/0000-0002-4238-1433",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-4238-1433"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210105654",
+                            "display_name": "World Health Organization",
+                            "ror": "https://ror.org/01f80g185",
+                            "country_code": "CH",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I4210105654"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CH"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Francesco Branca",
+                    "raw_affiliation_strings": [
+                        "Department of Nutrition and Food Safety, World Health Organization, Geneva, Switzerland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Nutrition and Food Safety, World Health Organization, Geneva, Switzerland",
+                            "institution_ids": [
+                                "https://openalex.org/I4210105654"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5017030033",
+                        "display_name": "Jonathan Valabhji",
+                        "orcid": "https://orcid.org/0000-0001-9756-4061",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-9756-4061"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2799869770",
+                            "display_name": "Chelsea and Westminster Hospital NHS Foundation Trust",
+                            "ror": "https://ror.org/02gd18467",
+                            "country_code": "GB",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I2799869770"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I47508984",
+                            "display_name": "Imperial College London",
+                            "ror": "https://ror.org/041kmwe10",
+                            "country_code": "GB",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I47508984"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Jonathan Valabhji",
+                    "raw_affiliation_strings": [
+                        "Department of Metabolism, Digestion and Reproduction, Faculty of Medicine, Imperial College London, London, UK; Department of Diabetes and Endocrinology, Chelsea and Westminster Hospital National Health Service Foundation Trust, London, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Metabolism, Digestion and Reproduction, Faculty of Medicine, Imperial College London, London, UK; Department of Diabetes and Endocrinology, Chelsea and Westminster Hospital National Health Service Foundation Trust, London, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I2799869770",
+                                "https://openalex.org/I47508984"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5073471236",
+                        "display_name": "Matthias Bl\u00fcher",
+                        "orcid": "https://orcid.org/0000-0003-0208-2065",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-0208-2065"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210125843",
+                            "display_name": "University Hospital Leipzig",
+                            "ror": "https://ror.org/028hv5492",
+                            "country_code": "DE",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210125843"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "DE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Matthias Bl\u00fcher",
+                    "raw_affiliation_strings": [
+                        "Helmholtz Institute for Metabolic, Obesity and Vascular Research of Helmholtz Munich, University of Leipzig and University Hospital Leipzig, Leipzig, Germany"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Helmholtz Institute for Metabolic, Obesity and Vascular Research of Helmholtz Munich, University of Leipzig and University Hospital Leipzig, Leipzig, Germany",
+                            "institution_ids": [
+                                "https://openalex.org/I4210125843"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5006906048",
+                        "display_name": "Stefan Richard Bornstein",
+                        "orcid": "https://orcid.org/0000-0002-5211-2536",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5211-2536"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210162051",
+                            "display_name": "University Hospital Carl Gustav Carus",
+                            "ror": "https://ror.org/04za5zm41",
+                            "country_code": "DE",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210162051"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "DE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Stefan R Bornstein",
+                    "raw_affiliation_strings": [
+                        "Department of Internal Medicine III, Carl Gustav Carus University Hospital Dresden, Technical University Dresden, Dresden, Germany; School of Cardiovascular and Metabolic Medicine & Sciences, Faculty of Life Sciences & Medicine, King's College London, London, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Internal Medicine III, Carl Gustav Carus University Hospital Dresden, Technical University Dresden, Dresden, Germany; School of Cardiovascular and Metabolic Medicine & Sciences, Faculty of Life Sciences & Medicine, King's College London, London, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I4210162051"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5016431924",
+                        "display_name": "Harvey J. Grill",
+                        "orcid": "https://orcid.org/0000-0003-3290-3784",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-3290-3784"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I79576946",
+                            "display_name": "University of Pennsylvania",
+                            "ror": "https://ror.org/00b30xv10",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I79576946"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Harvey J Grill",
+                    "raw_affiliation_strings": [
+                        "Institute of Diabetes, Obesity and Metabolism, University of Pennsylvania, Philadelphia, PA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Institute of Diabetes, Obesity and Metabolism, University of Pennsylvania, Philadelphia, PA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I79576946"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5069618649",
+                        "display_name": "\u00c9ric Ravussin",
+                        "orcid": "https://orcid.org/0000-0003-2129-547X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-2129-547X"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I103990859",
+                            "display_name": "Pennington Biomedical Research Center",
+                            "ror": "https://ror.org/040cnym54",
+                            "country_code": "US",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Eric Ravussin",
+                    "raw_affiliation_strings": [
+                        "Pennington Biomedical Research Center, Baton Rouge, LA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Pennington Biomedical Research Center, Baton Rouge, LA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5081201455",
+                        "display_name": "Edward W. Gregg",
+                        "orcid": "https://orcid.org/0000-0003-2381-6822",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-2381-6822"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I142762351",
+                            "display_name": "Royal College of Surgeons in Ireland",
+                            "ror": "https://ror.org/01hxy9878",
+                            "country_code": "IE",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I142762351"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I47508984",
+                            "display_name": "Imperial College London",
+                            "ror": "https://ror.org/041kmwe10",
+                            "country_code": "GB",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I47508984"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "GB",
+                        "IE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Edward Gregg",
+                    "raw_affiliation_strings": [
+                        "School of Population Health, Royal College of Surgeons in Ireland University of Medicine and Health Sciences, Dublin, Ireland; School of Public Health, Imperial College London, London, UK"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "School of Population Health, Royal College of Surgeons in Ireland University of Medicine and Health Sciences, Dublin, Ireland; School of Public Health, Imperial College London, London, UK",
+                            "institution_ids": [
+                                "https://openalex.org/I142762351",
+                                "https://openalex.org/I47508984"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5109695739",
+                        "display_name": "Noor Al Busaidi",
+                        "orcid": "https://orcid.org/0000-0002-9217-5355",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-9217-5355"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210133575",
+                            "display_name": "Royal Hospital",
+                            "ror": "https://ror.org/03cht9689",
+                            "country_code": "OM",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210130707",
+                                "https://openalex.org/I4210133575"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "OM"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Noor B Al Busaidi",
+                    "raw_affiliation_strings": [
+                        "National Diabetes and Endocrine Center, Royal Hospital, Muscat, Oman; Oman Diabetes Association, Muscat, Oman"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "National Diabetes and Endocrine Center, Royal Hospital, Muscat, Oman; Oman Diabetes Association, Muscat, Oman",
+                            "institution_ids": [
+                                "https://openalex.org/I4210133575"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5054191160",
+                        "display_name": "Nasreen Alfaris",
+                        "orcid": "https://orcid.org/0000-0002-5851-8430",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5851-8430"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2801911633",
+                            "display_name": "King Fahd Medical City",
+                            "ror": "https://ror.org/01jgj2p89",
+                            "country_code": "SA",
+                            "type": "funder",
+                            "lineage": [
+                                "https://openalex.org/I2801911633"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "SA"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Nasreen F Alfaris",
+                    "raw_affiliation_strings": [
+                        "Obesity Endocrine and Metabolism Center, King Fahad Medical City, Riyadh, Saudi Arabia"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Obesity Endocrine and Metabolism Center, King Fahad Medical City, Riyadh, Saudi Arabia",
+                            "institution_ids": [
+                                "https://openalex.org/I2801911633"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5026797635",
+                        "display_name": "Ebaa Al\u2010Ozairi",
+                        "orcid": "https://orcid.org/0000-0001-5006-4369",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5006-4369"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210165735",
+                            "display_name": "Dasman Diabetes Institute",
+                            "ror": "https://ror.org/05tppc012",
+                            "country_code": "KW",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I4210165735"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "KW"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Ebaa Al Ozairi",
+                    "raw_affiliation_strings": [
+                        "Clinical Research Unit, Dasman Diabetes Institute, Dasman, Kuwait"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Clinical Research Unit, Dasman Diabetes Institute, Dasman, Kuwait",
+                            "institution_ids": [
+                                "https://openalex.org/I4210165735"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5056446861",
+                        "display_name": "Lena M. S. Carlsson",
+                        "orcid": "https://orcid.org/0000-0003-4145-6242",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-4145-6242"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I881427289",
+                            "display_name": "University of Gothenburg",
+                            "ror": "https://ror.org/01tm6cn81",
+                            "country_code": "SE",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I881427289"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "SE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Lena M S Carlsson",
+                    "raw_affiliation_strings": [
+                        "Institute of Medicine, Sahlgrenska Academy, University of Gothenburg, Gothenburg, Sweden"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Institute of Medicine, Sahlgrenska Academy, University of Gothenburg, Gothenburg, Sweden",
+                            "institution_ids": [
+                                "https://openalex.org/I881427289"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5101663874",
+                        "display_name": "Karine Cl\u00e9ment",
+                        "orcid": "https://orcid.org/0000-0002-2710-928X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-2710-928X"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I154526488",
+                            "display_name": "Inserm",
+                            "ror": "https://ror.org/02vjkv261",
+                            "country_code": "FR",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I154526488"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I39804081",
+                            "display_name": "Sorbonne Universit\u00e9",
+                            "ror": "https://ror.org/02en5vm52",
+                            "country_code": "FR",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I39804081"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210096450",
+                            "display_name": "Nutrition et ob\u00e9sit\u00e9 : approches syst\u00e9miques",
+                            "ror": "https://ror.org/00qdphm77",
+                            "country_code": "FR",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I154526488",
+                                "https://openalex.org/I39804081",
+                                "https://openalex.org/I4210096450"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "FR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Karine Cl\u00e9ment",
+                    "raw_affiliation_strings": [
+                        "Nutrition and Obesities: Systemic Approaches, NutriOmics Research Group, INSERM, Sorbonne Universit\u00e9, Paris, France; Department of Nutrition, Piti\u00e9-Salp\u00eatri\u00e8re Hospital, Assistance Publique-Hospital of Paris, Paris, France"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Nutrition and Obesities: Systemic Approaches, NutriOmics Research Group, INSERM, Sorbonne Universit\u00e9, Paris, France; Department of Nutrition, Piti\u00e9-Salp\u00eatri\u00e8re Hospital, Assistance Publique-Hospital of Paris, Paris, France",
+                            "institution_ids": [
+                                "https://openalex.org/I154526488",
+                                "https://openalex.org/I39804081",
+                                "https://openalex.org/I4210096450"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5001540431",
+                        "display_name": "Jean\u2010Pierre Despr\u00e9s",
+                        "orcid": "https://orcid.org/0000-0002-5193-583X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5193-583X"
+                        ]
+                    },
+                    "institutions": [],
+                    "countries": [],
+                    "is_corresponding": false,
+                    "raw_author_name": "Jean-Pierre Despr\u00e9s",
+                    "raw_affiliation_strings": [
+                        "VITAM-Research Center on Sustainable Health, Qu\u00e9bec, QC, Canada"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "VITAM-Research Center on Sustainable Health, Qu\u00e9bec, QC, Canada",
+                            "institution_ids": []
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5070035519",
+                        "display_name": "John B. Dixon",
+                        "orcid": "https://orcid.org/0000-0001-5391-4082",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5391-4082"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I57093077",
+                            "display_name": "Swinburne University of Technology",
+                            "ror": "https://ror.org/031rekg67",
+                            "country_code": "AU",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I57093077"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "AU"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "John B Dixon",
+                    "raw_affiliation_strings": [
+                        "Iverson Health Innovation Research institute, Swinburne University of Technology, Melbourne, VIC, Australia"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Iverson Health Innovation Research institute, Swinburne University of Technology, Melbourne, VIC, Australia",
+                            "institution_ids": [
+                                "https://openalex.org/I57093077"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5073569148",
+                        "display_name": "Gauden Galea",
+                        "orcid": "https://orcid.org/0000-0002-2257-6014",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-2257-6014"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210099008",
+                            "display_name": "World Health Organization Regional Office for Europe",
+                            "ror": "https://ror.org/01rz37c55",
+                            "country_code": "DK",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I4210099008",
+                                "https://openalex.org/I4210105654"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210105654",
+                            "display_name": "World Health Organization",
+                            "ror": "https://ror.org/01f80g185",
+                            "country_code": "CH",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I4210105654"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CH",
+                        "DK"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Gauden Galea",
+                    "raw_affiliation_strings": [
+                        "Regional Office for Europe, World Health Organization, Geneva, Switzerland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Regional Office for Europe, World Health Organization, Geneva, Switzerland",
+                            "institution_ids": [
+                                "https://openalex.org/I4210099008",
+                                "https://openalex.org/I4210105654"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5074635579",
+                        "display_name": "Lee M. Kaplan",
+                        "orcid": "https://orcid.org/0000-0002-6301-2696",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-6301-2696"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I107672454",
+                            "display_name": "Dartmouth College",
+                            "ror": "https://ror.org/049s0rh22",
+                            "country_code": "US",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I107672454"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Lee M Kaplan",
+                    "raw_affiliation_strings": [
+                        "Section on Obesity Medicine, Geisel School of Medicine at Dartmouth, Hanover, NH, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Section on Obesity Medicine, Geisel School of Medicine at Dartmouth, Hanover, NH, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I107672454"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5086647812",
+                        "display_name": "Blandine Laferr\u00e8re",
+                        "orcid": "https://orcid.org/0000-0001-8255-3175",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-8255-3175"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2799503643",
+                            "display_name": "Columbia University Irving Medical Center",
+                            "ror": "https://ror.org/01esghr10",
+                            "country_code": "US",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I2799503643"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Blandine Laferr\u00e8re",
+                    "raw_affiliation_strings": [
+                        "Division of Endocrinology, Columbia University Irving Medical Center, New York, NY, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Division of Endocrinology, Columbia University Irving Medical Center, New York, NY, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I2799503643"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5108490266",
+                        "display_name": "Martine Laville",
+                        "orcid": null,
+                        "observed_orcids": []
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I100532134",
+                            "display_name": "Lyon 1 Universit\u00e9",
+                            "ror": "https://ror.org/029brtt94",
+                            "country_code": "FR",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I100532134",
+                                "https://openalex.org/I203339264"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "FR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Martine Laville",
+                    "raw_affiliation_strings": [
+                        "Claude Bernard Lyon 1 University, Lyon, France"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Claude Bernard Lyon 1 University, Lyon, France",
+                            "institution_ids": [
+                                "https://openalex.org/I100532134"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5037021026",
+                        "display_name": "Soo Kun Lim",
+                        "orcid": "https://orcid.org/0000-0001-7589-5150",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-7589-5150"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I2803058125",
+                            "display_name": "Seoul National University Bundang Hospital",
+                            "ror": "https://ror.org/00cb3km46",
+                            "country_code": "KR",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I139264467",
+                                "https://openalex.org/I2802835388",
+                                "https://openalex.org/I2803058125"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "KR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Soo Lim",
+                    "raw_affiliation_strings": [
+                        "Department of Internal Medicine, Seoul National University College of Medicine and Seoul National University Bundang Hospital, Seoul, South Korea"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Internal Medicine, Seoul National University College of Medicine and Seoul National University Bundang Hospital, Seoul, South Korea",
+                            "institution_ids": [
+                                "https://openalex.org/I2803058125"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": null,
+                        "display_name": "Jes\u00fas R Luna Fuentes",
+                        "orcid": null,
+                        "observed_orcids": []
+                    },
+                    "institutions": [],
+                    "countries": [],
+                    "is_corresponding": false,
+                    "raw_author_name": "Jes\u00fas R Luna Fuentes",
+                    "raw_affiliation_strings": [
+                        "Mexican Society of Obesity, Monterrey, NL, Mexico"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Mexican Society of Obesity, Monterrey, NL, Mexico",
+                            "institution_ids": []
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5014800987",
+                        "display_name": "Vicki Mooney",
+                        "orcid": "https://orcid.org/0000-0003-3648-4687",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-3648-4687"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I168482264",
+                            "display_name": "European Foundation for the Improvement of Living and Working Conditions",
+                            "ror": "https://ror.org/03sk2bs13",
+                            "country_code": "IE",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I1320481043",
+                                "https://openalex.org/I168482264"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "IE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Vicki M Mooney",
+                    "raw_affiliation_strings": [
+                        "European Coalition for people Living with Obesity, Dublin, Ireland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "European Coalition for people Living with Obesity, Dublin, Ireland",
+                            "institution_ids": [
+                                "https://openalex.org/I168482264"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5028027598",
+                        "display_name": "Joseph F. Nadglowski",
+                        "orcid": "https://orcid.org/0000-0002-5521-9662",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-5521-9662"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210121361",
+                            "display_name": "Immunization Action Coalition",
+                            "ror": "https://ror.org/02j8tmw16",
+                            "country_code": "US",
+                            "type": "other",
+                            "lineage": [
+                                "https://openalex.org/I4210121361"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Joseph Nadglowski",
+                    "raw_affiliation_strings": [
+                        "Obesity Action Coalition, Tampa, FL, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Obesity Action Coalition, Tampa, FL, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I4210121361"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5038725659",
+                        "display_name": "Urudinachi Nnenne Agbo",
+                        "orcid": "https://orcid.org/0000-0001-9701-8685",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-9701-8685"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I4210162024",
+                            "display_name": "Federal Teaching Hospital Abakaliki",
+                            "ror": "https://ror.org/05txvbe22",
+                            "country_code": "NG",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I4210162024"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "NG"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Agbo Urudinachi",
+                    "raw_affiliation_strings": [
+                        "Department of Community Health, Alex Ekwueme Federal University Teaching Hospital Abakaliki, Abakaliki, Nigeria"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Department of Community Health, Alex Ekwueme Federal University Teaching Hospital Abakaliki, Abakaliki, Nigeria",
+                            "institution_ids": [
+                                "https://openalex.org/I4210162024"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5058104418",
+                        "display_name": "Magdalena Olszanecka\u2010Glinianowicz",
+                        "orcid": "https://orcid.org/0000-0001-5632-5590",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-5632-5590"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I166182418",
+                            "display_name": "Medical University of Silesia",
+                            "ror": "https://ror.org/005k7hp45",
+                            "country_code": "PL",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I166182418"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "PL"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Magdalena Olszanecka-Glinianowicz",
+                    "raw_affiliation_strings": [
+                        "Health Promotion and Obesity Management Unit, Department of Pathophysiology, Faculty of Medical Science, Medical University of Silesia, Katowice, Poland"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Health Promotion and Obesity Management Unit, Department of Pathophysiology, Faculty of Medical Science, Medical University of Silesia, Katowice, Poland",
+                            "institution_ids": [
+                                "https://openalex.org/I166182418"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5114376311",
+                        "display_name": "An Pan",
+                        "orcid": "https://orcid.org/0000-0002-1089-7945",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-1089-7945"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I47720641",
+                            "display_name": "Huazhong University of Science and Technology",
+                            "ror": "https://ror.org/00p991c53",
+                            "country_code": "CN",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I47720641"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CN"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "An Pan",
+                    "raw_affiliation_strings": [
+                        "School of Public Health, Tongji Medical College, Huazhong University of Science and Technology, Wuhan, China"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "School of Public Health, Tongji Medical College, Huazhong University of Science and Technology, Wuhan, China",
+                            "institution_ids": [
+                                "https://openalex.org/I47720641"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5006759849",
+                        "display_name": "Fran\u00e7ois N. Pattou",
+                        "orcid": "https://orcid.org/0000-0001-8388-3766",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0001-8388-3766"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I154526488",
+                            "display_name": "Inserm",
+                            "ror": "https://ror.org/02vjkv261",
+                            "country_code": "FR",
+                            "type": "government",
+                            "lineage": [
+                                "https://openalex.org/I154526488"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I2279609970",
+                            "display_name": "Universit\u00e9 de Lille",
+                            "ror": "https://ror.org/02kzqn938",
+                            "country_code": "FR",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I2279609970"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I2800921988",
+                            "display_name": "Institut Pasteur de Lille",
+                            "ror": "https://ror.org/05k9skc85",
+                            "country_code": "FR",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I2800921988"
+                            ]
+                        },
+                        {
+                            "id": "https://openalex.org/I4210090627",
+                            "display_name": "Lille\u2019s Cardiology Hospital",
+                            "ror": "https://ror.org/000z46s85",
+                            "country_code": "FR",
+                            "type": "healthcare",
+                            "lineage": [
+                                "https://openalex.org/I3018718406",
+                                "https://openalex.org/I4210090627"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "FR"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Francois Pattou",
+                    "raw_affiliation_strings": [
+                        "Translational Research for Diabetes, Lille University, Lille University Hospital, Inserm, Institut Pasteur Lille, Lille, France; Department of General and Endocrine Surgery, Lille University Hospital, Lille, France"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Translational Research for Diabetes, Lille University, Lille University Hospital, Inserm, Institut Pasteur Lille, Lille, France; Department of General and Endocrine Surgery, Lille University Hospital, Lille, France",
+                            "institution_ids": [
+                                "https://openalex.org/I154526488",
+                                "https://openalex.org/I2279609970",
+                                "https://openalex.org/I2800921988",
+                                "https://openalex.org/I4210090627"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5073918633",
+                        "display_name": "Philip R. Schauer",
+                        "orcid": "https://orcid.org/0000-0002-4029-7537",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-4029-7537"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I103990859",
+                            "display_name": "Pennington Biomedical Research Center",
+                            "ror": "https://ror.org/040cnym54",
+                            "country_code": "US",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "US"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Philip R Schauer",
+                    "raw_affiliation_strings": [
+                        "Pennington Biomedical Research Center, Baton Rouge, LA, USA"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Pennington Biomedical Research Center, Baton Rouge, LA, USA",
+                            "institution_ids": [
+                                "https://openalex.org/I103990859"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5109987976",
+                        "display_name": "Matthias H. Tsch\u00f6p",
+                        "orcid": "https://orcid.org/0000-0002-4744-371X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0002-4744-371X"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I3018134672",
+                            "display_name": "Helmholtz Munich",
+                            "ror": "https://ror.org/00cfam450",
+                            "country_code": "DE",
+                            "type": "facility",
+                            "lineage": [
+                                "https://openalex.org/I1305996414",
+                                "https://openalex.org/I3018134672"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "DE"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Matthias H Tsch\u00f6p",
+                    "raw_affiliation_strings": [
+                        "Helmholtz Munich, Munich, Germany; Technical University of Munich, Munich, Germany"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Helmholtz Munich, Munich, Germany; Technical University of Munich, Munich, Germany",
+                            "institution_ids": [
+                                "https://openalex.org/I3018134672"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5021446914",
+                        "display_name": "M. T. van der Merwe",
+                        "orcid": null,
+                        "observed_orcids": []
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I69552723",
+                            "display_name": "University of Pretoria",
+                            "ror": "https://ror.org/00g0p6g84",
+                            "country_code": "ZA",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I69552723"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "ZA"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Maria T van der Merwe",
+                    "raw_affiliation_strings": [
+                        "University of Pretoria, Pretoria, South Africa; Nectare Waterfall City Hospital, Midrand, South Africa"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "University of Pretoria, Pretoria, South Africa; Nectare Waterfall City Hospital, Midrand, South Africa",
+                            "institution_ids": [
+                                "https://openalex.org/I69552723"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": "https://openalex.org/A5025875546",
+                        "display_name": "Roberto Vettor",
+                        "orcid": "https://orcid.org/0000-0003-0625-6667",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-0625-6667",
+                            "https://orcid.org/0000-0001-9002-9971"
+                        ]
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I138689650",
+                            "display_name": "University of Padua",
+                            "ror": "https://ror.org/00240q980",
+                            "country_code": "IT",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I138689650"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "IT"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Roberto Vettor",
+                    "raw_affiliation_strings": [
+                        "Internal Medicine, Center for the Study and the Integrated Treatment of Obesity, Department of Medicine, University of Padova, Padua, Italy; Center for Metabolic and Nutrition Related Diseases,Humanitas Research Hospital, Milan, Italy"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Internal Medicine, Center for the Study and the Integrated Treatment of Obesity, Department of Medicine, University of Padova, Padua, Italy; Center for Metabolic and Nutrition Related Diseases,Humanitas Research Hospital, Milan, Italy",
+                            "institution_ids": [
+                                "https://openalex.org/I138689650"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "last",
+                    "author": {
+                        "id": "https://openalex.org/A5053488036",
+                        "display_name": "Geltrude Mingrone",
+                        "orcid": "https://orcid.org/0000-0003-2021-528X",
+                        "observed_orcids": [
+                            "https://orcid.org/0000-0003-2021-528X"
+                        ]
+                    },
+                    "institutions": [],
+                    "countries": [],
+                    "is_corresponding": false,
+                    "raw_author_name": "Geltrude Mingrone",
+                    "raw_affiliation_strings": [
+                        "Division of Diabetes & Nutritional Sciences, School of Cardiovascular and Metabolic Medicine & Sciences, King's College London, London, UK; Catholic University of the Sacred Heart, Rome, Italy; University Polyclinic Foundation Agostino Gemelli IRCCS, Rome, Italy"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Division of Diabetes & Nutritional Sciences, School of Cardiovascular and Metabolic Medicine & Sciences, King's College London, London, UK; Catholic University of the Sacred Heart, Rome, Italy; University Polyclinic Foundation Agostino Gemelli IRCCS, Rome, Italy",
+                            "institution_ids": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "https://openalex.org/W1684349371",
+            "doi": "https://doi.org/10.17169/refubium-47759",
+            "display_name": "Negation in English and other languages",
+            "publication_date": "2025-01-01",
+            "authorships": [
+                {
+                    "author_position": "first",
+                    "author": {
+                        "id": "https://openalex.org/A5054819575",
+                        "display_name": "Otto Jespersen",
+                        "orcid": null
+                    },
+                    "institutions": [],
+                    "countries": [],
+                    "is_corresponding": true,
+                    "raw_author_name": "Jespersen, Otto",
+                    "raw_affiliation_strings": [],
+                    "raw_orcid": null,
+                    "affiliations": []
+                },
+                {
+                    "author_position": "middle",
+                    "author": {
+                        "id": null,
+                        "display_name": "Reynolds, Brett",
+                        "orcid": null
+                    },
+                    "institutions": [
+                        {
+                            "id": "https://openalex.org/I181942792",
+                            "display_name": "Humber Polytechnic",
+                            "ror": "https://ror.org/05xv2md42",
+                            "country_code": "CA",
+                            "type": "education",
+                            "lineage": [
+                                "https://openalex.org/I181942792"
+                            ]
+                        }
+                    ],
+                    "countries": [
+                        "CA"
+                    ],
+                    "is_corresponding": false,
+                    "raw_author_name": "Reynolds, Brett",
+                    "raw_affiliation_strings": [
+                        "Humber College"
+                    ],
+                    "raw_orcid": null,
+                    "affiliations": [
+                        {
+                            "raw_affiliation_string": "Humber College",
+                            "institution_ids": [
+                                "https://openalex.org/I181942792"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "author_position": "last",
+                    "author": {
+                        "id": null,
+                        "display_name": "Evans, Peter",
+                        "orcid": null
+                    },
+                    "institutions": [],
+                    "countries": [],
+                    "is_corresponding": false,
+                    "raw_author_name": "Evans, Peter",
+                    "raw_affiliation_strings": [],
+                    "raw_orcid": null,
+                    "affiliations": []
+                }
+            ]
+        }
+    ],
+    "group_by": []
+}
