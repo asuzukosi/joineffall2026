@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run --passWithNoTests",
-    "discover": "node --env-file-if-exists=.env.local scripts/discover/cli.ts"
+    "discover": "node --env-file-if-exists=.env.local scripts/discover/cli.ts",
+    "maze": "node scripts/maze/cli.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.5",
@@ -32,6 +33,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.6",
+    "ical.js": "^2.2.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.0.1"

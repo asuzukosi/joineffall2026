@@ -53,3 +53,6 @@ photos/
 
 # pamphlets hold customer research and generated media
 /pamphlets/
+
+# idea mazes hold unreleased business ideas; the repo is public
+/mazes/
