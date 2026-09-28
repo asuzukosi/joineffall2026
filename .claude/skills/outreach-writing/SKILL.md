@@ -68,7 +68,7 @@ Quality bar: would they forward it to a colleague if it came from someone they a
 
 ## Lowercase
 
-`draft` writes the subject, body, sign-off and LinkedIn note in lowercase, even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you.
+`draft` writes the subject, body, sign-off and LinkedIn note in lowercase, even "i", so it reads like a person typed it; links keep their case. Write normally — the lowercasing is done for you. It also adds the opt-out line under the sign-off: `not relevant? that's fine! send a "no" and i won't follow up`. Anyone who replies "no" is never contacted again.
 
 ## Never open with
 

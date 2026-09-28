@@ -101,7 +101,7 @@ describe("draftAll", () => {
     const email = readFileSync(join(dir, "out", ada, "email.md"), "utf8");
     expect(email.startsWith("Subject: a guide for the early days\n\nhi ada,")).toBe(true);
     expect(email.indexOf("co-founder")).toBeLessThan(email.indexOf("20 minute"));
-    expect(email.trimEnd().endsWith("kosi")).toBe(true);
+    expect(email.endsWith(`kosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`)).toBe(true);
     expect(email).toContain("and i'm sure customer discovery");
     expect(email.replace(BOOKING, "")).toBe(email.replace(BOOKING, "").toLowerCase().replace("subject:", "Subject:"));
     expect(email).toContain("here's the link.\nhttps://example.com/guide\n");

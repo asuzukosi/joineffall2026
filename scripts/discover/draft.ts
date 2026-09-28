@@ -38,6 +38,8 @@ function draftOne(dir: string, id: string, person: Person | undefined, brief: Br
   return [];
 }
 
+const OPT_OUT = `not relevant? that's fine! send a "no" and i won't follow up`;
+
 function lower(text: string) {
   return text.split(/(https?:\/\/\S+)/).map((piece, i) => (i % 2 ? piece : piece.toLowerCase())).join("");
 }
@@ -46,5 +48,5 @@ export function composeEmail(note: Note, person: Person, brief: Brief) {
   const first = person.name.split(" ")[0] || "there";
   const links: Record<string, string> = { gift: note.gift.link ?? "", ask: brief.sender.booking_link };
   const parts = note.order.map((part) => links[part] ? `${partText(note, part)}\n${links[part]}` : partText(note, part));
-  return `Subject: ${lower(note.subject)}\n\n${lower(`hi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}`)}\n`;
+  return `Subject: ${lower(note.subject)}\n\n${lower(`hi ${first},\n\n${parts.join("\n\n")}\n\n${brief.sender.name}\n\n${OPT_OUT}`)}\n`;
 }
