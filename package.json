@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "discover": "node --env-file-if-exists=.env.local scripts/discover/cli.ts"
   },
   "dependencies": {
     "better-auth": "^1.7.5",

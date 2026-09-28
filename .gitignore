@@ -47,3 +47,9 @@ photos/
 .issue-notes.md
 !.env.example
 .gstack/
+
+# outbound batches hold prospect data
+/outbound/
+
+# pamphlets hold customer research and generated media
+/pamphlets/
