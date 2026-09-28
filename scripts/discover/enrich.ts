@@ -32,23 +32,40 @@ export function apollo(): Apollo {
   };
 }
 
+const PHONE_TIERS = ["deer", "elephant", "whale"];
+
+function wantsPhone(person: Person) {
+  return !person.phone && !person.phone_request_id && PHONE_TIERS.includes(person.tier ?? "");
+}
+
+function matchQuery(person: Person, phone: boolean) {
+  const query: Record<string, string> = { name: person.name, organization_name: person.company };
+  if (person.domain) query.domain = person.domain;
+  if (person.linkedin) query.linkedin_url = person.linkedin;
+  if (phone) Object.assign(query, { reveal_phone_number: "true", poll_only: "true" });
+  return query;
+}
+
 export async function enrichAll(people: Person[], phones: boolean, api: Apollo, today: string) {
-  let matched = 0;
+  const result = { matched: 0, tried: 0, errors: [] as string[] };
   for (const person of people) {
-    if (person.email || !person.name) continue;
-    const query: Record<string, string> = { name: person.name, organization_name: person.company };
-    if (person.domain) query.domain = person.domain;
-    if (person.linkedin) query.linkedin_url = person.linkedin;
-    if (phones) Object.assign(query, { reveal_phone_number: "true", poll_only: "true" });
-    const body = await api.post("/people/match", query);
-    if (body.person) {
-      applyMatch(person, body.person, today);
-      matched++;
+    const phone = phones && wantsPhone(person);
+    if (!person.name || (person.enriched_at && !phone)) continue;
+    result.tried++;
+    try {
+      const body = await api.post("/people/match", matchQuery(person, phone));
+      person.enriched_at = today;
+      if (body.person) {
+        applyMatch(person, body.person, today);
+        result.matched++;
+      }
+      if (phone && body.request_id) person.phone_request_id = String(body.request_id);
+    } catch (error) {
+      result.errors.push(`${person.name}: ${(error as Error).message}`);
     }
-    if (phones && body.request_id) person.phone_request_id = String(body.request_id);
   }
   if (phones) await collectPhones(people, api);
-  return matched;
+  return result;
 }
 
 export function applyMatch(person: Person, found: ApolloPerson, today: string) {

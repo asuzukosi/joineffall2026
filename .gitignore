@@ -50,3 +50,6 @@ photos/
 
 # outbound batches hold prospect data
 /outbound/
+
+# pamphlets hold customer research and generated media
+/pamphlets/

@@ -86,9 +86,10 @@ function signal(name: string, target: string) {
 async function enrich(name: string) {
   const dir = openBatch(name);
   const people = loadPeople(dir);
-  const matched = await enrichAll(people, Boolean(values.phones), apollo(), today());
+  const { matched, tried, errors } = await enrichAll(people, Boolean(values.phones), apollo(), today());
   savePeople(dir, people);
-  console.log(`${matched} matched in Apollo, ${people.filter((p) => p.phone).length} with phones`);
+  console.log(`${matched} of ${tried} matched in Apollo, ${people.filter((p) => p.phone).length} with phones`);
+  if (errors.length) fail(`${errors.length} failed and will be retried on the next run:\n${errors.map((e) => `  - ${e}`).join("\n")}`);
 }
 
 function rank(name: string) {

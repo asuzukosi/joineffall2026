@@ -8,7 +8,7 @@ export const OUTBOUND = join(import.meta.dirname, "../../outbound");
 const EMPTY: Omit<Person, "id"> = {
   name: "", title: "", company: "", domain: "", company_size: null,
   linkedin: "", email: "", phone: null, phone_request_id: null, signals: [],
-  tier: null, tier_override: null, speed_score: 0, speed_reasons: [], approved: false,
+  tier: null, tier_override: null, speed_score: 0, speed_reasons: [], approved: false, enriched_at: null,
 };
 
 const NEW_BRIEF: Brief = {

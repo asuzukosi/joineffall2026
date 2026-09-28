@@ -94,6 +94,17 @@ describe("draftAll", () => {
     expect(readFileSync(join(dir, "out", ada, "linkedin.md"), "utf8")).toMatch(/^Co-founder/);
   });
 
+  it("reports a note with the wrong shape and still drafts the rest", () => {
+    const { dir, ids: [ada, ben] } = batch();
+    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify(GOOD));
+    for (const broken of [null, { ...GOOD, order: {} }, { ...GOOD, seen: { text: "x", evidence: "profile:1" } }]) {
+      writeFileSync(join(dir, "notes", `${ben}.json`), JSON.stringify(broken));
+      const failures = draftAll(dir, base());
+      expect(Object.keys(failures)).toEqual([ben]);
+      expect(failures[ben][0]).toMatch(/^notes\/p_[0-9a-f]+\.json has the wrong shape:/);
+    }
+  });
+
   it("reports a note for someone not in the batch", () => {
     const { dir } = batch();
     writeFileSync(join(dir, "notes", "p_missing.json"), JSON.stringify(GOOD));

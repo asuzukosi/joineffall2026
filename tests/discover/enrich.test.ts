@@ -18,7 +18,7 @@ const FOUND = {
 function person(extra: Partial<Person> = {}): Person {
   return { id: "p_1", name: "Ada Obi", title: "", company: "Beta", domain: "", company_size: null, linkedin: "",
     email: "", phone: null, phone_request_id: null, signals: [], tier: null, tier_override: null,
-    speed_score: 0, speed_reasons: [], approved: false, ...extra };
+    speed_score: 0, speed_reasons: [], approved: false, enriched_at: null, ...extra };
 }
 
 function fake(post: () => MatchReply, gets: Awaited<ReturnType<Apollo["get"]>>[] = []): Apollo & { posts: number } {
@@ -37,14 +37,39 @@ describe("enrich", () => {
 
   it("leaves a person alone when Apollo finds no match", async () => {
     const people = [person()];
-    expect(await enrichAll(people, false, fake(() => ({ person: null })), TODAY)).toBe(0);
+    expect(await enrichAll(people, false, fake(() => ({ person: null })), TODAY)).toEqual({ matched: 0, tried: 1, errors: [] });
     expect(people[0].email).toBe("");
   });
 
   it("skips people already enriched or without a name", async () => {
     const api = fake(() => ({ person: FOUND }));
-    await enrichAll([person({ email: "x@y.com" }), person({ name: "" })], false, api, TODAY);
+    await enrichAll([person({ enriched_at: "2026-09-01" }), person({ name: "" })], false, api, TODAY);
     expect(api.posts).toBe(0);
+  });
+
+  it("keeps what it already paid for when one call fails, and does not ask again", async () => {
+    let calls = 0;
+    const api = fake(() => {
+      if (calls++ === 0) throw new Error("429 from Apollo /people/match");
+      return { person: FOUND };
+    });
+    const people = [person({ name: "First" }), person()];
+    const result = await enrichAll(people, false, api, TODAY);
+    expect(result).toEqual({ matched: 1, tried: 2, errors: ["First: 429 from Apollo /people/match"] });
+    expect(people[0].enriched_at).toBeNull();
+    expect(people[1].enriched_at).toBe(TODAY);
+    await enrichAll(people, false, fake(() => ({ person: null })), TODAY);
+    expect(people[1].email).toBe("ada@beta.com");
+  });
+
+  it("asks for phones only for deer and above, even when already enriched", async () => {
+    const api = fake(() => ({ person: null, request_id: 42 }), [{ status: 200, body: { phone_numbers: [{ sanitized_number: "+15550100" }] } }]);
+    const mouse = person({ tier: "mouse", enriched_at: TODAY, email: "m@x.com" });
+    const deer = person({ tier: "deer", enriched_at: TODAY, email: "d@x.com" });
+    const result = await enrichAll([mouse, deer], true, api, TODAY);
+    expect(result.tried).toBe(1);
+    expect(mouse.phone_request_id).toBeNull();
+    expect(deer.phone_request_id).toBe("42");
   });
 
   it("polls for phones until Apollo has them", async () => {

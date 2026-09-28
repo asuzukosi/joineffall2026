@@ -7,7 +7,7 @@ const TODAY = "2026-09-28";
 function person(extra: Partial<Person> = {}): Person {
   return { id: "p", name: "A", title: "Engineer", company: "Acme", domain: "", company_size: null, linkedin: "",
     email: "", phone: null, phone_request_id: null, signals: [], tier: null, tier_override: null,
-    speed_score: 0, speed_reasons: [], approved: false, ...extra };
+    speed_score: 0, speed_reasons: [], approved: false, enriched_at: null, ...extra };
 }
 const sig = (kind: string, date: string, company?: string): Signal => ({ id: kind + date, kind, date, text: kind, url: "u", company });
 

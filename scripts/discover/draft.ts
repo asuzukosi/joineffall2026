@@ -22,18 +22,18 @@ export function draftAll(dir: string, pamphlets = PAMPHLETS) {
 function draftOne(dir: string, id: string, person: Person | undefined, brief: Brief,
   companies: Record<string, Company>, pamphlets: string) {
   if (!person) return [`no person with id ${id}`];
-  let note: Note;
-  try {
-    note = JSON.parse(readFileSync(join(dir, "notes", `${id}.json`), "utf8"));
-  } catch (error) {
-    return [`notes/${id}.json is not valid JSON: ${(error as Error).message}`];
-  }
   const out = join(dir, "out", id);
-  const problems = checkNote(note, person, signalsFor(companies, person), { pamphlets, out });
-  if (problems.length) return problems;
-  mkdirSync(out, { recursive: true });
-  writeFileSync(join(out, "email.md"), composeEmail(note, person, brief, pamphlets));
-  writeFileSync(join(out, "linkedin.md"), note.linkedin.trim() + "\n");
+  try {
+    const note: Note = JSON.parse(readFileSync(join(dir, "notes", `${id}.json`), "utf8"));
+    const problems = checkNote(note, person, signalsFor(companies, person), { pamphlets, out });
+    if (problems.length) return problems;
+    mkdirSync(out, { recursive: true });
+    writeFileSync(join(out, "email.md"), composeEmail(note, person, brief, pamphlets));
+    writeFileSync(join(out, "linkedin.md"), note.linkedin.trim() + "\n");
+  } catch (error) {
+    const reason = error instanceof SyntaxError ? "is not valid JSON" : "has the wrong shape";
+    return [`notes/${id}.json ${reason}: ${(error as Error).message}`];
+  }
   return [];
 }
 

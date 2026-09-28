@@ -19,6 +19,7 @@ export type Person = {
   speed_score: number;
   speed_reasons: string[];
   approved: boolean;
+  enriched_at: string | null;
 };
 
 export type Found = Partial<Omit<Person, "signals">> & { signals: Signal[] };
