@@ -73,7 +73,9 @@ describe("checkNote", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
     expect(check(long).some((p) => p.includes("limit is 90"))).toBe(true);
     expect(check(long, { tier: "elephant" } as Person)).toEqual([]);
-    expect(check({ ...GOOD, linkedin: "x".repeat(201) }).some((p) => p.includes("LinkedIn"))).toBe(true);
+    const long201 = GOOD.linkedin.padEnd(201, ".");
+    expect(check({ ...GOOD, linkedin: long201 })).toContain("LinkedIn note is 201 characters; the limit is 200");
+    expect(check({ ...GOOD, linkedin: GOOD.linkedin.padEnd(200, ".") })).toEqual([]);
   });
 });
 
