@@ -1,15 +1,36 @@
-import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import puppeteer, { type Page } from "puppeteer-core";
+import { checkWriting, proseOf } from "./writing.ts";
 
 const A4 = { width: 794, height: 1123 };
 const CHROME = process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-export function listPages(dir: string) {
-  return readdirSync(join(dir, "pages"))
+type Source = { file: string; home: string };
+
+function pagesIn(home: string): Source[] {
+  const dir = join(home, "pages");
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
     .filter((f) => f.endsWith(".html") && !f.startsWith("."))
-    .sort()
-    .map((f) => join(dir, "pages", f));
+    .map((f) => ({ file: join(dir, f), home }));
+}
+
+export function topicOf(dir: string, topics: string) {
+  const config = join(dir, "pamphlet.json");
+  if (!existsSync(config)) return null;
+  const { topic } = JSON.parse(readFileSync(config, "utf8")) as { topic?: string };
+  return topic ? join(topics, topic) : null;
+}
+
+// a pamphlet's own pages (cover, personal note, back) interleave with its topic's research pages by file name
+export function listPages(dir: string, topics: string) {
+  const topic = topicOf(dir, topics);
+  const all = [...pagesIn(dir), ...(topic ? pagesIn(topic) : [])];
+  const names = all.map((s) => basename(s.file));
+  const clash = names.find((n, i) => names.indexOf(n) !== i);
+  if (clash) throw new Error(`page ${clash} exists in both the pamphlet and its topic`);
+  return all.sort((a, b) => basename(a.file).localeCompare(basename(b.file)));
 }
 
 function part(html: string, tag: string) {
@@ -17,11 +38,13 @@ function part(html: string, tag: string) {
 }
 
 // pages are joined into one document so links between pages survive into the pdf
-function joinPages(files: string[], title: string) {
-  const head = part(readFileSync(files[0], "utf8"), "head").replace(/<title>[\s\S]*?<\/title>/i, "");
-  const bodies = files.map((file) => {
+function joinPages(dir: string, sources: Source[], title: string) {
+  const first = sources.find((s) => s.home === dir) ?? sources[0];
+  const head = part(readFileSync(first.file, "utf8"), "head").replace(/<title>[\s\S]*?<\/title>/i, "");
+  const bodies = sources.map(({ file, home }) => {
     const id = basename(file, ".html");
-    return part(readFileSync(file, "utf8"), "body").replace(/<main\b/i, `<main id="${id}"`);
+    const body = part(readFileSync(file, "utf8"), "body").replace(/<main\b/i, `<main id="${id}"`);
+    return home === dir ? body : body.replaceAll("../images/", `file://${join(home, "images")}/`);
   });
   return `<!doctype html><html lang="en"><head>${head}<title>${title}</title></head><body>${bodies.join("\n")}</body></html>`;
 }
@@ -31,9 +54,13 @@ async function prepare(page: Page, file: string) {
   return page.evaluate(async () => {
     await document.fonts.ready;
     const pages = [...document.querySelectorAll<HTMLElement>("main.page")];
-    pages.forEach((main, i) =>
-      main.querySelectorAll(".folio").forEach((el) => (el.textContent = String(i + 1).padStart(2, "0"))),
-    );
+    const number = (i: number) => String(i + 1).padStart(2, "0");
+    pages.forEach((main, i) => main.querySelectorAll(".folio").forEach((el) => (el.textContent = number(i))));
+    document.querySelectorAll<HTMLAnchorElement>(".toc a[href^='#']").forEach((a) => {
+      const at = pages.findIndex((m) => m.id === a.hash.slice(1));
+      const slot = a.querySelector("i");
+      if (slot && at >= 0) slot.textContent = number(at);
+    });
     return pages.map((main) => ({ id: main.id, spill: main.scrollHeight - main.clientHeight }));
   });
 }
@@ -45,13 +72,18 @@ async function screenshots(page: Page, previews: string) {
   }
 }
 
-export async function build(dir: string, title: string) {
-  const files = listPages(dir);
+export function writingProblems(dir: string, topics: string) {
+  return listPages(dir, topics).flatMap(({ file }) => checkWriting(basename(file, ".html"), proseOf(readFileSync(file, "utf8"))));
+}
+
+export async function build(dir: string, topics: string, title: string) {
+  const sources = listPages(dir, topics);
+  mkdirSync(join(dir, "pages"), { recursive: true });
   const joined = join(dir, "pages", ".print.html");
   const previews = join(dir, "previews");
   rmSync(previews, { recursive: true, force: true });
   mkdirSync(previews);
-  writeFileSync(joined, joinPages(files, title));
+  writeFileSync(joined, joinPages(dir, sources, title));
   const browser = await puppeteer.launch({ executablePath: CHROME, args: ["--font-render-hinting=none"] });
   try {
     const page = await browser.newPage();

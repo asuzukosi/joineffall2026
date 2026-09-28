@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { checkWriting } from "../pamphlet/writing.ts";
 import { duration } from "./media.ts";
 import { voiceFile } from "./voice.ts";
 
@@ -80,7 +81,9 @@ export function check(dir: string, board: Storyboard, needFiles: boolean) {
   const total = board.scenes.reduce((sum, s) => sum + s.seconds, 0);
   if (total > MAX_TOTAL_SECONDS) problems.push(`film is ${total}s; keep it under ${MAX_TOTAL_SECONDS}s`);
   // once a voice file exists its measured length replaces the word-count estimate
-  for (const scene of board.scenes) problems.push(...planProblems(scene, cast, needFiles && !!scene.voice));
+  for (const scene of board.scenes) problems.push(...planProblems(scene, cast, !!scene.voice && existsSync(join(dir, scene.voice))));
+  const words = board.scenes.flatMap((s) => [s.title, s.text, s.caption, s.narration]).filter(Boolean).join("\n");
+  problems.push(...checkWriting("script", words));
   if (!needFiles) return { problems, total };
   if (board.music && !existsSync(join(dir, board.music))) problems.push(`missing ${board.music}`);
   for (const scene of board.scenes) problems.push(...fileProblems(dir, scene));
