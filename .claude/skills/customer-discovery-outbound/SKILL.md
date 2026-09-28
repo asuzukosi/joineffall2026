@@ -18,8 +18,8 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
    - `find <batch> --source jobs --board greenhouse:<token> --company "<name>" --query "<problem words>"` — who is hiring for it and who the hire reports to; then find that person with Exa.
    - Your own search tools for news, talks, deadlines, funding: record each with
      `signal <batch> <person id or company> --kind … --text … --url … --date …`.
-3. `enrich <batch>` — adds email, company size, job changes and funding. Add `--phones` only for deer and above (8 Apollo credits each).
-4. `rank <batch>` — read the send order. `status <batch>` lists seats that just opened: find who replaced each person, since they inherit the problem.
+3. `enrich <batch>` — adds email, company size, job changes and funding. Safe to rerun: people already enriched are skipped, failures are retried.
+4. `rank <batch>` — read the send order. Then `enrich <batch> --phones` if you want mobiles: it asks only for deer, elephants and whales (8 Apollo credits each). `status <batch>` lists seats that just opened: find who replaced each person, since they inherit the problem.
 5. For each person in send order: write `notes/<id>.json` with the **outreach-writing** skill, and make the gift with the **customer-pamphlet** skill.
 6. `draft <batch>`. Fix every problem it lists by rewriting the note or building the gift — never by editing the checks. Repeat until it exits 0.
 7. `status <batch>`, then hand the batch to the human.
