@@ -66,6 +66,19 @@ Value-first:
 
 Quality bar: would they forward it to a colleague if it came from someone they already trust?
 
+## Every message is worth their time
+
+The first email is not the only one that gives. Every follow-up and LinkedIn message brings something new with its own link — the next finding, the page to read first, a peer example, one chart — so each one is worth opening on its own. Never "bumping this", "following up", "circling back", "checking in", "any thoughts". Plan the follow-ups when you make the gift: a pamphlet has several findings, and each follow-up hands over the next one.
+
+```json
+"follow_ups": [
+  {"text": "page 4 has the three warning signs peers caught too late.", "link": "https://drive.google.com/…"},
+  {"text": "last one from me: the one-page checklist the teams who got ahead used.", "link": "https://drive.google.com/…"}
+]
+```
+
+`draft` writes each as `follow-up-1.md`, `follow-up-2.md` in the same thread voice, and refuses one with no new link, the first gift's link again, over 60 words, or bump wording.
+
 ## The subject line
 
 The subject earns the open. It names the **impact** on them, the **outcome** at stake, and pulls them into the email — never a greeting, a status update or our name.
@@ -101,6 +114,7 @@ Every email, every tier: at most 90 words and 3 short paragraphs. `draft` lays t
   "why_me": "…",
   "ask":    "…",
   "order":  ["seen", "gift", "why_me", "ask"],
-  "linkedin": "…"
+  "linkedin": "…",
+  "follow_ups": [{"text": "…", "link": "https://drive.google.com/…"}]
 }
 ```

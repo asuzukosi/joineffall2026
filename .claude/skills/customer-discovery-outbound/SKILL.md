@@ -10,7 +10,7 @@ If the bet or the target roles are not settled yet, use the `idea-maze` skill fi
 
 ## Order
 
-Any industry, any offer — both are inputs. What never changes: every message leads with value from that industry, never with us.
+Any industry, any offer — both are inputs. What never changes: every message leads with value from that industry, never with us, and every message — first email, each follow-up, each LinkedIn note — carries something worth their time on its own.
 
 1. `new <slug> --industry "…" --offer "…"`, then research the industry before anyone is contacted: what is changing, who is winning and losing, what it costs them. That research becomes the gifts. Then fill `brief.json`: `sender` (name, company, one-line why_me, `booking_link` — the 20-minute booking page),
    `roles` (each with 2–3 `todo_guesses` for this quarter), `strategic_companies` (whales).

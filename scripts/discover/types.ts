@@ -38,6 +38,8 @@ export type Job = { title: string; company: string; start: string | null; end: s
 
 export type Gift = { text: string; pamphlet?: string; file?: string; link?: string };
 
+export type FollowUp = { text: string; link: string };
+
 export type Note = {
   todo_guess: string;
   subject: string;
@@ -47,4 +49,5 @@ export type Note = {
   ask: string;
   order: string[];
   linkedin: string;
+  follow_ups?: FollowUp[];
 };

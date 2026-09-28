@@ -6,6 +6,8 @@ export const PARTS = ["seen", "gift", "why_me", "ask"] as const;
 const REQUIRED = ["subject", "seen", "gift", "why_me", "ask", "order", "linkedin"] as const;
 const BANNED = ["i'm a", "i am a", "i've helped", "i have helped", "are you open to", "quick call", "hope this finds you"];
 const WORD_LIMIT = 90;
+const FOLLOW_UP_LIMIT = 60;
+const EMPTY_FOLLOW_UPS = ["bumping", "bump", "following up", "circling back", "checking in", "just wanted", "any thoughts", "did you get a chance", "floating this"];
 const LINKEDIN_LIMIT = 200;
 const SUBJECT_TAG = /^\[[^\]]{3,40}\]\s+/;
 const EMPTY_SUBJECTS = /^(quick question|following up|follow up|checking in|touching base|intro\b|introduction|hi\b|hello\b|hey\b)/i;
@@ -18,7 +20,7 @@ export function partText(note: Note, part: string) {
 export function checkNote(note: Note, person: Person, signals: Signal[], gifts: { pamphlets: string; out: string }) {
   const missing = REQUIRED.filter((field) => !note[field]);
   if (missing.length) return [`missing: ${missing.join(", ")}`];
-  return [...checkOrder(note.order), ...checkEvidence(note, signals), ...checkWords(note), ...checkGift(note, gifts)];
+  return [...checkOrder(note.order), ...checkEvidence(note, signals), ...checkWords(note), ...checkGift(note, gifts), ...checkFollowUps(note)];
 }
 
 function checkOrder(order: string[]) {
@@ -61,4 +63,21 @@ function checkGift(note: Note, gifts: { pamphlets: string; out: string }) {
   }
   if (file && !existsSync(join(gifts.out, file))) problems.push(`gift file ${join(gifts.out, file)} does not exist`);
   return problems;
+}
+
+function checkFollowUps(note: Note) {
+  const seen = new Set([note.gift.link]);
+  return (note.follow_ups ?? []).flatMap((followUp, i) => {
+    const label = `follow-up ${i + 1}`;
+    const text = followUp.text.toLowerCase().replaceAll("’", "'");
+    const problems = EMPTY_FOLLOW_UPS.filter((phrase) => new RegExp(`\\b${phrase}\\b`).test(text))
+      .slice(0, 1).map((phrase) => `${label} brings nothing new: "${phrase}"`);
+    if (!followUp.link?.startsWith("https://") || seen.has(followUp.link)) {
+      problems.push(`${label} needs its own link to something new, not the first gift again`);
+    }
+    seen.add(followUp.link);
+    const words = followUp.text.split(/\s+/).filter(Boolean).length;
+    if (words > FOLLOW_UP_LIMIT) problems.push(`${label} is ${words} words; the limit is ${FOLLOW_UP_LIMIT}`);
+    return problems;
+  });
 }

@@ -78,6 +78,15 @@ describe("checkNote", () => {
     expect(check({ ...GOOD, subject: "Your AI accountability is about to outpace your capacity" })).toContain("subject must start with a [report name] tag, e.g. [Global CIO report]");
   });
 
+  it("makes every follow-up bring something new, with its own link", () => {
+    const followUp = (text: string, link = "https://drive.google.com/file/d/two/view") => ({ ...GOOD, follow_ups: [{ text, link }] });
+    expect(check(followUp("page 4 has the three warning signs peers wish they had caught earlier."))).toEqual([]);
+    expect(check(followUp("just bumping this to the top of your inbox."))).toContain("follow-up 1 brings nothing new: \"bumping\"");
+    expect(check(followUp("here is another angle.", GOOD.gift.link!))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
+    expect(check(followUp("here is another angle.", ""))).toContain("follow-up 1 needs its own link to something new, not the first gift again");
+    expect(check(followUp("word ".repeat(61)))).toContain("follow-up 1 is 61 words; the limit is 60");
+  });
+
   it("keeps every email to 90 words, whatever the tier", () => {
     const long = { ...GOOD, ask: "word ".repeat(60) };
     expect(check(long)).toContain("email is 124 words; the limit is 90");
@@ -146,6 +155,15 @@ describe("draftAll", () => {
     const body = email.slice(email.indexOf("hi Ada,\n\n") + 9, email.indexOf("\n\nkosi"));
     expect(body.split("\n\n")).toHaveLength(3);
     expect(body.split("\n\n")[2]).toMatch(/^i want you to win.*going through this\. feel free to book/);
+  });
+
+  it("drafts each follow-up in the same voice, with its link", () => {
+    const { dir, ids: [ada] } = batch();
+    const link = "https://drive.google.com/file/d/Two/view";
+    writeFileSync(join(dir, "notes", `${ada}.json`), JSON.stringify({ ...GOOD, follow_ups: [{ text: "Page 4 has the three warning signs Ada's peers caught late.", link }] }));
+    expect(draftAll(dir, base())).toEqual({});
+    const followUp = readFileSync(join(dir, "out", ada, "follow-up-1.md"), "utf8");
+    expect(followUp).toBe(`hi Ada,\n\npage 4 has the three warning signs Ada's peers caught late.\n${link}\n\nkosi\n\nnot relevant? that's fine! send a "no" and i won't follow up\n`);
   });
 
   it("keeps the person's and company's names in their own casing anywhere in the body", () => {
