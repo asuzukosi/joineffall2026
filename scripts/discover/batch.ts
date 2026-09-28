@@ -26,7 +26,9 @@ export function create(slug: string, industry: string, offer: string, root = OUT
   if (existsSync(dir)) throw new Error(`${dir} already exists`);
   mkdirSync(join(dir, "notes"), { recursive: true });
   mkdirSync(join(dir, "out"));
-  writeJson(join(dir, "brief.json"), { ...NEW_BRIEF, industry, offer });
+  const sender = { ...NEW_BRIEF.sender, name: process.env.DISCOVER_SENDER_NAME ?? "",
+    company: process.env.DISCOVER_SENDER_COMPANY ?? "", booking_link: process.env.DISCOVER_BOOKING_LINK ?? "" };
+  writeJson(join(dir, "brief.json"), { ...NEW_BRIEF, industry, offer, sender });
   writeJson(join(dir, "companies.json"), {});
   writeFileSync(join(dir, "people.jsonl"), "");
   return dir;
