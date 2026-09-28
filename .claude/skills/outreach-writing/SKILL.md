@@ -48,7 +48,7 @@ Value-first:
 
 1. Write `todo_guess`: the one item most likely on their list this quarter, from their role, signals and `brief.roles[].todo_guesses`. Specific: "pick between two vendors before the October budget freeze", not "improve operations".
 2. Pick the one research task that removes or shortens that item: what peers did, what it cost, what failed, who supplies what.
-3. Make it with the **customer-pamphlet** skill, then set `"gift": {"text": "…", "pamphlet": "<name>"}`.
+3. Make it as a pamphlet with the **customer-pamphlet** skill — the default gift for every tier — then set `"gift": {"text": "…", "pamphlet": "<name>"}`. Mice and rabbits with the same to-do share one pamphlet; deer and above get their own, in their brand. The gift text says what is inside and which page to read first.
 4. Sometimes a short film says it better: make it with the **customer-video** skill — a made-up character in their role living the problem, in their brand. Never their own face, name or likeness. Save it as `out/<id>/film.mp4` and set `"file": "film.mp4"`.
 5. When a public page already answers their question, use `"link"` and say what to look at first.
 
