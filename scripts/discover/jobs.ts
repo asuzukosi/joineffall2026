@@ -1,4 +1,4 @@
-import { getJson } from "./http.ts";
+import { getJson } from "../maze/http.ts";
 import type { Signal } from "./types.ts";
 
 export type Posting = { id: string; title: string; url: string; date: string; text: string };
